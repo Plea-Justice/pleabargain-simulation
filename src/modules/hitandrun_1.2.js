@@ -386,7 +386,7 @@ var scene_initial_J1 = new Scene("initial_J1",
 				null);
 
 var scene_initial_J2 = new Scene("initial_J2",
-				"~~~~~~~~~~~~Because you have no prior offenses,~~~~~~~~~~~~~~~ this crime carries a minimum ~~~~~~~~charge ~~~~~~~~~of 2 weeks in jail ~~~~~~~~~~~~~~~~and a maximum charge of 12 months in jail ~~~~~~~~~~~~~~~as well as a fine ~~~~~~~~~~ranging from $20 ~~~~~~to $200 ~~~~~~~~in addition to court fees as well as covering the property damage.~~~~~~~~~~~~~~~",
+				"~~~~~~~~~~~~Because you have no prior offenses,~~~~~~~~~~~~~~~ this crime carries a minimum ~~~~~~~~charge ~~~~~~~~~of 2 weeks in jail ~~~~~~~~~~~~~~~~and a maximum charge of 24 months in jail ~~~~~~~~~~~~~~~as well as a fine ~~~~~~~~~~ranging from $20 ~~~~~~to $200 ~~~~~~~~in addition to court fees as well as covering the property damage.~~~~~~~~~~~~~~~",
 				actor_judge,
 				bg_judge_seat,
 				null);

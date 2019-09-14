@@ -179,6 +179,13 @@ if ("hair" in inParams) {
 } else {
   alert("ERROR: Parameter Parsing - Invalid hair in Palette: " + inParams["hair"]);
 }
+
+var defence_rec = 0;
+if ("defence_rec" in inParams) {
+    defence_rec = inParams["defence_rec"];
+} else {
+    console.log("DEFENCE REC: No defence rec, omitting text block.");
+}
 // END OF MANIFEST OF PARAMETER USAGE
 
 // MANIFEST OF NEW CUSTOMIZER WITH PASSED PARAMETERS
@@ -305,6 +312,11 @@ var urlparams = new URLSearchParams(window.location.search);
 var str_conviction_chance = urlparams.get("con_chance");
 var str_conviction_months = urlparams.get("con_months");
 
+if (urlparams.get("con_chance") == null || urlparams.get("con_months") == null)
+{
+    str_conviction_months = 6;
+}
+
 // Declaring the scenes with lines, actors, foreground and background as arguments.
 var scene_intro1 = new Scene("intro1",
     username + " is accused of committing larceny occurring around 12:30PM on the 1st day of July in the year 2019.~~~~~~~~~~~~~~~",
@@ -390,12 +402,23 @@ var scene_offer1 = new Scene("offer1",
     "~~~~~~~~Hello, " + username + ".~~~~~ I am your defense attorney, Mr. Grant. ~~~~~~~~ Mr. Clark, the prosecutor on your case, is interested in seeing whether the case could be resolved without a trial.~~~~~~~~~~~~~",
     actor_defense,
     bg_meetingroom,
-	null);
+    null);
+    
+if (urlparams.get("con_chance") != null) {
 var scene_offer2 = new Scene("offer2",
     "Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have a " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
-	null);
+    null);
+}
+else {
+    var scene_offer2 = new Scene("offer2",
+    "Based on the security camera footage and the testimony from the salesclerk, Mr. Clark believes that he could win if this case goes to trial.~~~~~~~~",
+	actor_defense,
+	bg_meetingroom,
+    null);
+}
+
 var scene_offer3 = new Scene("offer3",
     "~~~~~~~If this case does go to trial, Mr. Clark will be seeking the maximum penalty of 24 months in jail.~~~~~~~~~~~~",
     actor_defense,
@@ -410,14 +433,37 @@ var scene_offer5 = new Scene("offer5",
     "If you accept this plea offer, you will be asked to sign this form, which includes the recommendations for lower sentencing that I just described.~~~~~~~~ If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 24 months.~~~~~~~~~~~~~~~~~~~~~~~~~",
     actor_defense,
     bg_meetingroom,
-	null);
+    null);
+    
+if (defence_rec == 0) {
 var scene_offer6 = new Scene("offer6",
 	"Your signature will indicate your agreement to plead guilty and forgo your right to a trial.~~~~~~~~~~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
-	null);
+    null);
+}
+else {
+    var scene_offer6 = new Scene("offer6",
+	"Really, it boils down to this:~~~~~~ you never know if the prosecutor will come back with another offer or what that offer will look like.~~~~~~~~",
+	actor_defense,
+	bg_meetingroom,
+    null);
+
+    var scene_offer7 = new Scene("offer7",
+	"Sure, they could always come back with a better offer. Or they could decide not to bargain with you anymore, come back with the same offer, or offer a less desirable plea deal than this one. It really could go in any direction.~~~~~~~~~~~~~~~~~~~~~",
+	actor_defense,
+	bg_meetingroom,
+    null);
+
+    var scene_offer8 = new Scene("offer8",
+	"But this is your decision to make. But, I think you should " + defence_rec + " this offer.~~~~~~~~",
+	actor_defense,
+	bg_meetingroom,
+    null);
+}
+
 var scene_offer_F = new Scene("pleadeal",
-    "~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + str_conviction_months + " months in jail). Reject the offer and risk a more severe sentence if found guilty at trial (2 years in prison and $25,000 in fines). ~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + str_conviction_months + " months in jail). Reject the offer and risk a more severe sentence if found guilty at trial (24 months in jail). ~~~~~~",
     null,
     bg_meetingroom,
     null);
@@ -459,7 +505,15 @@ scene_offer2.setNext(scene_offer3, "a");
 scene_offer3.setNext(scene_offer4, "a");
 scene_offer4.setNext(scene_offer5, "a");
 scene_offer5.setNext(scene_offer6, "a");
-scene_offer6.setNext(scene_offer_F, "a");
+if (defence_rec == 0) {
+    scene_offer6.setNext(scene_offer_F, "a");
+}
+else
+{
+    scene_offer6.setNext(scene_offer7, "a");
+    scene_offer7.setNext(scene_offer8, "a");
+    scene_offer8.setNext(scene_offer_F, "a");
+}
 
 scene_offer_F.setNext(null, "pleadguilty");
 scene_offer_F.setNext(null, "rejectoffer");
