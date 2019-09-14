@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Text Test</title>
+
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <script>
+      function init() {
+	var currentFPS = 24;
+        var canvas = document.getElementById("TextCanvas");
+        var stage = new createjs.Stage(canvas);
+        createjs.Ticker.addEventListener("tick", tick);
+	createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+	createjs.Ticker.setFPS(currentFPS);
+
+        var inputString = "Twas brillig,~~~~ and the slithy toves~~ did gyre~ and gimble~ in the wabe:~~~~~~ all mimsy were the borogoves,~~ and the mome raths~ outgrabe.~~~~~~~~~~~ \"Beware~ the J~~a~~b~~b~~e~~r~~w~~o~~c~~k,~ my son!~~~~~~ The jaws~ that bite,~~~ the claws~ that catch!~~~~~~ Beware the Jubjub bird,~~~ and shun~ the frumious Bandersnatch!\"\n                                                                               -Lewis Carroll";
+
+        var displayText = new createjs.Text("", "24px Arial", "#777");
+        displayText.textAlign = "left";
+        displayText.lineWidth = "750";
+
+        stage.addChild(displayText);
+
+        displayText.x = 25;
+        displayText.y = 25;
+
+        var stringIndex = 0;
+
+        function tick() {
+          var advancableIndex = false;
+          while (!advancableIndex) {
+            if (stringIndex >= inputString.length) {
+	      advancableIndex = true;
+	      break;
+	    }
+            else {
+  	      switch (inputString[stringIndex]) {
+		//advancable indexes append just the character before advancing frame buffer
+  	        case '~':
+                  stringIndex++;
+		  advancableIndex = true;
+                  break;
+  	        case '.':
+  	          displayText.text = displayText.text + inputString[stringIndex++];
+		  advancableIndex = true;
+		  break;
+  	        case ',':
+  	          displayText.text = displayText.text + inputString[stringIndex++];
+		  advancableIndex = true;
+		  break;
+  	        case '!':
+  	          displayText.text = displayText.text + inputString[stringIndex++];
+		  advancableIndex = true;
+		  break;
+  	        case '?':
+  	          displayText.text = displayText.text + inputString[stringIndex++];
+		  advancableIndex = true;
+		  break;
+  	        case ';':
+  	          displayText.text = displayText.text + inputString[stringIndex++];
+		  advancableIndex = true;
+		  break;
+  	        case ':':
+  	          displayText.text = displayText.text + inputString[stringIndex++];
+		  advancableIndex = true;
+		  break;
+  	        case '\\':
+  	          displayText.text = displayText.text + inputString[stringIndex++];
+		  advancableIndex = true;
+		  break;
+  	        case '-':
+  	          displayText.text = displayText.text + inputString[stringIndex++];
+		  advancableIndex = true;
+		  break;
+		//non-advancable indexes: keep appending text until an advancable is reached
+  	        case ' ':
+  	          displayText.text = displayText.text + inputString[stringIndex++];
+		  break;
+  	        case '\"':
+  	          displayText.text = displayText.text + inputString[stringIndex++];
+		  break;
+  	        case '\'':
+  	          displayText.text = displayText.text + inputString[stringIndex++];
+		  break;
+		default:
+		  displayText.text = displayText.text + inputString[stringIndex++];
+		  advancableIndex = true;
+		  break;
+              }
+            }
+          }
+	  //render new frame
+          stage.update();
+        }
+
+      }
+    </script>
+  </head>
+  <body onload="init();">
+    <canvas id="TextCanvas" width="800" height="300"></canvas>
+  </body>
+</html>

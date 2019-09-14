@@ -1,0 +1,203 @@
+/* Doing the css for the buttons here. I don't know if we are using
+    any sort of framework for this stylistically, but I will have this just
+    for the test.
+*/
+
+*, html, body {
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+}
+
+body {
+  background-color: #202020;
+  color: white;
+  margin: 0;
+  text-align: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+#Figure-Selector-Content button {
+  font-size: 1em;
+}
+
+div#Figure-Selector-Content h3 {
+  margin: 5px;
+}
+
+#button-wrap {
+  float: left;
+  padding: 5%;
+  width: 40%;
+  height: auto;
+  vertical-align: middle;
+}
+
+div.buttons {
+  transform: translate(0, 30%);
+}
+
+div#canvas-wrap {
+  float: left;
+  width: 50%;
+  height: 90%;
+  margin-top: -100px;
+  overflow: hidden;
+  position: relative;
+}
+
+#canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-47.5%, -35%);
+  z-index: -1;
+}
+
+#section {
+    white-space: nowrap;
+}
+
+#section * {
+    font-size: 16px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+#Avatar {
+    font-size: 20px;
+}
+
+#NextButton {
+    margin-top: 2em;
+}
+
+
+#nextButton {
+    background-color: lightgray;
+    color: black;
+    padding: 15px 25px;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+/* modal */
+
+.openModalButton{
+    padding: 10px 25px;
+    margin: 6px;
+}
+
+.modal_background {
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.7);
+    animation-name: anim_modal;
+    animation-duration: 0.5s;
+}
+
+.mcontent_color{
+    background-color: white;
+    color: black;
+    display: flex;
+    position:relative;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 10vh;
+    padding: 10px;
+    border: 2px solid grey;
+    background-color: #3b3b3b;
+}
+
+.close_button {
+    color: grey;
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-flex;
+    margin-left: 10px;
+}
+
+@keyframes anim_modal {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+/* color pickers */
+.color-picker{
+    cursor: none;
+    z-index: 1;
+}
+
+.selected-color{
+    width: 50px;
+    height: 50px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    border: 2px solid grey;
+}
+
+/* figure selection */
+.figure_background{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    background-color: #202020;
+}
+
+.mcontent_figure{
+    background-color: white;
+    color: black;
+    margin: auto;
+    border: 2px solid grey;
+    width: 60vw;
+    height: 31vw;
+    min-width: 150px;
+    min-height: 150px;
+}
+
+
+#figure_button_wrap{
+    display: inline-flex;
+    width: 100%;
+    height: 97%;
+}
+
+
+
+.figure_button{
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+
+    background-color: rgb(160, 160, 160);
+    width: 45%;
+    height: 90%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+
+.figure_button:hover{
+    background-color: rgb(201, 201, 201);
+    cursor: pointer;
+}
+
+.figure_button_selected{
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+
+    background-color: rgb(116, 116, 116);
+    width: 45%;
+    height: 90%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}

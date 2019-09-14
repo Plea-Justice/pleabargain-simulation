@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Text Test</title>
+
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <script>
+      function init() {
+        var canvas = document.getElementById("TextCanvas");
+        var stage = new createjs.Stage(canvas);
+        createjs.Ticker.addEventListener("tick", tick);
+	createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+	createjs.Ticker.setFPS(12);
+
+        var inputString = "Twas brillig,~~~~ and the slithy toves~~ did gyre~ and gimble~ in the wabe:~~~~~~ all mimsy were the borogoves,~~ and the mome raths~ outgrabe.~~~~~~~~~~~ \"Beware~ the Jabberwock,~ my son!~~~~~~ The jaws~ that bite,~~~ the claws~ that catch!~~~~~~ Beware the Jubjub bird,~~~ and shun the frumious Bandersnatch!\"";
+
+        var displayText = new createjs.Text("", "24px Arial", "#777");
+        displayText.textAlign = "left";
+        displayText.lineWidth = "750";
+
+        stage.addChild(displayText);
+
+        displayText.x = 25;
+        displayText.y = 25;
+
+        var stringIndex = 0;
+
+        function tick() {
+          if (stringIndex < inputString.length) {
+	    if (inputString[stringIndex] === '~') {
+              stringIndex++;
+	    } else	    
+              displayText.text = displayText.text + inputString[stringIndex++];
+          }
+          stage.update();
+        }
+
+      }
+    </script>
+  </head>
+  <body onload="init();">
+    <canvas id="TextCanvas" width="800" height="300"></canvas>
+  </body>
+</html>

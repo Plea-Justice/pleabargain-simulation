@@ -1,0 +1,91 @@
+{
+	"scenes": {
+		"prologue":{
+			"type":"cutscene",
+			"next": {
+				"trigger":"auto",
+				"jump":"intro"
+			},
+			"clip":"prologue"
+		},
+		"intro":{
+			"type":"dialogue",
+			"next":	{
+				"trigger":"advancer",
+				"jump":"jailcellintro"
+			},
+			"background":"modules/assets/scenes/backgrounds/courtroom.png",
+			"foreground":"modules/assets/scenes/foregrounds/table.png",
+			"dialogue": [
+				{
+					"actor":"prosecutor",
+					"strings":[
+						"~~~~~~~~~~~~~Good afternoon,~~~~~~ my name is Mr. Clark ~~~~~~~and I will be prosecuting this case on behalf of the State of Massachusetts, ~~~~~~~~~~your Honor.~~~~~~~~~~~~"
+					]
+				},
+				{
+					"actor":"judge",
+					"strings":[
+						"~~~~~~~~~~~~~~~~~~~~~~~~Good afternoon. ~~~~~~~~~~~~What is the nature of this case, ~~~~~~~~~~~~Mr. Clark?~~~~~~~~~~~~"
+					]
+				},
+				{
+					"actor":"prosecutor",
+					"strings":[
+						"~~~~~~~~~~~~~~~~~~~~@U is accused of being involved in a hit-and-run ~~~~occurring around 2PM ~~~~on the 11th ~~day of June ~~~~in the year 2016.~~~~~~~~~",
+						"~~~~~~~~~~~In accordance with state law,~~~~~~~~~~~~ a hit-and-run occurs when the operator ~~of a motor vehicle damages public ~~or ~private ~~~property, ~~~~~~~~~~~~~~and the operator fails to report it.~~~~~~~~~",
+						"~~~~~~~~~~~~~According to the information provided in the police report,~~~~~~~~~~~~ there was property damage exceeding $1,000, ~~~~~~~~~~~~~~~~~~~which resulted from a collision in a store parking lot.~~~~~~~~~~~~~~~~~~~ The victim's car was legally parked within the lines of the space.~~~~~~~~~~~~~~~~~",
+						"~~~~~~~~~~~There is security footage provided by the owner of the business where the accident occurred that shows a car with a plate number registered to @U ~~~~~~~~~~~~appearing to come in contact with the victim's car.~~~~~~~~~~~~~",
+						"~~~~~~~~~~~~Although the impact might look minor,~~~~~~~~~~~~~~~~~~ according to a quote from the victim's auto body repair shop the damage to the body was significant.~~~~~~~~~~~~~~~~~",
+						"~~~~~~~~~~Thus,~~~~~~~~~~~~~~ according to statute,~~~~~~~~~~~~ failure of @U to stop and check the status of the other vehicle constitutes a hit-and-run.~~~~~~~~~~~~~~ The security footage shows @U's car ~~~~striking a vehicle and failing to check for ~~~~or report ~~~damages.~~~~~~~~~~~",
+						"~~~~~~~~~This is a textbook hit-and-run,~~~~~~~~~~~~~~~~ which is considered a serious misdemeanor~ punishable by significant fines and/or time in jail.~~~~~~~~~~~",
+						"~~~~~~~~~We request a court date be set by the State as soon as it is possible.~~~~~~~~~~~ In the meantime,~~~~~~~~~~ we request @U be held until a time bail can be set and paid.~~~~~~~~~~~"
+					]
+				},
+				{
+					"actor":"judge",
+					"strings":[
+						"~~~~~~~~~~~~~@U,~~~~~~~~~~ you are being charged with leaving the scene of an accident involving property damage.~~~~~~~~",
+						"~~~~~~~~~~~~Because you have no prior offenses,~~~~~~~~~~~~~~~ this crime carries a minimum ~~~~~~~~charge ~~~~~~~~~of 2 weeks in jail ~~~~~~~~~~~~~~~~and a maximum charge of 12 months in jail ~~~~~~~~~~~~~~~as well as a fine ~~~~~~~~~~ranging from $20 ~~~~~~to $200 ~~~~~~~~in addition to court fees as well as covering the property damage.~~~~~~~~~~~~~~~",
+						"~~~~~~~~You have the right to request the appointment of counsel ~~~~~~~~~if you cannot afford counsel,~~~~~~~ the right to not make a statement,~~~~~~~~~~ and the right to a jury trial,~~~~~~~~~~~~~ judgement,~~~~~~~~~~~ and sentencing ~~~~~~~~~~before a district judge.~~~~~~~~",
+						"~~~~~~~At this time ~~~~you are remanded to a holding cell where you will await a bail hearing,~~~~~~~~~~~~~~~ which will occur within the next 48 hours ~~~~~~~~~~- at that hearing,~~~~~~~~~~~~~ a bond will be assessed for conditional bail.~~~~~~~~~~~~~~",
+						"~~~~~~~~~~~~~~~~~~~~It is so ordered.~~~~~~~~~"
+					]
+				}
+			]
+		},
+		"jailcellintro":{
+			"type":"dialogue",
+			"next": {
+				"trigger":"conditional",
+				"if":"guilty",
+				"then":"flashback_guilty",
+				"jump":"flashback_innocent"
+			},
+			"background":null,
+			"foreground":"modules/assets/scenes/foregrounds/jailcellgeneral1.png",
+			"dialogue": [
+				{
+					"actor":null,
+					"strings": []
+				}
+			]
+		},
+		"flashback_guilty":{
+			"type":"cutscene",
+			"next": {
+				"trigger":"auto",
+				"jump":null
+			},
+			"clip":"guilty1"
+		},
+		"flashback_innocent":{
+			"type":"cutscene",
+			"next": {
+				"trigger":"auto",
+				"jump":null
+			},
+			"clip":"innocent1"
+		}
+	}
+}

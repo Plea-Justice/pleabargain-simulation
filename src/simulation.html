@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- simulation frontend
+     Thomas Nelson 2017
+     University of Massachusetts Lowell, Psychology Department
+     simulation.html acts as the frontend for a simulation instance, parsing
+     the module name from the URI, loading that specified module js file,
+     and then calling on the renderer for running the simulation
+     Art by Jordi Love
+     Typography decisions by Will Crow
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>UML Plea Bargain Simulation</title>
+    <style type="text/css">
+      body {
+        background-color: #202020;
+        margin: 0;
+        text-align: center;
+      }
+      html {
+      }
+    </style>
+
+    <!-- LOAD CREATE.JS LIBRARY -->
+    <script src="libs/createjs-2015.11.26.min.js"></script>
+
+    <!-- LOAD PROSECUTOR ANIMATION FILES -->
+    <script src="actors/prosecutor/prosecutor_close.js"></script>
+    <script src="actors/prosecutor/prosecutor_ai.js"></script>
+    <script src="actors/prosecutor/prosecutor_e.js"></script>
+    <script src="actors/prosecutor/prosecutor_consonant.js"></script>
+    <script src="actors/prosecutor/prosecutor_mb.js"></script>
+    <script src="actors/prosecutor/prosecutor_o.js"></script>
+    <script src="actors/prosecutor/prosecutor_l.js"></script>
+    <script src="actors/prosecutor/prosecutor_slightlyopen.js"></script>
+    <script src="actors/prosecutor/prosecutor_u.js"></script>
+
+    <!-- LOAD JUDGE ANIMATION FILES -->
+    <script src="actors/judge/judge_close.js"></script>
+    <script src="actors/judge/judge_ai.js"></script>
+    <script src="actors/judge/judge_e.js"></script>
+    <script src="actors/judge/judge_consonant.js"></script>
+    <script src="actors/judge/judge_mb.js"></script>
+    <script src="actors/judge/judge_o.js"></script>
+    <script src="actors/judge/judge_l.js"></script>
+    <script src="actors/judge/judge_slightlyopen.js"></script>
+    <script src="actors/judge/judge_u.js"></script>
+
+    <!-- LOAD CLIPS -->
+    <script src="assets/clip/Plea Bargain Rough Animationj.js"></script>
+    <script src="assets/clip/prologueAnimation.js"></script>
+
+    <!-- LOAD LIBRARIES -->
+    <script src="libs/actor.js"></script>
+    <script src="libs/renderer.js"></script>
+    <script src="libs/parser.js"></script>
+    <script src="libs/ui.js"></script> 
+    <script src="libs/params.js"></script>
+
+    <!-- LOAD LOCALES -->
+    <script src="locales/en_US.js"></script>
+    <script src="locales/es_DO.js"></script>
+
+    <!-- PRIMARY SCRIPT -->
+    <script>
+      var RES_WIDTH = 1920;
+      var RES_HEIGHT = 1080;
+      function init() {
+        console.log("Beginning Initialization");
+        console.log("Locating Canvas");
+        var canvas = document.getElementById("canvas");
+        canvas.width = RES_WIDTH;
+        canvas.height = RES_HEIGHT;
+        canvas.getContext("2d").font = "300px Garamond";
+        canvas.getContext("2d").fillStyle = "#C0C0C0";
+        canvas.getContext("2d").textAlign = "center";
+        canvas.getContext("2d").textBaseline = "middle";
+
+	console.log("Setting up LoadQueue");
+        var queue = new createjs.LoadQueue();
+        queue.on("complete", handleComplete, this);
+
+        console.log("Capturing Module Parameter");
+        if (inParams["Module"] != null) {
+          canvas.getContext("2d").fillText("LOADING...", RES_WIDTH/2, RES_HEIGHT/2);
+          console.log("Loading Module: " + inParams["Module"]);
+          queue.loadFile({id:"module", src:"modules/" + inParams["Module"]});
+        }
+        else {
+          alert("CRITICAL ERROR: No Simulation Module Specified");
+          canvas.getContext("2d").fillText("ERROR", RES_WIDTH/2, RES_HEIGHT/2);
+        }
+        function handleComplete() {
+          var module = queue.getResult("module");
+          document.body.appendChild(module);
+          console.log("Module Loaded: " + module);
+          console.log("Creating Stage");
+          var stage = new createjs.Stage(canvas);
+          var renderFrame = new Frame(stage, initialScene);
+          var iterator = 0;
+        
+          console.log("Setting up Event Handling");
+          createjs.Ticker.addEventListener("tick", tick);
+          createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+          createjs.Ticker.setFPS(30);
+
+          console.log("Initialization complete");
+          function tick() {
+            if (renderFrame.Scene.index < renderFrame.Scene.length) {
+              // During Scene or Clip
+              renderFrame.render();
+            } else if (renderFrame.Scene.index == renderFrame.Scene.length) {
+              // After Scene or Clip
+              // Activate Advancer if relevant
+              renderFrame.activate();
+	      // Activate any other Buttons
+
+              stage.update();
+              renderFrame.Scene.index++;
+            } else {
+              // DO NOTHING
+	      // keep this loop clear for event capturing.
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  
+  <body onLoad="init();">
+    <canvas id="canvas" width="1920" height="1080" style="background-color:#202020"></canvas>
+  </body>
+</html>
