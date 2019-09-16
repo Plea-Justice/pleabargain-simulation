@@ -257,7 +257,7 @@ var clip_guilty_female = new Clip("guilty_female", mc_guilty_female);
 // Declaring Male MCs: Innocent
 var mc_innocent_male = new lib.Scenario2_FlashbackInnocent_Figure0();
 // Declaring Female MCs: Innocent
-var mc_innocent_female = new lib.Scenario2_FlashbackGuilty_Figure1();
+var mc_innocent_female = new lib.Scenario2_FlashbackInnocent_Figure1();
 
 // Declaring Male Clips: Innocent
 var clip_innocent_male = new Clip("innocent_male", mc_innocent_male);
@@ -403,7 +403,7 @@ var scene_offer1 = new Scene("offer1",
     actor_defense,
     bg_meetingroom,
     null);
-    
+
 if (urlparams.get("con_chance") != null) {
 var scene_offer2 = new Scene("offer2",
     "Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have a " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
@@ -434,7 +434,7 @@ var scene_offer5 = new Scene("offer5",
     actor_defense,
     bg_meetingroom,
     null);
-    
+
 if (defence_rec == 0) {
 var scene_offer6 = new Scene("offer6",
 	"Your signature will indicate your agreement to plead guilty and forgo your right to a trial.~~~~~~~~~~~~~~~~~",
