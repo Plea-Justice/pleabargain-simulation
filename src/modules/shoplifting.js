@@ -179,13 +179,6 @@ if ("hair" in inParams) {
 } else {
   alert("ERROR: Parameter Parsing - Invalid hair in Palette: " + inParams["hair"]);
 }
-
-var defence_rec = 0;
-if ("defence_rec" in inParams) {
-    defence_rec = inParams["defence_rec"];
-} else {
-    console.log("DEFENCE REC: No defence rec, omitting text block.");
-}
 // END OF MANIFEST OF PARAMETER USAGE
 
 // MANIFEST OF NEW CUSTOMIZER WITH PASSED PARAMETERS
@@ -306,66 +299,70 @@ if (avatarSex) {
 	MainAvatar.setActorM(Actors[avatarSex]);
 }
 
-// pull randomized embedded data to determine conviction probability and plea deal jail length
-var urlparams = new URLSearchParams(window.location.search);
-
-var str_conviction_chance = urlparams.get("con_chance");
-var str_conviction_months = urlparams.get("con_months");
-
-if (urlparams.get("con_chance") == null || urlparams.get("con_months") == null)
-{
-    str_conviction_months = 6;
-}
-
 // Declaring the scenes with lines, actors, foreground and background as arguments.
+var scene_intro0 = new Scene("intro0",
+    "Good afternoon,~~~~~~~~ my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, Your Honor.~~~~~~~~",
+    actor_prosecutor,
+    bg_courtroom,
+    fg_table);
 var scene_intro1 = new Scene("intro1",
-    username + " is accused of committing larceny occurring around 12:30PM on the 1st day of July in the year 2019.~~~~~~~~~~~~~~~",
+    "Good afternoon.~~~~~~~~~~~~~~~~~~ What is the nature of this case, Mr. Clark?~~~~~~~~~",
+    actor_judge,
+    bg_courtroom,
+    fg_table);
+var scene_intro2 = new Scene("intro2",
+    username + " is accused of committing larceny occurring around 6 PM on the 1st day of July in the year 2019.~~~~~~~~~~~~~~~",
     actor_prosecutor,
     bg_courtroom,
     fg_table);
 var scene_intro2 = new Scene("intro2",
-    "~~~~~~~~~~~~~~In accordance with state law, larceny occurs when one steals the property of another. ~~~~~~~~~~~~~~~~",
+    username + " is accused of committing larceny occurring around 12:30PM on the 1st day of July in the year 2019.~~~~~~~~~~~~~~~",
     actor_prosecutor,
     bg_courtroom,
     fg_table);
 var scene_intro3 = new Scene("intro3",
+    "~~~~~~~~~~~~~~In accordance with state law, larceny occurs when one steals the property of another. ~~~~~~~~~~~~~~~~",
+    actor_prosecutor,
+    bg_courtroom,
+    fg_table);
+var scene_intro4 = new Scene("intro4",
     "~~~~According to the information provided in the police report, the defendant requested a pair of sunglasses in a locked case from the salesclerk.",
      actor_prosecutor,
      bg_courtroom,
 	 fg_table);
-var scene_intro4 = new Scene("intro4",
+var scene_intro5 = new Scene("intro5",
 	"The salesclerk provided the sunglasses to the defendant who allegedly walked away with them in order to examine them in a mirror.",
 	actor_prosecutor,
 	bg_courtroom,
 	fg_table);
-var scene_intro5 = new Scene("intro5",
+var scene_intro6 = new Scene("intro6",
 	"Once the salesclerk's attention was diverted to another customer, the defendant exited the store wearing the sunglasses.~~~~~~~~~~",
 	actor_prosecutor,
 	bg_courtroom,
 	fg_table);
-var scene_intro6 = new Scene("intro6",
+var scene_intro7 = new Scene("intro7",
     "~~~~The salesclerk positively identified the defendant as the person who walked out of the store wearing the missing pair of sunglasses.",
     actor_prosecutor,
     bg_courtroom,
 	fg_table);
-var scene_intro7 = new Scene("intro7",
-	"There is also security footage provided by the owner of the sunglasses shop where the theft occurred that shows the defendant committing this crime as described.~~~~~~~~~~~~~~",
+var scene_intro8 = new Scene("intro8",
+	"There is also security footage provided by the owner of the sunglasses shop where the theft occurred that shows the defendant walking toward the exit wearing the sunglasses~~~~~~~~~~~~~~",
 	actor_prosecutor,
 	bg_courtroom,
 	fg_table);
 // Security footage here
 var scene_post_crime_footage1 = new Scene("pcf1",
-    "~~~~~~~~The security footage appears to show " + username + " exiting the store wearing the missing pair of designer sunglasses. Theft of these sunglasses is considered a clear larceny, which, given the value of the sunglasses is considered a felony offense punishable by significant fines and/or imprisonment.",
+    "~~~~~~~~The security footage shows " + username + " wearing the missing pair of designer sunglasses and heading towards the store exit.~~~~~~ Theft of these sunglasses is a clear larceny,~~~ which,~~~~ given the value of these glasses is considered a felony offence punishable by imprisonment.~~~~~~~~~",
     actor_prosecutor,
     bg_courtroom,
 	fg_table);
 var scene_post_crime_footage2 = new Scene("pcf2",
-	"We request a court date be set by the State as soon as it is possible. In the meantime, we request " + username + " be held until a time that bail can be set and paid.~~~~~",
+	"We request a court date be set by the State as soon as it is possible.~~~~~",
 	actor_prosecutor,
 	bg_courtroom,
 	fg_table);
 var scene_post_crime_footage3 = new Scene("pcf3",
-    username + ", you are being charged with larceny, a felony carrying imprisonment in the state prison for no more than five years, or by a fine of not more than twenty-five thousand dollars and imprisonment in jail for not more than two years.~~~~~~~~~",
+    username + ", you are being charged with larceny.~~~~~~~~~~~~~~",
     actor_judge,
     bg_judge_courtroom,
     null);
@@ -375,13 +372,13 @@ var scene_post_crime_footage4 = new Scene("pcf4",
     bg_judge_courtroom,
     null);
 var scene_post_crime_footage5 = new Scene("pcf5",
-    "~~~~~~At this time, you are remanded to a holding cell where you will await a bail hearing, which will occur within the next 48 hours--at that hearing, a bond will be assessed for conditional bail.~~~~~~~~~ It is so ordered.",
+    "~~~~~~At this time, you will be held until counsel has been assigned to you,~~~~~ which will occur within the next 48 hours.~~~~~~~~~~",
     actor_judge,
     bg_judge_courtroom,
     null);
 // Jailcell scene reflecting on the incident
 var scene_jailcell1 = new Scene("jailcell1",
-	"I know I remember the day the prosecutor is talking about...",
+	"I know I remember the day Mr. Clark is talking about...",
   null,
   null,
   jail_cell[avatarSex]);
@@ -393,7 +390,7 @@ var scene_jailcellG = new Scene("jailcellGuilty",
   jail_cell[avatarSex]);
 // Flashback of event from User's point of view (Innocent)
 var scene_jailcellI = new Scene("jailcellInnocent",
-	"I know I didn't return the sunglasses to the salesclerk,~~~~~~ but I did remember to leave them on the counter before I left the store.~~~~~~~~~ I'm innocent!",
+	"I couldn't return the sunglasses to the sales clerk because he was helping another customer,~~~~~~ but I did remember to leave them on the counter before I left the store.~~~~~~~~~ I did not steal them!~~~~~~~~~",
   null,
   null,
   jail_cell[avatarSex]);
@@ -404,21 +401,11 @@ var scene_offer1 = new Scene("offer1",
     bg_meetingroom,
     null);
 
-if (urlparams.get("con_chance") != null) {
 var scene_offer2 = new Scene("offer2",
-    "Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have a " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
-	actor_defense,
-	bg_meetingroom,
-    null);
-}
-else {
-    var scene_offer2 = new Scene("offer2",
     "Based on the security camera footage and the testimony from the salesclerk, Mr. Clark believes that he could win if this case goes to trial.~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
     null);
-}
-
 var scene_offer3 = new Scene("offer3",
     "~~~~~~~If this case does go to trial, Mr. Clark will be seeking the maximum penalty of 24 months in jail.~~~~~~~~~~~~",
     actor_defense,
@@ -435,32 +422,11 @@ var scene_offer5 = new Scene("offer5",
     bg_meetingroom,
     null);
 
-if (defence_rec == 0) {
 var scene_offer6 = new Scene("offer6",
 	"Your signature will indicate your agreement to plead guilty and forgo your right to a trial.~~~~~~~~~~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
     null);
-}
-else {
-    var scene_offer6 = new Scene("offer6",
-	"Really, it boils down to this:~~~~~~ you never know if the prosecutor will come back with another offer or what that offer will look like.~~~~~~~~",
-	actor_defense,
-	bg_meetingroom,
-    null);
-
-    var scene_offer7 = new Scene("offer7",
-	"Sure, they could always come back with a better offer. Or they could decide not to bargain with you anymore, come back with the same offer, or offer a less desirable plea deal than this one. It really could go in any direction.~~~~~~~~~~~~~~~~~~~~~",
-	actor_defense,
-	bg_meetingroom,
-    null);
-
-    var scene_offer8 = new Scene("offer8",
-	"But this is your decision to make. But, I think you should " + defence_rec + " this offer.~~~~~~~~",
-	actor_defense,
-	bg_meetingroom,
-    null);
-}
 
 var scene_offer_F = new Scene("pleadeal",
     "~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + str_conviction_months + " months in jail). Reject the offer and risk a more severe sentence if found guilty at trial (24 months in jail). ~~~~~~",
@@ -477,14 +443,16 @@ initialScene = intro_clips[avatarSex];
 
 MainAvatar.setNext(initialScene, "a");
 
-initialScene.setNext(scene_intro1);
+initialScene.setNext(scene_intro0);
+scene_intro0.setNext(scene_intro1, "a");
 scene_intro1.setNext(scene_intro2, "a");
 scene_intro2.setNext(scene_intro3, "a");
 scene_intro3.setNext(scene_intro4, "a");
 scene_intro4.setNext(scene_intro5, "a");
 scene_intro5.setNext(scene_intro6, "a");
 scene_intro6.setNext(scene_intro7, "a");
-scene_intro7.setNext(security_clips[avatarSex], "a"); // should have security footage
+scene_intro7.setNext(scene_intro8, "a");
+scene_intro8.setNext(security_clips[avatarSex], "a"); // should have security footage
 security_clips[avatarSex].setNext(scene_post_crime_footage1, "a");
 scene_post_crime_footage1.setNext(scene_post_crime_footage2, "a");
 scene_post_crime_footage2.setNext(scene_post_crime_footage3, "a");
@@ -505,15 +473,7 @@ scene_offer2.setNext(scene_offer3, "a");
 scene_offer3.setNext(scene_offer4, "a");
 scene_offer4.setNext(scene_offer5, "a");
 scene_offer5.setNext(scene_offer6, "a");
-if (defence_rec == 0) {
-    scene_offer6.setNext(scene_offer_F, "a");
-}
-else
-{
-    scene_offer6.setNext(scene_offer7, "a");
-    scene_offer7.setNext(scene_offer8, "a");
-    scene_offer8.setNext(scene_offer_F, "a");
-}
+scene_offer6.setNext(scene_offer_F, "a");
 
 scene_offer_F.setNext(null, "pleadguilty");
 scene_offer_F.setNext(null, "rejectoffer");

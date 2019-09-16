@@ -308,15 +308,6 @@ jail_cell[avatarSex].assetPalette = MainAvatar.palette;
 
 console.log("Resetting palette for clips and actor");
 
-// pull randomized embedded data to determine conviction probability and plea deal jail length
-var urlparams = new URLSearchParams(window.location.search);
-
-var urlparams = new URLSearchParams(window.location.search);
-
-var str_conviction_chance = urlparams.get("con_chance");
-var str_conviction_months = urlparams.get("con_months");
-
-
 var scene_intro1		 = new Scene("intro1",
 				"~~~~~~~~~~~~~Good afternoon,~~~~~~ my name is Mr. Clark ~~~~~~~and I will be prosecuting this case on behalf of the State of Massachusetts, ~~~~~~~~~~your Honor.~~~~~~~~~~~~",
 				actor_prosecutor,
@@ -330,7 +321,7 @@ var scene_intro2		= new Scene("intro2",
 				null);
 
 var scene_initial_P0  = new Scene("initial_P0",
-				"~~~~~~~~~~~~~~~~~~~~" + username + " is accused of being involved in a hit-and-run ~~~~occurring around 2PM ~~~~on the 11th ~~day of June ~~~~in the year 2016.~~~~~~~~~",
+				"~~~~~~~~~~~~~~~~~~~~" + username + " is accused of being involved in a hit-and-run ~~~~occurring around 6 PM ~~~~on the 26th day of March ~~~~in the year 2019.~~~~~~~~~",
 				actor_prosecutor,
 				bg_p_courtroom,
 				fg_table);
@@ -374,7 +365,7 @@ var scene_initial_P6  = new Scene("initial_P6",
 				fg_table);
 
 var scene_initial_P7  = new Scene("initial_P7",
-				"~~~~~~~~~We request a court date be set by the State as soon as it is possible.~~~~~~~~~~~ In the meantime,~~~~~~~~~~ we request " + username + " be held until a time bail can be set and paid.~~~~~~~~~~~",
+				"~~~~~~~~~We request a court date be set by the State as soon as it is possible.~~~~~~~~~~~",
 				actor_prosecutor,
 				bg_p_courtroom,
 				fg_table);
@@ -385,13 +376,6 @@ var scene_initial_J1 = new Scene("initial_J1",
 				bg_judge_seat,
 				null);
 
-var scene_initial_J2 = new Scene("initial_J2",
-				"~~~~~~~~~~~~Because you have no prior offenses,~~~~~~~~~~~~~~~ this crime carries a minimum ~~~~~~~~charge ~~~~~~~~~of 2 weeks in jail ~~~~~~~~~~~~~~~~and a maximum charge of 24 months in jail ~~~~~~~~~~~~~~~as well as a fine ~~~~~~~~~~ranging from $20 ~~~~~~to $200 ~~~~~~~~in addition to court fees as well as covering the property damage.~~~~~~~~~~~~~~~",
-				actor_judge,
-				bg_judge_seat,
-				null);
-
-
 var scene_initial_J4 = new Scene("initial_J4",
 				"~~~~~~~~You have the right to request the appointment of counsel ~~~~~~~~~if you cannot afford counsel;~~~~~~~ the right to not make a statement;~~~~~~~~~~ and the right to a jury trial,~~~~~~~~~~~~~ judgement,~~~~~~~~~~~ and sentencing ~~~~~~~~~~before a district judge.~~~~~~~~",
 				actor_judge,
@@ -399,7 +383,7 @@ var scene_initial_J4 = new Scene("initial_J4",
 				null);
 
 var scene_initial_J5 = new Scene("initial_J5",
-				"~~~~~~~At this time ~~~~you are remanded to a holding cell where you will await a bail hearing,~~~~~~~~~~~~~~~ which will occur within the next 48 hours ~~~~~~~~~~- at that hearing,~~~~~~~~~~~~~ a bond will be assessed for conditional bail.~~~~~~~~~~~~~~",
+				"~~~~~~~At this time you will be held until counsel has been assigned to you, ~~~~~~~~~~~which will occur within the next 48 hours.~~~~~~~~~~~~~~~~~~~~~~~~",
 				actor_judge,
 				bg_judge_seat,
 				null);
@@ -423,7 +407,7 @@ var scene_jail_guilty = new Scene("Jail_guilty",
 				jail_cell[avatarSex]);
 
 var scene_jail_innocent = new Scene("Jail_innocent",
-				"~~~~~~~~~I know it was tight when I pulled out, but I didn't actually come into contact with that person's car. ~~~~~~~~ I'm innocent!",
+				"~~~~~~~~~I know it was tight when I pulled out, but I didn't actually come into contact with that person's car.~~~~~~~~ When I looked in my mirror, the other car was fine!~~~~~~~~~~",
 				null,
 				null,
 				jail_cell[avatarSex]);
@@ -435,7 +419,7 @@ var scene_offer_P0		= new Scene("offer_P0",
 				fg_table);
 
 var scene_offer_P1		= new Scene("offer_P1",
-				"~~~~~~~~~Based on the security camera footage and the damage to the victim's car,~~~~~~~~~ I would estimate that you have a " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~~~~~",
+				"Based on the security camera footage and the testimony from the salesclerk, Mr. Clark believes that he could win if this case goes to trial.~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				fg_table);
@@ -496,8 +480,7 @@ scene_initial_P6.setNext(scene_initial_P7, "a");
 scene_initial_P7.setNext(scene_initial_J1, "a");
 
 
-scene_initial_J1.setNext(scene_initial_J2, "a");
-scene_initial_J2.setNext(scene_initial_J4, "a");
+scene_initial_J1.setNext(scene_initial_J4, "a");
 scene_initial_J4.setNext(scene_initial_J5, "a");
 scene_initial_J5.setNext(scene_initial_J6, "a");
 scene_initial_J6.setNext(scene_jail_intro, "a");
