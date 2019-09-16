@@ -425,7 +425,7 @@ var scene_offer3 = new Scene("offer3",
     bg_meetingroom,
 	null);
 var scene_offer4 = new Scene("offer4",
-	"If you plead guilty now, saving the State the resources needed fror a formal trial, Mr. Clark is prepared to recommend that the district court judge sentence you to " + str_conviction_months + " months rather than 24 months in jail.~~~~~~~~~~~",
+	"If you plead guilty now, saving the State the resources needed for a formal trial, Mr. Clark is prepared to recommend that the district court judge sentence you to " + str_conviction_months + " months rather than 24 months in jail.~~~~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
 	null);
