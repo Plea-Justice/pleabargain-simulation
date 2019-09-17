@@ -401,13 +401,13 @@ var scene_jail_intro = new Scene("Jail_Intro",
 				jail_cell[avatarSex]);
 
 var scene_jail_guilty = new Scene("Jail_guilty",
-				"~~~~~~~~~~~~I know it was tight when I pulled out, but I thought I just barely grazed that person's car. ~~~~~~~~~ I must have missed some of the damage I caused when pulling out.",
+				"~~~~~~~~~~~~I know it was tight when I pulled out, but I thought I just barely grazed that person's car. ~~~~~~~~~ I must have missed some of the damage I caused when pulling out. I must be guilty.~~~~~~~",
 				null,
 				null,
 				jail_cell[avatarSex]);
 
 var scene_jail_innocent = new Scene("Jail_innocent",
-				"~~~~~~~~~I know it was tight when I pulled out, but I didn't actually come into contact with that person's car.~~~~~~~~ When I looked in my mirror, the other car was fine!~~~~~~~~~~",
+				"~~~~~~~~~I know it was tight when I pulled out, but I didn't actually come into contact with that person's car.~~~~~~~~ When I looked in my mirror, the other car was fine!~~~~~~~ I Know I'm innocent.~~~~~~~~",
 				null,
 				null,
 				jail_cell[avatarSex]);
