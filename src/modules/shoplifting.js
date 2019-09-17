@@ -384,13 +384,13 @@ var scene_jailcell1 = new Scene("jailcell1",
   jail_cell[avatarSex]);
 // Flashback of event from User's point of view (Guilty)
 var scene_jailcellG = new Scene("jailcellGuilty",
-	"I know I forgot to take those sunglassess off before I left.~~~~~~ I should have returned them...~~~~~~~ But, I was afraid they'd think I intended to steal them.~~~~~~~ Now, I'm really in trouble!",
+	"I know I forgot to take those sunglassess off before I left.~~~~~~ I should have returned them...~~~~~~~ But, I was afraid they'd think I intended to steal them.~~~~~~~ I guess I'm guilty of this!~~~~~~",
   null,
   null,
   jail_cell[avatarSex]);
 // Flashback of event from User's point of view (Innocent)
 var scene_jailcellI = new Scene("jailcellInnocent",
-	"I couldn't return the sunglasses to the sales clerk because he was helping another customer,~~~~~~ but I did remember to leave them on the counter before I left the store.~~~~~~~~~ I did not steal them!~~~~~~~~~",
+	"I couldn't return the sunglasses to the sales clerk because he was helping another customer,~~~~~~ but I did remember to leave them on the counter before I left the store.~~~~~~~~~ I know I'm innocent.~~~ Someone else must have swiped them!~~~~~~~",
   null,
   null,
   jail_cell[avatarSex]);
