@@ -49,16 +49,16 @@ console.log("Username set to " + username);
 
 // CHECKING GUILT SET BY QUALTRICS FORM
 var guilt = false;
-if ("S" in inParams) {
-    if (inParams["S"] == "bip")
+if ("guilt_1" in inParams) {
+    if (inParams["guilt_1"] == "bip")
         guilt = false;
-    else if (inParams["S"] == "bop")
+    else if (inParams["guilt_1"] == "bop")
         guilt = true;
     else
-        alert("ERROR: Parameter Parsing - Invalid Module Setting 'S': " + inParams["S"]);
+        alert("ERROR: Parameter Parsing - Invalid Module Setting 'guilt_1': " + inParams["guilt_1"]);
 }
 else
-    alert("ERROR: Parameter Parsing - Missing Module Setting 'S'");
+    alert("ERROR: Parameter Parsing - Missing Module Setting 'guilt_1'");
 
 surveyURL += "guilt=" + guilt;
 console.log("Guilt set to " + guilt);
@@ -299,6 +299,12 @@ if (avatarSex) {
 	MainAvatar.setActorM(Actors[avatarSex]);
 }
 
+// pull randomized embedded data to determine conviction probability and plea deal jail length
+var urlparams = new URLSearchParams(window.location.search);
+
+var str_conviction_chance = urlparams.get("con_chance_1");
+var str_conviction_months = urlparams.get("con_months_1");
+
 // Declaring the scenes with lines, actors, foreground and background as arguments.
 var scene_intro0 = new Scene("intro0",
     "Good afternoon,~~~~~~~~ my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, Your Honor.~~~~~~~~",
@@ -402,10 +408,11 @@ var scene_offer1 = new Scene("offer1",
     null);
 
 var scene_offer2 = new Scene("offer2",
-    "Based on the security camera footage and the testimony from the salesclerk, Mr. Clark believes that he could win if this case goes to trial.~~~~~~~~",
+    "Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have a " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
     null);
+
 var scene_offer3 = new Scene("offer3",
     "~~~~~~~If this case does go to trial, Mr. Clark will be seeking the maximum penalty of 24 months in jail.~~~~~~~~~~~~",
     actor_defense,

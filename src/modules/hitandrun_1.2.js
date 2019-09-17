@@ -43,16 +43,16 @@ else
 console.log("Username set to " + username);
 
 var guilt = false;
-if ("S" in inParams) {
-  if (inParams["S"] == "bip")
+if ("guilt_0" in inParams) {
+  if (inParams["guilt_0"] == "bip")
     guilt = false;
-  else if (inParams["S"] == "bop")
+  else if (inParams["guilt_0"] == "bop")
     guilt = true;
   else
-    alert("ERROR: Parameter Parsing - Invalid Module Setting 'S': " + inParams["S"]);
+    alert("ERROR: Parameter Parsing - Invalid Module Setting 'guilt_0': " + inParams["guilt_0"]);
 }
 else
-  alert("ERROR: Parameter Parsing - Missing Module Setting 'S'");
+  alert("ERROR: Parameter Parsing - Missing Module Setting 'guilt_0'");
 
 surveyURL += "guilt=" + guilt;
 
@@ -306,6 +306,12 @@ innocent_clips[avatarSex].MC.assetPalette = MainAvatar.palette;
 guilty_clips[avatarSex].MC.assetPalette = MainAvatar.palette;
 jail_cell[avatarSex].assetPalette = MainAvatar.palette;
 
+// pull randomized embedded data to determine conviction probability and plea deal jail length
+var urlparams = new URLSearchParams(window.location.search);
+
+var str_conviction_chance = urlparams.get("con_chance_0");
+var str_conviction_months = urlparams.get("con_months_0");
+
 console.log("Resetting palette for clips and actor");
 
 var scene_intro1		 = new Scene("intro1",
@@ -418,11 +424,11 @@ var scene_offer_P0		= new Scene("offer_P0",
 				bg_meetingroom,
 				fg_table);
 
-var scene_offer_P1		= new Scene("offer_P1",
-				"Based on the security camera footage and the testimony from the salesclerk, Mr. Clark believes that he could win if this case goes to trial.~~~~~~~~",
+var scene_offer_P1 = new Scene("offer_P1",
+				"Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have a " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
-				fg_table);
+				null);
 
 var scene_offer_P2		= new Scene("offer_P2",
 				"~~~~~~~~~~~If this case does go to trial,~~~~~~~~~~~~~~~~ Mr. Clark will be seeking the maximum penalty of 24 months in jail.~~~~~~~~~~~~",
