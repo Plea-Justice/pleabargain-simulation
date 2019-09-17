@@ -50,9 +50,9 @@ console.log("Username set to " + username);
 // CHECKING GUILT SET BY QUALTRICS FORM
 var guilt = false;
 if ("guilt_1" in inParams) {
-    if (inParams["guilt_1"] == "bip")
+    if (inParams["guilt_1"] == "innocent")
         guilt = false;
-    else if (inParams["guilt_1"] == "bop")
+    else if (inParams["guilt_1"] == "guilty")
         guilt = true;
     else
         alert("ERROR: Parameter Parsing - Invalid Module Setting 'guilt_1': " + inParams["guilt_1"]);

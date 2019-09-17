@@ -44,9 +44,9 @@ console.log("Username set to " + username);
 
 var guilt = false;
 if ("guilt_0" in inParams) {
-  if (inParams["guilt_0"] == "bip")
+  if (inParams["guilt_0"] == "innocent")
     guilt = false;
-  else if (inParams["guilt_0"] == "bop")
+  else if (inParams["guilt_0"] == "guilty")
     guilt = true;
   else
     alert("ERROR: Parameter Parsing - Invalid Module Setting 'guilt_0': " + inParams["guilt_0"]);
