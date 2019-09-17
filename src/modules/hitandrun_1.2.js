@@ -466,7 +466,7 @@ var scene_offer_P5		= new Scene("offer_P5",
 
 
 var scene_offer_F		= new Scene("pleadeal",
-				"~~~~~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + str_conviction_months + " months in jail)                                                                  Reject the offer and risk a more severe sentence if found guilty at trial (24 months in jail)~~~~~~~~",
+				"~~~~~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + str_conviction_months + " months in jail). Reject the offer and risk a more severe sentence if found guilty at trial (24 months in jail)~~~~~~~~",
 				null,
 				bg_meetingroom,
 				null);
