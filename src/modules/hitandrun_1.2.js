@@ -44,9 +44,9 @@ console.log("Username set to " + username);
 
 var guilt = false;
 if ("guilt_0" in inParams) {
-  if (inParams["guilt_0"] == "bip")
+  if (inParams["guilt_0"] == "innocent")
     guilt = false;
-  else if (inParams["guilt_0"] == "bop")
+  else if (inParams["guilt_0"] == "guilty")
     guilt = true;
   else
     alert("ERROR: Parameter Parsing - Invalid Module Setting 'guilt_0': " + inParams["guilt_0"]);
@@ -422,7 +422,7 @@ var scene_offer_P0		= new Scene("offer_P0",
 				"~~~~~~Hello,~~~ " + username + ". ~~~~~~~~~~~~~~~~I am your defense attorney, Mr. Grant.~~~~~~~~~~ Mr. Clark, the prosecutor on your case, is interested in seeing whether this case could be resolved without a trial.~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
-				fg_table);
+				null);
 
 var scene_offer_P1 = new Scene("offer_P1",
 				"Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have a " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
@@ -434,25 +434,25 @@ var scene_offer_P2		= new Scene("offer_P2",
 				"~~~~~~~~~~~If this case does go to trial,~~~~~~~~~~~~~~~~ Mr. Clark will be seeking the maximum penalty of 24 months in jail.~~~~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
-				fg_table);
+				null);
 
 var scene_offer_P3		= new Scene("offer_P3",
 				"~~~~~~~~~~If you plead guilty now,~~~~~~~~~~~~~ saving the State the resources needed for a formal trial,~~~~~~~~~~ Mr. Clark is prepared to recommend that the district court judge sentence you to " + str_conviction_months + " months rather than 24 months in jail.~~~~~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
-				fg_table);
+				null);
 
 var scene_offer_P4		= new Scene("offer_P4",
 				"~~~~~~~~~~If you accept this plea offer, you will be asked to sign this form,~~~~~~~~ which includes the recommendations for lower sentencing that I just described. ~~~~~~~~~~~~If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 24 months.~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
-				fg_table);
+				null);
 
 var scene_offer_P5		= new Scene("offer_P5",
 				"~~~~~~~~Your signature will indicate your agreement to plead guilty and forgo your right to a trial.~~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
-				fg_table);
+				null);
 
 
 var scene_offer_F		= new Scene("pleadeal",
