@@ -314,7 +314,7 @@ var scene_intro0 = new Scene("intro0",
 var scene_intro1 = new Scene("intro1",
     "Good afternoon.~~~~~~~~~~~~~~~~~~ What is the nature of this case, Mr. Clark?~~~~~~~~~",
     actor_judge,
-    bg_courtroom,
+    bg_judge_courtroom,
     fg_table);
 var scene_intro2 = new Scene("intro2",
     username + " is accused of committing larceny occurring around 6 PM on the 1st day of July in the year 2019.~~~~~~~~~~~~~~~",
@@ -358,26 +358,33 @@ var scene_intro8 = new Scene("intro8",
 	fg_table);
 // Security footage here
 var scene_post_crime_footage1 = new Scene("pcf1",
-    "~~~~~~~~The security footage shows " + username + " wearing the missing pair of designer sunglasses and heading towards the store exit.~~~~~~ Theft of these sunglasses is a clear larceny,~~~ which,~~~~ given the value of these glasses is considered a felony offence punishable by imprisonment.~~~~~~~~~",
+    "~~~~~~~~The security footage shows " + username + " wearing the missing pair of designer sunglasses and heading towards the store exit.~~~~~~",
     actor_prosecutor,
     bg_courtroom,
-	fg_table);
-var scene_post_crime_footage2 = new Scene("pcf2",
+    fg_table);
+
+ var scene_post_crime_footage2 = new Scene("pcf2",
+    "Theft of these sunglasses is a clear larceny,~~~ which,~~~~ given the value of these glasses is considered a felony offence punishable by imprisonment.~~~~~~~~~",
+    actor_prosecutor,
+    bg_courtroom,
+    fg_table);
+    
+var scene_post_crime_footage3 = new Scene("pcf3",
 	"We request a court date be set by the State as soon as it is possible.~~~~~",
 	actor_prosecutor,
 	bg_courtroom,
 	fg_table);
-var scene_post_crime_footage3 = new Scene("pcf3",
+var scene_post_crime_footage4 = new Scene("pcf4",
     username + ", you are being charged with larceny.~~~~~~~~~~~~~~",
     actor_judge,
     bg_judge_courtroom,
     null);
-var scene_post_crime_footage4 = new Scene("pcf4",
+var scene_post_crime_footage5 = new Scene("pcf5",
 "~~~~~~~~You have the right to request the appointment of counsel ~~~~~~~~~if you cannot afford counsel;~~~~~~~ the right to not make a statement;~~~~~~~~~~ and the right to a jury trial,~~~~~~~~~~~~~ judgement,~~~~~~~~~~~ and sentencing ~~~~~~~~~~before a district judge.~~~~~~~~",
     actor_judge,
     bg_judge_courtroom,
     null);
-var scene_post_crime_footage5 = new Scene("pcf5",
+var scene_post_crime_footage6 = new Scene("pcf6",
     "~~~~~~At this time, you will be held until counsel has been assigned to you,~~~~~ which will occur within the next 48 hours.~~~~~~~~~~",
     actor_judge,
     bg_judge_courtroom,
@@ -424,12 +431,16 @@ var scene_offer4 = new Scene("offer4",
 	bg_meetingroom,
 	null);
 var scene_offer5 = new Scene("offer5",
-    "If you accept this plea offer, you will be asked to sign this form, which includes the recommendations for lower sentencing that I just described.~~~~~~~~ If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 24 months.~~~~~~~~~~~~~~~~~~~~~~~~~",
+    "If you accept this plea offer, you will be asked to sign this form, which includes the recommendations for lower sentencing that I just described.~~~~~~~~",
     actor_defense,
     bg_meetingroom,
     null);
-
 var scene_offer6 = new Scene("offer6",
+    "If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 24 months.~~~~~~~~~~~~~~~~~~~~~~~~~",
+    actor_defense,
+    bg_meetingroom,
+    null);
+var scene_offer7 = new Scene("offer7",
 	"Your signature will indicate your agreement to plead guilty and forgo your right to a trial.~~~~~~~~~~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
@@ -465,7 +476,8 @@ scene_post_crime_footage1.setNext(scene_post_crime_footage2, "a");
 scene_post_crime_footage2.setNext(scene_post_crime_footage3, "a");
 scene_post_crime_footage3.setNext(scene_post_crime_footage4, "a");
 scene_post_crime_footage4.setNext(scene_post_crime_footage5, "a");
-scene_post_crime_footage5.setNext(scene_jailcell1, "a");
+scene_post_crime_footage5.setNext(scene_post_crime_footage6, "a");
+scene_post_crime_footage6.setNext(scene_jailcell1, "a");
 if (guilt) {
 	scene_jailcell1.setNext(guilty_clips[avatarSex], "a");
 	guilty_clips[avatarSex].setNext(scene_jailcellG);
@@ -480,7 +492,8 @@ scene_offer2.setNext(scene_offer3, "a");
 scene_offer3.setNext(scene_offer4, "a");
 scene_offer4.setNext(scene_offer5, "a");
 scene_offer5.setNext(scene_offer6, "a");
-scene_offer6.setNext(scene_offer_F, "a");
+scene_offer6.setNext(scene_offer7, "a");
+scene_offer7.setNext(scene_offer_F, "a");
 
 scene_offer_F.setNext(null, "pleadguilty");
 scene_offer_F.setNext(null, "rejectoffer");

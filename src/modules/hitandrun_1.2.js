@@ -407,7 +407,7 @@ var scene_jail_intro = new Scene("Jail_Intro",
 				jail_cell[avatarSex]);
 
 var scene_jail_guilty = new Scene("Jail_guilty",
-				"~~~~~~~~~~~~I know it was tight when I pulled out, but I thought I just barely grazed that person's car. ~~~~~~~~~ I must have missed some of the damage I caused when pulling out. I must be guilty.~~~~~~~",
+				"~~~~~~~~~~~~I know it was tight when I pulled out, but I thought I just barely grazed that person's car. ~~~~~~~~~ I guess I missed some of the damage I caused when pulling out. I must be guilty.~~~~~~~",
 				null,
 				null,
 				jail_cell[avatarSex]);
@@ -443,12 +443,19 @@ var scene_offer_P3		= new Scene("offer_P3",
 				null);
 
 var scene_offer_P4		= new Scene("offer_P4",
-				"~~~~~~~~~~If you accept this plea offer, you will be asked to sign this form,~~~~~~~~ which includes the recommendations for lower sentencing that I just described. ~~~~~~~~~~~~If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 24 months.~~~~~~~~~",
+				"~~~~~~~~~~If you accept this plea offer, you will be asked to sign this form,~~~~~~~~ which includes the recommendations for lower sentencing that I just described. ~~~~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
 
 var scene_offer_P5		= new Scene("offer_P5",
+				"If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 24 months.~~~~~~~~~",
+				actor_defense,
+				bg_meetingroom,
+				null);
+
+
+var scene_offer_P6		= new Scene("offer_P6",
 				"~~~~~~~~Your signature will indicate your agreement to plead guilty and forgo your right to a trial.~~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
