@@ -268,7 +268,7 @@ var clip_guilty_female = new Clip("guilty_female", mc_guilty_female);
 // Declaring Male MCs: Innocent
 var mc_innocent_male = new lib.Scenario1_FlashbackInnocent_Figure0();
 // Declaring Female MCs: Innocent
-var mc_innocent_female = new lib.Scenario1_FlashbackGuilty_Figure1();
+var mc_innocent_female = new lib.Scenario1_FlashbackInnocent_Figure1();
 
 // Declaring Male Clips: Innocent
 var clip_innocent_male = new Clip("innocent_male", mc_innocent_male);
