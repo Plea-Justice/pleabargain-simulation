@@ -299,11 +299,6 @@ if (avatarSex) {
 	MainAvatar.setActorM(Actors[avatarSex]);
 }
 
-// pull randomized embedded data to determine conviction probability and plea deal jail length
-var urlparams = new URLSearchParams(window.location.search);
-
-var str_conviction_chance = urlparams.get("con_chance_1");
-var str_conviction_months = urlparams.get("con_months_1");
 
 // Declaring the scenes with lines, actors, foreground and background as arguments.
 var scene_intro0 = new Scene("intro0",
@@ -409,24 +404,19 @@ var scene_offer1 = new Scene("offer1",
     bg_meetingroom,
     null);
 
-var a_an;
-if (parseInt(str_conviction_chance) == 80)
-	a_an = "an";
-else
-	a_an = "a";
 var scene_offer2 = new Scene("offer2",
-    "Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have " + a_an + " " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
+    "Based on the security camera footage and the testimony from the salesclerk,~~~~~ Mr. Clark believes that he could win if this case goes to trial.~~~~~~",
 	actor_defense,
 	bg_meetingroom,
     null);
 
 var scene_offer3 = new Scene("offer3",
-    "~~~~~~~If this case does go to trial, Mr. Clark will be seeking the maximum penalty of 24 months in jail.~~~~~~~~~~~~",
+    "~~~~~~~If this case does go to trial, Mr. Clark will be seeking the maximum penalty of 12 months in jail.~~~~~~~~~~~~",
     actor_defense,
     bg_meetingroom,
 	null);
 var scene_offer4 = new Scene("offer4",
-	"If you plead guilty now, saving the State the resources needed for a formal trial, Mr. Clark is prepared to recommend that the district court judge sentence you to " + str_conviction_months + " months rather than 24 months in jail.~~~~~~~~~~~",
+	"If you plead guilty now, saving the State the resources needed for a formal trial, Mr. Clark is prepared to recommend that the district court judge sentence you to 1 month rather than 12 months in jail.~~~~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
 	null);
@@ -436,7 +426,7 @@ var scene_offer5 = new Scene("offer5",
     bg_meetingroom,
     null);
 var scene_offer6 = new Scene("offer6",
-    "If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 24 months.~~~~~~~~~~~~~~~~~~~~~~~~~",
+    "If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 12 months.~~~~~~~~~~~~~~~~~~~~~~~~~",
     actor_defense,
     bg_meetingroom,
     null);
@@ -447,7 +437,7 @@ var scene_offer7 = new Scene("offer7",
     null);
 
 var scene_offer_F = new Scene("pleadeal",
-    "~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + str_conviction_months + " months in jail). Reject the offer and risk a more severe sentence if found guilty at trial (24 months in jail). ~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (1 month in jail). Reject the offer and risk a more severe sentence if found guilty at trial (12 months in jail). ~~~~~~",
     null,
     bg_meetingroom,
     null);

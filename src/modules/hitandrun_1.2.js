@@ -306,12 +306,6 @@ innocent_clips[avatarSex].MC.assetPalette = MainAvatar.palette;
 guilty_clips[avatarSex].MC.assetPalette = MainAvatar.palette;
 jail_cell[avatarSex].assetPalette = MainAvatar.palette;
 
-// pull randomized embedded data to determine conviction probability and plea deal jail length
-var urlparams = new URLSearchParams(window.location.search);
-
-var str_conviction_chance = urlparams.get("con_chance_0");
-var str_conviction_months = urlparams.get("con_months_0");
-
 console.log("Resetting palette for clips and actor");
 
 var scene_intro1		 = new Scene("intro1",
@@ -424,25 +418,20 @@ var scene_offer_P0		= new Scene("offer_P0",
 				bg_meetingroom,
 				null);
 
-var a_an;
-if (parseInt(str_conviction_chance) == 80)
-	a_an = "an";
-else
-	a_an = "a";
 var scene_offer_P1 = new Scene("offer_P1",
-				"Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have " + a_an + " " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
+				"Based on the security camera footage and the damage to the victim's car, ~~~~ Mr. Clark believes that he could win this case if it goes to trial.~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
 
 var scene_offer_P2		= new Scene("offer_P2",
-				"~~~~~~~~~~~If this case does go to trial,~~~~~~~~~~~~~~~~ Mr. Clark will be seeking the maximum penalty of 24 months in jail.~~~~~~~~~~~~",
+				"~~~~~~~~~~~If this case does go to trial,~~~~~~~~~~~~~~~~ Mr. Clark will be seeking the maximum penalty of 12 months in jail.~~~~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
 
 var scene_offer_P3		= new Scene("offer_P3",
-				"~~~~~~~~~~If you plead guilty now,~~~~~~~~~~~~~ saving the State the resources needed for a formal trial,~~~~~~~~~~ Mr. Clark is prepared to recommend that the district court judge sentence you to " + str_conviction_months + " months rather than 24 months in jail.~~~~~~~~~~~~~",
+				"~~~~~~~~~~If you plead guilty now,~~~~~~~~~~~~~ saving the State the resources needed for a formal trial,~~~~~~~~~~ Mr. Clark is prepared to recommend that the district court judge sentence you to 1 month in jail, rather than 12 months in jail.~~~~~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
@@ -454,7 +443,7 @@ var scene_offer_P4		= new Scene("offer_P4",
 				null);
 
 var scene_offer_P5		= new Scene("offer_P5",
-				"If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 24 months.~~~~~~~~~",
+				"If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 12 months.~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
@@ -468,7 +457,7 @@ var scene_offer_P6		= new Scene("offer_P6",
 
 
 var scene_offer_F		= new Scene("pleadeal",
-				"~~~~~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + str_conviction_months + " months in jail). Reject the offer and risk a more severe sentence if found guilty at trial (24 months in jail).~~~~~~~~",
+				"~~~~~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (1 month in jail). Reject the offer and risk a more severe sentence if found guilty at trial (12 months in jail).~~~~~~~~",
 				null,
 				bg_meetingroom,
 				null);
