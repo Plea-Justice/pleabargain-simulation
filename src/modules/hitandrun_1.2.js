@@ -321,7 +321,7 @@ var scene_intro1		 = new Scene("intro1",
 				fg_table);
 
 var scene_intro2		= new Scene("intro2",
-				"~~~~~~~~~~~~~~~~~~~~~~~~Good afternoon. ~~~~~~~~~~~~What is the nature of this case, ~~~~~~~~~~~~Mr. Clark?~~~~~~~~~~~~",
+				"~~~~~~~~~Good afternoon. ~~~~~~~~~~~~What is the nature of this case, ~~~~~~~~~~~~Mr. Clark?~~~~~~~~~~~~",
 				actor_judge,
 				bg_judge_seat,
 				null);
@@ -424,8 +424,13 @@ var scene_offer_P0		= new Scene("offer_P0",
 				bg_meetingroom,
 				null);
 
+var a_an;
+if (parseInt(str_conviction_chance) == 80)
+	a_an = "an";
+else
+	a_an = "a";
 var scene_offer_P1 = new Scene("offer_P1",
-				"Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have a " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
+				"Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have " + a_an + " " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
@@ -463,7 +468,7 @@ var scene_offer_P6		= new Scene("offer_P6",
 
 
 var scene_offer_F		= new Scene("pleadeal",
-				"~~~~~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + str_conviction_months + " months in jail). Reject the offer and risk a more severe sentence if found guilty at trial (24 months in jail)~~~~~~~~",
+				"~~~~~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + str_conviction_months + " months in jail). Reject the offer and risk a more severe sentence if found guilty at trial (24 months in jail).~~~~~~~~",
 				null,
 				bg_meetingroom,
 				null);
