@@ -321,11 +321,6 @@ var scene_intro2 = new Scene("intro2",
     actor_prosecutor,
     bg_courtroom,
     fg_table);
-var scene_intro2 = new Scene("intro2",
-    username + " is accused of committing larceny occurring around 12:30PM on the 1st day of July in the year 2019.~~~~~~~~~~~~~~~",
-    actor_prosecutor,
-    bg_courtroom,
-    fg_table);
 var scene_intro3 = new Scene("intro3",
     "~~~~~~~~~~~~~~In accordance with state law, larceny occurs when one steals the property of another. ~~~~~~~~~~~~~~~~",
     actor_prosecutor,
@@ -364,7 +359,7 @@ var scene_post_crime_footage1 = new Scene("pcf1",
     fg_table);
 
  var scene_post_crime_footage2 = new Scene("pcf2",
-    "Theft of these sunglasses is a clear larceny,~~~ which,~~~~ given the value of these glasses is considered a felony offence punishable by imprisonment.~~~~~~~~~",
+    "Theft of these sunglasses is a clear larceny,~~~ which,~~~~ given the value of these glasses is considered a felony offense punishable by imprisonment.~~~~~~~~~",
     actor_prosecutor,
     bg_courtroom,
     fg_table);
@@ -414,8 +409,13 @@ var scene_offer1 = new Scene("offer1",
     bg_meetingroom,
     null);
 
+var a_an;
+if (parseInt(str_conviction_chance) == 80)
+	a_an = "an";
+else
+	a_an = "a";
 var scene_offer2 = new Scene("offer2",
-    "Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have a " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
+    "Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have " + a_an + " " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
     null);
