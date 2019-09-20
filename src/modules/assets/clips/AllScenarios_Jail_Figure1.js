@@ -262,17 +262,17 @@ if (this.assetPalette.hair == 0) 	this.timeline.addTween(cjs.Tween.get({}).to({s
 	this.instance.parent = this;
 	this.instance.setTransform(1938.75,219.9);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).to({x:-1333.7,y:190.45},189).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(189).to({startPosition:0},0).wait(1));
 
 	// Sky2
 	this.instance_1 = new lib.Tween11("synched",0);
 	this.instance_1.parent = this;
 	this.instance_1.setTransform(1888.65,221.9,1.38,0.39,0,0,0,0.1,0.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).to({x:-1244.35},189).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(189).to({startPosition:0},0).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(-2301.4,505.1,6167.9,1033.4);
+p.nominalBounds = new cjs.Rectangle(902.3,505.1,2964.2,1033.4);
 // library properties:
 lib.properties = {
 	id: '7B220A6A3B8849148DBA4188D3D09284',
