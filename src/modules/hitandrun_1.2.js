@@ -327,7 +327,7 @@ var scene_intro2		= new Scene("intro2",
 				null);
 
 var scene_initial_P0  = new Scene("initial_P0",
-				"~~~~~~~~~~~~~~~~~~~~" + username + " is accused of being involved in a hit-and-run ~~~~occurring around 6 PM ~~~~on the 26th day of March ~~~~in the year 2019.~~~~~~~~~",
+				"~~~~~~~~~~~~~~~~~~~~" + username + " is accused of being involved in a hit-and-run ~~~~occurring around 6 PM ~~~~on the 26th day of June ~~~~in the year 2019.~~~~~~~~~",
 				actor_prosecutor,
 				bg_p_courtroom,
 				fg_table);
