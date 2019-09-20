@@ -430,7 +430,7 @@ if (parseInt(str_conviction_chance) == 80)
 else
 	a_an = "a";
 var scene_offer_P1 = new Scene("offer_P1",
-				"Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have " + a_an + " " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
+				"Based on the security camera footage and the damage to the victim's car, I would estimate that you have " + a_an + " " + str_conviction_chance + " percent chance of being convicted if this case goes to trial.~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
