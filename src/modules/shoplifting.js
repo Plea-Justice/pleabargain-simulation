@@ -317,7 +317,7 @@ var scene_intro1 = new Scene("intro1",
     bg_judge_courtroom,
     fg_table);
 var scene_intro2 = new Scene("intro2",
-    username + " is accused of committing larceny occurring around 6 PM on the 3rd day of November in the year 2019.~~~~~~~~~~~~~~~",
+    username + " is accused of committing larceny occurring around 12 PM on the 3rd day of November in the year 2018.~~~~~~~~~~~~~~~",
     actor_prosecutor,
     bg_courtroom,
     fg_table);
