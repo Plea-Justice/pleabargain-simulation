@@ -327,7 +327,7 @@ var scene_intro2		= new Scene("intro2",
 				null);
 
 var scene_initial_P0  = new Scene("initial_P0",
-				"~~~~~~~~~~~~~~~~~~~~" + username + " is accused of being involved in a hit-and-run ~~~~occurring around 6 PM ~~~~on the 26th day of June ~~~~in the year 2019.~~~~~~~~~",
+				"~~~~~~~~~~~~~~~~~~~~" + username + " is accused of being involved in a hit-and-run ~~~~occurring around 6PM ~~~~on the 26th day of June ~~~~in the year 2019.~~~~~~~~~",
 				actor_prosecutor,
 				bg_p_courtroom,
 				fg_table);
@@ -383,7 +383,7 @@ var scene_initial_J1 = new Scene("initial_J1",
 				null);
 
 var scene_initial_J4 = new Scene("initial_J4",
-				"~~~~~~~~You have the right to request the appointment of counsel ~~~~~~~~~if you cannot afford counsel;~~~~~~~ the right to not make a statement;~~~~~~~~~~ and the right to a jury trial,~~~~~~~~~~~~~ judgement,~~~~~~~~~~~ and sentencing ~~~~~~~~~~before a district judge.~~~~~~~~",
+				"~~~~~~~~You have the right to request the appointment of counsel if you cannot afford counsel;~~~~~~~ the right to not make a statement;~~~~~~~~~~ and the right to a jury trial,~~~~~~~~~~~~~ judgment,~~~~~~~~~~~ and sentencing ~~~~~~~~~~before a district judge.~~~~~~~~",
 				actor_judge,
 				bg_judge_seat,
 				null);
