@@ -312,7 +312,7 @@ var scene_intro1 = new Scene("intro1",
     bg_judge_courtroom,
     fg_table);
 var scene_intro2 = new Scene("intro2",
-    username + " is accused of committing larceny occurring around 6 PM on the 3rd day of November in the year 2019.~~~~~~~~~~~~~~~",
+    username + " is accused of committing larceny occurring around 12PM on the 3rd day of November in the year 2018.~~~~~~~~~~~~~~~",
     actor_prosecutor,
     bg_courtroom,
     fg_table);
@@ -342,7 +342,7 @@ var scene_intro7 = new Scene("intro7",
     bg_courtroom,
 	fg_table);
 var scene_intro8 = new Scene("intro8",
-	"There is also security footage provided by the owner of the sunglasses shop where the theft occurred that shows the defendant walking toward the exit wearing the sunglasses~~~~~~~~~~~~~~",
+	"There is also security footage provided by the owner of the sunglasses shop where the theft occurred that shows the defendant walking toward the exit wearing the sunglasses.~~~~~~~~~~~~~~",
 	actor_prosecutor,
 	bg_courtroom,
 	fg_table);
@@ -370,7 +370,7 @@ var scene_post_crime_footage4 = new Scene("pcf4",
     bg_judge_courtroom,
     null);
 var scene_post_crime_footage5 = new Scene("pcf5",
-"~~~~~~~~You have the right to request the appointment of counsel ~~~~~~~~~if you cannot afford counsel;~~~~~~~ the right to not make a statement;~~~~~~~~~~ and the right to a jury trial,~~~~~~~~~~~~~ judgement,~~~~~~~~~~~ and sentencing ~~~~~~~~~~before a district judge.~~~~~~~~",
+"~~~~~~~~You have the right to request the appointment of counsel if you cannot afford counsel;~~~~~~~ the right to not make a statement;~~~~~~~~~~ and the right to a jury trial,~~~~~~~~~~~~~ judgment,~~~~~~~~~~~ and sentencing ~~~~~~~~~~before a district judge.~~~~~~~~",
     actor_judge,
     bg_judge_courtroom,
     null);
