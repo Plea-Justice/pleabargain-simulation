@@ -179,6 +179,19 @@ if ("hair" in inParams) {
 } else {
   alert("ERROR: Parameter Parsing - Invalid hair in Palette: " + inParams["hair"]);
 }
+
+var rec = false;
+if ("guilt_1" in inParams) {
+    if (inParams["rec"] == "accept")
+        rec = true;
+    else if (inParams["rec"] == "reject")
+        rec = false;
+    else
+        alert("ERROR: Parameter Parsing - Invalid Module Setting 'rec': " + inParams["rec"]);
+}
+else
+    alert("ERROR: Parameter Parsing - Missing Module Setting 'rec'");
+
 // END OF MANIFEST OF PARAMETER USAGE
 
 // MANIFEST OF NEW CUSTOMIZER WITH PASSED PARAMETERS
@@ -431,6 +444,34 @@ var scene_offer6 = new Scene("offer6",
     bg_meetingroom,
     null);
 var scene_offer7 = new Scene("offer7",
+	"Really,~~~~~ it boils down to this:~~~~~ you never know if the prosecutor will come back with another offer or what that offer will look like.~~~~~~~~~~~~~~~~~",
+	actor_defense,
+	bg_meetingroom,
+    null);
+var scene_offer8 = new Scene("offer8",
+	"Sure,~~~~they could always come back with a better offer. ~~~~~~~Or they could decide not to bargain with you anymore, ~~~~~come back with the same offer, ~~~~~or offer a less desirable plea deal than this one.~~~~~~",
+	actor_defense,
+	bg_meetingroom,
+    null);
+
+if (rec)
+{
+    var scene_offer9 = new Scene("offer9",
+	"It really could go in any direction.~~~~~ But this is your decision to make.~~~~~~ But,~~~~ I think you should accept this offer.~~~~~~~~~~",
+	actor_defense,
+	bg_meetingroom,
+    null);
+}
+else 
+{
+    var scene_offer9 = new Scene("offer9",
+	"It really could go in any direction.~~~~~ But this is your decision to make.~~~~~~ But,~~~~ I think you should reject this offer.~~~~~~~~~~",
+	actor_defense,
+	bg_meetingroom,
+    null);
+}
+
+var scene_offer10 = new Scene("offer10",
 	"Your signature will indicate your agreement to plead guilty and forgo your right to a trial.~~~~~~~~~~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
@@ -483,7 +524,10 @@ scene_offer3.setNext(scene_offer4, "a");
 scene_offer4.setNext(scene_offer5, "a");
 scene_offer5.setNext(scene_offer6, "a");
 scene_offer6.setNext(scene_offer7, "a");
-scene_offer7.setNext(scene_offer_F, "a");
+scene_offer7.setNext(scene_offer8, "a");
+scene_offer8.setNext(scene_offer9, "a");
+scene_offer9.setNext(scene_offer10, "a");
+scene_offer10.setNext(scene_offer_F, "a");
 
 scene_offer_F.setNext(null, "pleadguilty");
 scene_offer_F.setNext(null, "rejectoffer");
