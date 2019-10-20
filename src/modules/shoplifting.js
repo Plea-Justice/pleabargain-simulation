@@ -449,7 +449,7 @@ var scene_offer7 = new Scene("offer7",
 	bg_meetingroom,
     null);
 var scene_offer8 = new Scene("offer8",
-	"Sure,~~~~they could always come back with a better offer. ~~~~~~~Or they could decide not to bargain with you anymore, ~~~~~come back with the same offer, ~~~~~or offer a less desirable plea deal than this one.~~~~~~",
+	"Sure,~~~~ they could always come back with a better offer. ~~~~~~~Or they could decide not to bargain with you anymore, ~~~~~come back with the same offer, ~~~~~or offer a less desirable plea deal than this one.~~~~~~",
 	actor_defense,
 	bg_meetingroom,
     null);
