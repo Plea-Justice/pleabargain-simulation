@@ -180,12 +180,12 @@ if ("hair" in inParams) {
   alert("ERROR: Parameter Parsing - Invalid hair in Palette: " + inParams["hair"]);
 }
 
-var rec = false;
-if ("guilt_1" in inParams) {
+var da_rec = false;
+if ("rec" in inParams) {
     if (inParams["rec"] == "accept")
-        rec = true;
+        da_rec = true;
     else if (inParams["rec"] == "reject")
-        rec = false;
+        da_rec = false;
     else
         alert("ERROR: Parameter Parsing - Invalid Module Setting 'rec': " + inParams["rec"]);
 }
@@ -454,7 +454,7 @@ var scene_offer8 = new Scene("offer8",
 	bg_meetingroom,
     null);
 
-if (rec)
+if (da_rec)
 {
     var scene_offer9 = new Scene("offer9",
 	"It really could go in any direction.~~~~~ But this is your decision to make.~~~~~~ But,~~~~ I think you should accept this offer.~~~~~~~~~~",
