@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div id="section">
-                <button id="nextCloseFigSelect" class="openModalButton"onclick="closeModal('Figure-Selector')">Next &#x1f846;</button>
+                <button id="closeFigSelector" class="nextButtons"onclick="closeModal('Figure-Selector')">Next &#x1f846;</button>
             </div>
         </div>
     </div>
@@ -109,10 +109,6 @@
     </div>
     <!-- Creating buttons to change styles to the right -->
     <div id="button-wrap">
-        <!-- figure selector buttons -->
-        <div id="section">
-            <button id="OpenFigureSelector" class="openModalButton" onclick="openModal('Figure-Selector')">&#x1f844; Back to Figure Selection</button>
-        </div>
 
         <!-- Buttons for changing Hair -->
         <div id="section">
@@ -156,13 +152,15 @@
             <button id="OpenOutfitPicker" class="openModalButton" onclick="openPicker(avastruct_outfit)">Select Outfit Color</button>
         </div>
 
-        <!-- Next Button for going into the simulation -->
-        <div id="NextButton">
-            <div id="section">
-                <button id="nextButton" class="openModalButton" onClick="setAvatar();">Done &#x1f846;</button>
-            </div>
-        </div>
       </div>
+    </div>
+    <!-- Next Button for going into the simulation -->
+    <div id="navControls">
+        <!-- figure selector buttons -->
+        <div id="section">
+           <button id="openFigSelector" class="nextButtons" onclick="openModal('Figure-Selector')">&#x1f844; Back to Figure Selection</button>
+            <button id="returnToQualtrics" class="nextButtons" onClick="setAvatar();">Done &#x1f846;</button>
+        </div>
     </div>
 
 

@@ -39,7 +39,7 @@ div.buttons {
 div#canvas-wrap {
   float: left;
   width: 50%;
-  height: 90%;
+  height: 85%;
   margin-top: -100px;
   overflow: hidden;
   position: relative;
@@ -67,29 +67,32 @@ div#canvas-wrap {
     font-size: 20px;
 }
 
-#NextButton {
-    margin-top: 2em;
+#navControls {
+    bottom: 3%;
+    position: fixed;
+    margin-right: 5%;
+    margin-left: 5%;
+    width: 90%
 }
 
-
-#nextButton {
-    background-color: lightgray;
-    color: black;
-    padding: 15px 25px;
-    text-align: center;
-    font-weight: bold;
+#openFigSelector {
+    float: left;
 }
-
-#nextCloseFigSelect {
-    background-color: lightgray;
-    color: black;
-    padding: 15px 25px;
-    text-align: center;
-    font-weight: bold;
+#returnToQualtrics {
+    float: right;
 }
 
 
 /* modal */
+
+
+.nextButtons {
+    background-color: lightgray;
+    color: black;
+    padding: 15px 25px;
+    text-align: center;
+    font-weight: bold;
+}
 
 .openModalButton{
     padding: 10px 25px;
