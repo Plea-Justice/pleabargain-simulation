@@ -41,7 +41,7 @@
     <!-- Modals for figure selector and color picker-->
     <div id="Figure-Selector" class="figure_background">
         <div id="Figure-Selector-Content" class="mcontent_figure">
-            <h3>Select Your Figure:</h3>
+            <h3>Please select a figure for your avatar, then click "Next".</h3>
             <div id="figure_button_wrap">
                 <div id="SexButtonM" class="figure_button" onclick="changeSexMale()">
                     <img src="modules/assets/customizer/SilhouetteFigure0.png" alt="image" style="width: 100%">
@@ -50,7 +50,9 @@
                     <img src="modules/assets/customizer/SilhouetteFigure1.png" alt="image" style="width: 100%">
                 </div>
             </div>
-            <a id="nextCloseFigSelect" onclick="closeModal('Figure-Selector')">Next</a>
+            <div id="section">
+                <button id="nextCloseFigSelect" class="openModalButton"onclick="closeModal('Figure-Selector')">Next &#x1f846;</button>
+            </div>
         </div>
     </div>
 
@@ -98,7 +100,8 @@
         </div>
     </div>
 
-    <h1>Create Your Own Avatar</h1>
+    <h1>Create Your Avatar</h1>
+    <p>Select your avatar’s physical traits below. When you are done, click “Done”.</p>
 
     <div id="canvas-wrap">
       <!-- Creating Canvas using the createjs library -->
@@ -108,7 +111,7 @@
     <div id="button-wrap">
         <!-- figure selector buttons -->
         <div id="section">
-            <button id="OpenFigureSelector" onclick="openModal('Figure-Selector')">Reselect Figure</button>
+            <button id="OpenFigureSelector" class="openModalButton" onclick="openModal('Figure-Selector')">&#x1f844; Back to Figure Selection</button>
         </div>
 
         <!-- Buttons for changing Hair -->
@@ -156,7 +159,7 @@
         <!-- Next Button for going into the simulation -->
         <div id="NextButton">
             <div id="section">
-                <a id="nextButton" onClick="setAvatar();">Next</a>
+                <button id="nextButton" class="openModalButton" onClick="setAvatar();">Done &#x1f846;</button>
             </div>
         </div>
       </div>
