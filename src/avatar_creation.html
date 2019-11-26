@@ -37,7 +37,22 @@
 
 </head>
 <body onload="initCustomizer()">
-
+    <!-- Modal intro message-->
+    <div id="Intro-Message" class="intro_background">
+        <div class="progress_bar">
+            <img src="modules/assets/customizer/ProgressBar0.png" alt="Page 1/3" style="height: 20px">
+        </div>
+        <div id="introContent">
+            <h3>You are about to create an avatar who will go through two simulated scenarios.</h3>
+            <h3>On the next page, you may customize your avatar to your liking.</h3>
+            <br>
+            <h3>Click "Next" when you are ready to create your avatar.</h3>
+            <br><br>
+            <div id="section">
+                <button id="closeIntroMessage" class="nextButtons"onclick="closeModal('Intro-Message')">Next &#x2b95;</button>
+            </div>
+        </div>
+    </div>
     <!-- Modals for figure selector and color picker-->
     <div id="Figure-Selector" class="figure_background">
         <div class="progress_bar">

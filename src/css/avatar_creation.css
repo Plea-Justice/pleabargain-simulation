@@ -82,6 +82,11 @@ div#canvas-wrap {
     float: right;
 }
 
+#introContent {
+    margin: auto;
+    width: 60vw;
+    height: 31vw;
+}
 
 /* modal */
 
@@ -158,6 +163,15 @@ div#canvas-wrap {
     display: flex;
     position: absolute;
     z-index: 1;
+    background-color: #202020;
+}
+
+.intro_background {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    z-index: 2;
     background-color: #202020;
 }
 
