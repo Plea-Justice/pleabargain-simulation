@@ -14,6 +14,7 @@ body {
   text-align: center;
   height: 100vh;
   width: 100vw;
+  position: absolute;
 }
 
 #Figure-Selector-Content button {
@@ -25,10 +26,9 @@ div#Figure-Selector-Content h3 {
 }
 
 #button-wrap {
-  float: left;
-  padding: 5%;
+  float: right;
   width: 40%;
-  height: auto;
+  height: 80%;
   vertical-align: middle;
 }
 
@@ -172,14 +172,11 @@ div#canvas-wrap {
     min-height: 150px;
 }
 
-
 #figure_button_wrap{
     display: inline-flex;
     width: 100%;
     height: 97%;
 }
-
-
 
 .figure_button{
     -webkit-user-select: none; /* Safari */
@@ -193,7 +190,6 @@ div#canvas-wrap {
     margin-left: 2.5%;
     margin-right: 2.5%;
 }
-
 
 .figure_button:hover{
     background-color: rgb(201, 201, 201);
@@ -211,4 +207,11 @@ div#canvas-wrap {
     height: 90%;
     margin-left: 2.5%;
     margin-right: 2.5%;
+}
+
+.progress_bar {
+    margin: 0;
+    top: 1%;
+    width: 100%;
+    position: absolute;
 }

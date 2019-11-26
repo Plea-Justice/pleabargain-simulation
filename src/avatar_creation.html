@@ -40,7 +40,11 @@
 
     <!-- Modals for figure selector and color picker-->
     <div id="Figure-Selector" class="figure_background">
+        <div class="progress_bar">
+            <img src="modules/assets/customizer/ProgressBar1.png" alt="Page 2/3" style="height: 20px">
+        </div>
         <div id="Figure-Selector-Content" class="mcontent_figure">
+            
             <h3>Please select a figure for your avatar, then click "Next".</h3>
             <div id="figure_button_wrap">
                 <div id="SexButtonM" class="figure_button" onclick="changeSexMale()">
@@ -51,7 +55,7 @@
                 </div>
             </div>
             <div id="section">
-                <button id="closeFigSelector" class="nextButtons"onclick="closeModal('Figure-Selector')">Next &#x1f846;</button>
+                <button id="closeFigSelector" class="nextButtons"onclick="closeModal('Figure-Selector')">Next &#x2b95;</button>
             </div>
         </div>
     </div>
@@ -99,17 +103,18 @@
             </div>
         </div>
     </div>
-
+    <div class="progress_bar">
+            <img src="modules/assets/customizer/ProgressBar2.png" alt="Page 3/3" style="height: 20px">
+    </div>
+    <br>
     <h1>Create Your Avatar</h1>
-    <p>Select your avatar’s physical traits below. When you are done, click “Done”.</p>
-
     <div id="canvas-wrap">
       <!-- Creating Canvas using the createjs library -->
       <canvas id="canvas" width="1920" height="1080"></canvas>
     </div>
     <!-- Creating buttons to change styles to the right -->
     <div id="button-wrap">
-
+        <p>Select your avatar’s physical traits below. <br>When you are done, click "Done".</p>
         <!-- Buttons for changing Hair -->
         <div id="section">
             <button id="PreviousEye" onclick="prevEye()">
@@ -158,8 +163,8 @@
     <div id="navControls">
         <!-- figure selector buttons -->
         <div id="section">
-           <button id="openFigSelector" class="nextButtons" onclick="openModal('Figure-Selector')">&#x1f844; Back to Figure Selection</button>
-            <button id="returnToQualtrics" class="nextButtons" onClick="setAvatar();">Done &#x1f846;</button>
+           <button id="openFigSelector" class="nextButtons" onclick="openModal('Figure-Selector')">&#x2b05; Back to Figure Selection</button>
+            <button id="returnToQualtrics" class="nextButtons" onClick="setAvatar();">Done &#x2b95;</button>
         </div>
     </div>
 
