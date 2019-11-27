@@ -457,7 +457,7 @@ var scene_offer8 = new Scene("offer8",
 if (da_rec)
 {
     var scene_offer9 = new Scene("offer9",
-	"It really could go in any direction.~~~~~ But this is your decision to make.~~~~~~ But,~~~~ I think you should accept this offer.~~~~~~~~~~",
+	"It really could go in any direction.~~~~~ While this is your decision to make,~~~~~ I think you should accept this offer.~~~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
     null);
@@ -465,7 +465,7 @@ if (da_rec)
 else 
 {
     var scene_offer9 = new Scene("offer9",
-	"It really could go in any direction.~~~~~ But this is your decision to make.~~~~~~ But,~~~~ I think you should reject this offer.~~~~~~~~~~",
+	"It really could go in any direction.~~~~~ While this is your decision to make,~~~~~ I think you should reject this offer.~~~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
     null);
