@@ -75,9 +75,50 @@
         </div>
     </div>
 
-    <div id="Hair-Color-Picker" class="modal_background">
+    <div id="Hair-Color-Picker" class="modal_background" style="left:20%;">
         <div id="Hair-Picker-Content" class="mcontent_color">
-                <canvas id="hair-color-picker" class="color-picker"></canvas>
+                <canvas id="hair-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
+				<table id="hair-color-presets">
+					<tbody>
+						<tr>
+							<td>
+								<div id="hair-preset-brown" class="selected-color" style="background-color:#2A1616" onClick="presetHairPicked(this)"></div>
+							</td>
+							<td>
+								<div id="hair-preset-light-brown" class="selected-color" style="background-color:#8B4513" onClick="presetHairPicked(this)"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="hair-preset-dark-blonde" class="selected-color" style="background-color:#9FA717" onClick="presetHairPicked(this)"></div>
+							</td>
+							<td>
+								<div id="hair-preset-light-blonde" class="selected-color" style="background-color:#DEE1AB" onClick="presetHairPicked(this)"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="hair-preset-grey" class="selected-color" style="background-color:#B1B1B1" onClick="presetHairPicked(this)"></div>
+							</td>
+							<td>
+								<div id="hair-preset-white" class="selected-color" style="background-color:#FFFFFF" onClick="presetHairPicked(this)"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="hair-preset-dark-red" class="selected-color" style="background-color:#610F0F" onClick="presetHairPicked(this)"></div>
+							</td>
+							<td>
+								<div id="hair-preset-light-red" class="selected-color" style="background-color:#D03B20" onClick="presetHairPicked(this)"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="hair-preset-black" class="selected-color" style="background-color:#000000" onClick="presetHairPicked(this)"></div>								
+							</td>
+						</tr>
+					</tbody>
+				</table>
                 <div>
                     <div id="hair-selected-color" class="selected-color"></div>
                     <button class="close_button" onclick="closePickerCancel(avastruct_hair)">&#x2716;</button>
@@ -86,9 +127,37 @@
         </div>
     </div>
 
-    <div id="Eye-Color-Picker" class="modal_background">
+    <div id="Eye-Color-Picker" class="modal_background" style="left:20%;">
         <div id="Eye-Picker-Content" class="mcontent_color">
-            <canvas id="eye-color-picker" class="color-picker"></canvas>
+            <canvas id="eye-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
+			<table id="eye-color-presets">
+					<tbody>
+						<tr>
+							<td>
+								<div id="eye-preset-brown" class="selected-color" style="background-color:#2C1717" onClick="presetEyePicked(this)"></div>
+							</td>
+							<td>
+								<div id="eye-preset-hazel" class="selected-color" style="background-color:#807532" onClick="presetEyePicked(this)"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="eye-preset-blue" class="selected-color" style="background-color:#2B34C8" onClick="presetEyePicked(this)"></div>
+							</td>
+							<td>
+								<div id="eye-preset-green" class="selected-color" style="background-color:#2EB81A" onClick="presetEyePicked(this)"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="eye-preset-amber" class="selected-color" style="background-color:#FFBF00" onClick="presetEyePicked(this)"></div>
+							</td>
+							<td>
+								<div id="eye-preset-grey" class="selected-color" style="background-color:#B1B1B1" onClick="presetEyePicked(this)"></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
             <div>
                 <div id="eye-selected-color" class="selected-color"></div>
                 <button class="close_button" onclick="closePickerCancel(avastruct_eye)">&#x2716;</button>
@@ -97,10 +166,38 @@
         </div>
     </div>
 
-    <div id="Skin-Color-Picker" class="modal_background">
+    <div id="Skin-Color-Picker" class="modal_background" style="left:20%;">
         <div id="Skin-Picker-Content" class="mcontent_color">
-            <canvas id="skin-color-picker" class="color-picker"></canvas>
-            <div>
+            <canvas id="skin-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
+			<table id="skin-color-presets">
+				<tbody>
+					<tr>
+						<td>
+							<div id="skin-preset-dark-brown" class="selected-color" style="background-color:#503335" onClick="presetSkinPicked(this)"></div>
+						</td>
+						<td>
+							<div id="skin-preset-dark-peach" class="selected-color" style="background-color:#c58c85" onClick="presetSkinPicked(this)"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div id="skin-preset-medium-brown" class="selected-color" style="background-color:#592f2a" onClick="presetSkinPicked(this)"></div>
+						</td>
+						<td>
+							<div id="skin-preset-medium-peach" class="selected-color" style="background-color:#d1a3a4" onClick="presetSkinPicked(this)"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div id="skin-preset-light-brown" class="selected-color" style="background-color:#a1665e" onClick="presetSkinPicked(this)"></div>
+						</td>
+						<td>
+							<div id="skin-preset-light-peach" class="selected-color" style="background-color:#ecbcb4" onClick="presetSkinPicked(this)"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
                 <div id="skin-selected-color" class="selected-color"></div>
                 <button class="close_button" onclick="closePickerCancel(avastruct_skin)">&#x2716;</button>
                 <button class="close_button" onclick="closePickerOK(avastruct_skin)">&#x2714;</button>
@@ -108,9 +205,9 @@
         </div>
     </div>
 
-    <div id="Outfit-Color-Picker" class="modal_background">
+    <div id="Outfit-Color-Picker" class="modal_background" style="left:20%;">
         <div id="Outfit-Picker-Content" class="mcontent_color">
-            <canvas id="outfit-color-picker" class="color-picker"></canvas>
+            <canvas id="outfit-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
             <div>
                 <div id="outfit-selected-color" class="selected-color"></div>
                 <button class="close_button" onclick="closePickerCancel(avastruct_outfit)">&#x2716;</button>
