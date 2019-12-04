@@ -200,7 +200,9 @@ var scene_offer_F = new Scene("pleadeal",
 console.log("LOADING SCENE TRANSITION MANIFEST");
 var initialScene = scene_offer1;
 
-MainAvatar.setNext(scene_offer1, "a");
+MainAvatar.setNext(initialScene, "a");
+
+initialScene.setNext(scene_offer1);
 scene_offer1.setNext(scene_offer_F, "a");
 
 scene_offer_F.setNext(null, "pleadguilty");
