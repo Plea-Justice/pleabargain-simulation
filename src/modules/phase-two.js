@@ -64,6 +64,29 @@ else
 
 surveyURL += "&email=" + email;
 
+var skinA = "#FFFFFF";
+
+var skinB = "#FFFFFF";
+
+var hairA = "#FFFFFF";
+
+var hairB = "#FFFFFF";
+
+var eyeA = "#FFFFFF";
+
+var eyeB = "#FFFFFF";
+
+var outfitA = "#FFFFFF";
+
+var outfitB = "#FFFFFF";
+
+var avatarSex = 0;
+
+var avatarNum = 0;
+var avatarEyes = 0, avatarHair = 0;
+
+
+
 // END OF MANIFEST OF PARAMETER USAGE
 
 // MANIFEST OF NEW CUSTOMIZER WITH PASSED PARAMETERS
