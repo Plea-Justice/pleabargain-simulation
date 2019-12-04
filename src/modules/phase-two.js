@@ -22,7 +22,6 @@ if ("SURL" in inParams) {
 console.log("SurveyURL set to " + surveyURL);
 
 // CREATING EXIT SURVEY VARIABLE
-surveyURL += "&sim_done=true";
 
 // CHECKING USERNAME FROM QUALTRICS FORM
 var username = "ERROR";
@@ -65,90 +64,6 @@ else
 
 surveyURL += "&email=" + email;
 
-// Parsing the URL for Palette and slip/avatar indicies
-var skinA = "#FFFFFF";
-if ("skinA" in inParams) {
-	skinA = inParams["skinA"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid skinA of Palette: " + inParams["skinA"]);
-}
-
-var skinB = "#FFFFFF";
-if ("skinB" in inParams) {
-	skinB = inParams["skinB"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid skinB of Palette: " + inParams["skinB"]);
-}
-
-var hairA = "#FFFFFF";
-if ("hairA" in inParams) {
-	hairA = inParams["hairA"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid hairA of Palette: " + inParams["hairA"]);
-}
-
-var hairB = "#FFFFFF";
-if ("hairB" in inParams) {
-	hairB = inParams["hairB"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid hairB of Palette: " + inParams["hairB"]);
-}
-
-var eyeA = "#FFFFFF";
-if ("eyeA" in inParams) {
-	eyeA = inParams["eyeA"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid eyeA of Palette: " + inParams["eyeA"]);
-}
-
-var eyeB = "#FFFFFF";
-if ("eyeB" in inParams) {
-	eyeB = inParams["eyeB"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid eyeB of Palette: " + inParams["eyeB"]);
-}
-
-var outfitA = "#FFFFFF";
-if ("outfitA" in inParams) {
-	outfitA = inParams["outfitA"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid outfitA of Palette: " + inParams["outfitA"]);
-}
-
-var outfitB = "#FFFFFF";
-if ("outfitB" in inParams) {
-	outfitB = inParams["outfitB"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid outfitB of Palette: " + inParams["outfitB"]);
-}
-
-var avatarSex = 0;
-if ("avatarSex" in inParams) {
-	avatarSex = inParams["avatarSex"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid avatarSex of Palette: " + inParams["avatarSex"]);
-}
-
-var avatarNum = 0;
-if ("avatarNum" in inParams) {
-	avatarNum = inParams["avatarNum"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid avatarNum of Palette: " + inParams["avatarNum"]);
-}
-
-var avatarEyes, avatarHair;
-
-if ("eyes" in inParams) {
-  avatarEyes = inParams["eyes"];
-} else {
-  alert("ERROR: Parameter Parsing - Invalid eyes in Palette: " + inParams["eyes"]);
-}
-
-if ("hair" in inParams) {
-  avatarHair = inParams["hair"];
-} else {
-  alert("ERROR: Parameter Parsing - Invalid hair in Palette: " + inParams["hair"]);
-}
 // END OF MANIFEST OF PARAMETER USAGE
 
 // MANIFEST OF NEW CUSTOMIZER WITH PASSED PARAMETERS
