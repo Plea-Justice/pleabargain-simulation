@@ -20,20 +20,8 @@ if ("SURL" in inParams) {
 }
 console.log("SurveyURL set to " + surveyURL);
 
-var mod_counter = 0;
-if ("module" in inParams) {
-	mod_counter = inParams["module"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid Module Setting 'module': " + inParams["module"]);
-}
-
-var mod = 0;
-if ("module" in inParams) {
-	console.log("module: " + inParams["module"]);
-	mod = inParams["module"];
-} else {
-	alert("ERROR: Parameter Parsing - Invalid Module Setting 'module': " + inParams["module"]);
-}
+// CREATING EXIT SURVEY VARIABLE
+surveyURL += "&sim_done=true";
 
 var username = "ERROR";
 if ("Name" in inParams)
@@ -42,21 +30,6 @@ else
   alert("ERROR: Parameter Parsing - Invalid Module Setting 'Name': " + inParams["Name"]);
 console.log("Username set to " + username);
 
-var guilt = false;
-if ("guilt_0" in inParams) {
-  if (inParams["guilt_0"] == "innocent")
-    guilt = false;
-  else if (inParams["guilt_0"] == "guilty")
-    guilt = true;
-  else
-    alert("ERROR: Parameter Parsing - Invalid Module Setting 'guilt_0': " + inParams["guilt_0"]);
-}
-else
-  alert("ERROR: Parameter Parsing - Missing Module Setting 'guilt_0'");
-
-surveyURL += "guilt=" + guilt;
-
-console.log("Guilt set to " + guilt);
 
 var locale = en_US;
 if ("Locale" in inParams) {
@@ -406,12 +379,6 @@ var scene_jail_guilty = new Scene("Jail_guilty",
 				null,
 				jail_cell[avatarSex]);
 
-var scene_jail_innocent = new Scene("Jail_innocent",
-				"~~~~~~~~~I know it was tight when I pulled out, but I didn't actually come into contact with that person's car.~~~~~~~~ When I looked in my mirror, the other car was fine!~~~~~~~ I know I'm innocent.~~~~~~~~",
-				null,
-				null,
-				jail_cell[avatarSex]);
-
 var scene_offer_P0		= new Scene("offer_P0",
 				"~~~~~~Hello,~~~ " + username + ". ~~~~~~~~~~~~~~~~I am your defense attorney, Mr. Grant.~~~~~~~~~~ Mr. Clark, the prosecutor on your case, is interested in seeing whether this case could be resolved without a trial.~~~~~~~~",
 				actor_defense,
@@ -448,16 +415,15 @@ var scene_offer_P5		= new Scene("offer_P5",
 				bg_meetingroom,
 				null);
 
-
 var scene_offer_P6		= new Scene("offer_P6",
-				"~~~~~~~~Your signature will indicate your agreement to plead guilty and forgo your right to a trial.~~~~~~~~~~",
+				"You are free to go for " + time + ",~~~~~ after which you will decide on accepting or rejecting the plea deal.~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
 
 
 var scene_offer_F		= new Scene("pleadeal",
-				"~~~~~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (1 month in jail). Reject the offer and risk a more severe sentence if found guilty at trial (12 months in jail).~~~~~~~~",
+				"Hit continue to be directed to the next part of the survey.",
 				null,
 				bg_meetingroom,
 				null);
@@ -492,18 +458,9 @@ scene_initial_J4.setNext(scene_initial_J5, "a");
 scene_initial_J5.setNext(scene_initial_J6, "a");
 scene_initial_J6.setNext(scene_jail_intro, "a");
 
-
-// Check for guilty status and transition to appropraite scene
-if (guilt) {
-	scene_jail_intro.setNext(guilty_clips[avatarSex], "a");
-	guilty_clips[avatarSex].setNext(scene_jail_guilty, "a");
-	scene_jail_guilty.setNext(scene_offer_P0, "a");
-}
-else {
-	scene_jail_intro.setNext(innocent_clips[avatarSex], "a");
-	innocent_clips[avatarSex].setNext(scene_jail_innocent, "a");
-	scene_jail_innocent.setNext(scene_offer_P0, "a");
-}
+scene_jail_intro.setNext(guilty_clips[avatarSex], "a");
+guilty_clips[avatarSex].setNext(scene_jail_guilty, "a");
+scene_jail_guilty.setNext(scene_offer_P0, "a");
 
 scene_offer_P0.setNext(scene_offer_P1, "a");
 scene_offer_P1.setNext(scene_offer_P2, "a");
@@ -512,8 +469,7 @@ scene_offer_P3.setNext(scene_offer_P4, "a");
 scene_offer_P4.setNext(scene_offer_P5, "a");
 scene_offer_P5.setNext(scene_offer_F, "a");
 
-scene_offer_F.setNext(null, "pleadguilty");
-scene_offer_F.setNext(null, "rejectoffer");
+scene_offer_F.setNext(null, "continue");
 
 
 // DEBUG: testing JSON stringification
