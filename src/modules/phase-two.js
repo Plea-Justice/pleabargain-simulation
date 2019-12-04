@@ -184,7 +184,7 @@ if (avatarSex) {
 	MainAvatar.setActorM(Actors[avatarSex]);
 }
 
-var scene_offer1 = new Scene("offer7",
+var scene_offer1 = new Scene("offer1",
 	"Your signature will indicate your agreement to plead guilty and forgo your right to a trial.~~~~~~~~~~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
@@ -198,6 +198,7 @@ var scene_offer_F = new Scene("pleadeal",
 
 // MANIFEST OF SCENE TRANSITIONS
 console.log("LOADING SCENE TRANSITION MANIFEST");
+var initialScene = scene_offer1;
 
 MainAvatar.setNext(scene_offer1, "a");
 scene_offer1.setNext(scene_offer_F, "a");

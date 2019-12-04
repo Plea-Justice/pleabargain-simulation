@@ -58,8 +58,15 @@ if ("email" in inParams)
 else
   alert("ERROR: Parameter Parsing - Invalid Module Setting 'email': " + inParams["email"]);
 
-
 surveyURL += "&email=" + email;
+
+var time;
+if ("time" in inParams)
+time = inParams["time"];
+else
+  alert("ERROR: Parameter Parsing - Invalid Module Setting 'time': " + inParams["time"]);
+
+surveyURL += "&time=" + time;
 
 // Parsing the URL for Palette and slip/avatar indicies
 var skinA = "#FFFFFF";
