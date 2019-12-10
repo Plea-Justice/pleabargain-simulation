@@ -22,7 +22,7 @@ body {
 }
 
 div#Figure-Selector-Content h3 {
-  margin: 5px;
+  margin: 10px;
 }
 
 #button-wrap {
@@ -137,6 +137,10 @@ div#canvas-wrap {
     margin-left: 10px;
 }
 
+#close_button_wrap {
+    height: 90%
+}
+
 @keyframes anim_modal {
     from {opacity: 0}
     to {opacity: 1}
@@ -203,11 +207,15 @@ div#canvas-wrap {
     height: 90%;
     margin-left: 2.5%;
     margin-right: 2.5%;
+
+    box-sizing: border-box;
 }
 
 .figure_button:hover{
     background-color: rgb(201, 201, 201);
     cursor: pointer;
+
+    border: 5px solid black;
 }
 
 .figure_button_selected{
@@ -221,6 +229,9 @@ div#canvas-wrap {
     height: 90%;
     margin-left: 2.5%;
     margin-right: 2.5%;
+
+    box-sizing: border-box;
+    border: 5px solid yellow;
 }
 
 .progress_bar {

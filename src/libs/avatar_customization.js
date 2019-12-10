@@ -133,16 +133,16 @@ function presetHairPicked(preset)
 			console.log("case error on hair");
 			break;
 	}
-	
+
 }
 
 function presetEyePicked(preset)
 {
 	switch(preset.style.backgroundColor)
 	{
-		case "rgb(44, 23, 23)":
-			avastruct_eye.picker.currentHex = "#2C1717"
-			document.getElementById("eye-selected-color").style.backgroundColor = "#2C1717";
+		case "rgb(150, 75, 0)":
+			avastruct_eye.picker.currentHex = "#964b00"
+			document.getElementById("eye-selected-color").style.backgroundColor = "#964b00";
 			refreshColors();
 			break;
 		case "rgb(128, 117, 50)":
@@ -160,9 +160,9 @@ function presetEyePicked(preset)
 			document.getElementById("eye-selected-color").style.backgroundColor = "#2EB81A";
 			refreshColors();
 			break;
-		case "rgb(255, 191, 0)":
-			avastruct_eye.picker.currentHex = "#FFBF00"
-			document.getElementById("eye-selected-color").style.backgroundColor = "#FFBF00";
+		case "rgb(133, 191, 213)":
+			avastruct_eye.picker.currentHex = "#85bfd5"
+			document.getElementById("eye-selected-color").style.backgroundColor = "#85bfd5";
 			refreshColors();
 			break;
 		case "rgb(177, 177, 177)":
@@ -174,7 +174,7 @@ function presetEyePicked(preset)
 			console.log("case error on eye");
 			break;
 	}
-	
+
 }
 
 function presetSkinPicked(preset)
@@ -215,7 +215,7 @@ function presetSkinPicked(preset)
 			console.log("case error on skin");
 			break;
 	}
-	
+
 }
 
 // keeps changes to color
@@ -229,7 +229,7 @@ function openModal(target)  {document.getElementById(target).style.display = "fl
 function closeModal(target)  {document.getElementById(target).style.display = "none";}
 
 function refreshColors()
-{	
+{
     stage.removeAllChildren();
     mainAvatar.setHair(avastruct_hair.picker.currentHex, avastruct_hair.picker.secondaryHex);
     mainAvatar.setEye(avastruct_eye.picker.currentHex, avastruct_eye.picker.secondaryHex);
