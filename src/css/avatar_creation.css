@@ -102,6 +102,7 @@ div#canvas-wrap {
 .openModalButton{
     padding: 10px 25px;
     margin: 6px;
+    width: 200px;
 }
 
 .modal_background {
@@ -126,19 +127,32 @@ div#canvas-wrap {
     margin-top: 10vh;
     padding: 10px;
     border: 2px solid grey;
+    border-radius: 10px;
     background-color: #3b3b3b;
 }
 
-.close_button {
-    color: grey;
+.okay_button {
     font-size: 20px;
-    font-weight: bold;
     display: inline-flex;
     margin-left: 10px;
+    background-color: lightgray;
+    padding: 4px;
+    border-radius: 4px;
 }
 
-#close_button_wrap {
-    height: 90%
+.close_button {
+    color: #232323;
+    height: 30px;
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    font-size: 40px;
+    margin-right: 6px;
+}
+
+#Eye, #Hair {
+    width: 100px;
 }
 
 @keyframes anim_modal {

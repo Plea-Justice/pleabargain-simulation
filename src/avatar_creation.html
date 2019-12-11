@@ -77,6 +77,7 @@
 
     <div id="Hair-Color-Picker" class="modal_background" style="left:20%;">
         <div id="Hair-Picker-Content" class="mcontent_color">
+                <div class="close_button" onclick="closePickerCancel(avastruct_hair)">&#x2716;</div>
                 <canvas id="hair-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
 				<table id="hair-color-presets">
 					<tbody>
@@ -121,14 +122,14 @@
 				</table>
                 <div>
                     <div id="hair-selected-color" class="selected-color"></div>
-                    <button class="close_button" onclick="closePickerCancel(avastruct_hair)">&#x2716;</button>
-                    <button class="close_button" onclick="closePickerOK(avastruct_hair)">&#x2714;</button>
+                    <button class="okay_button" onclick="closePickerOK(avastruct_hair)">Done &#x2714;</button>
                 </div>
         </div>
     </div>
 
     <div id="Eye-Color-Picker" class="modal_background" style="left:20%;">
         <div id="Eye-Picker-Content" class="mcontent_color">
+            <div class="close_button" onclick="closePickerCancel(avastruct_eye)">&#x2716;</div>
             <canvas id="eye-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
 			<table id="eye-color-presets">
 					<tbody>
@@ -158,16 +159,16 @@
 						</tr>
 					</tbody>
 				</table>
-            <div id="close_button_wrap">
+            <div>
                 <div id="eye-selected-color" class="selected-color"></div>
-                <button class="close_button" onclick="closePickerCancel(avastruct_eye)">&#x2716;</button>
-                <button class="close_button" onclick="closePickerOK(avastruct_eye)">&#x2714;</button>
+                <button class="okay_button" onclick="closePickerOK(avastruct_eye)">Done &#x2714;</button>
             </div>
         </div>
     </div>
 
     <div id="Skin-Color-Picker" class="modal_background" style="left:20%;">
         <div id="Skin-Picker-Content" class="mcontent_color">
+            <div class="close_button" onclick="closePickerCancel(avastruct_skin)">&#x2716;</div>
             <canvas id="skin-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
 			<table id="skin-color-presets">
 				<tbody>
@@ -199,19 +200,19 @@
 			</table>
 			<div>
                 <div id="skin-selected-color" class="selected-color"></div>
-                <button class="close_button" onclick="closePickerCancel(avastruct_skin)">&#x2716;</button>
-                <button class="close_button" onclick="closePickerOK(avastruct_skin)">&#x2714;</button>
+                <button class="okay_button" onclick="closePickerOK(avastruct_skin)">Done &#x2714;</button>
             </div>
         </div>
     </div>
 
     <div id="Outfit-Color-Picker" class="modal_background" style="left:20%;">
         <div id="Outfit-Picker-Content" class="mcontent_color">
+            <div class="close_button" onclick="closePickerCancel(avastruct_outfit)">&#x2716;</div>
             <canvas id="outfit-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
             <div>
                 <div id="outfit-selected-color" class="selected-color"></div>
-                <button class="close_button" onclick="closePickerCancel(avastruct_outfit)">&#x2716;</button>
-                <button class="close_button" onclick="closePickerOK(avastruct_outfit)">&#x2714;</button>
+                
+                <button class="okay_button" onclick="closePickerOK(avastruct_outfit)">Done &#x2714;</button>
             </div>
         </div>
     </div>
