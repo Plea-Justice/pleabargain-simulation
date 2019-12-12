@@ -120,35 +120,38 @@ div#canvas-wrap {
     background-color: white;
     color: black;
     display: flex;
-    position:relative;
+    position: relative;
     justify-content: center;
     align-items: center;
     margin: auto;
     margin-top: 10vh;
-    padding: 10px;
+    padding: 20px;
     border: 2px solid grey;
-    border-radius: 10px;
-    background-color: #3b3b3b;
+    border-radius: 25px;
+    background-color: lightgray;
 }
 
 .okay_button {
     font-size: 20px;
     display: inline-flex;
     margin-left: 10px;
-    background-color: lightgray;
+    background-color: lightgreen;
     padding: 4px;
     border-radius: 4px;
 }
 
 .close_button {
-    color: #232323;
-    height: 30px;
+    color: firebrick;
+    height: 40px;
     position: absolute;
     display: block;
     top: 0;
     right: 0;
     font-size: 40px;
     margin-right: 6px;
+}
+.close_button:hover {
+    cursor: default;
 }
 
 #Eye, #Hair {
@@ -164,6 +167,7 @@ div#canvas-wrap {
 .color-picker{
     cursor: none;
     z-index: 1;
+    border: 2px solid gray
 }
 
 .selected-color{
