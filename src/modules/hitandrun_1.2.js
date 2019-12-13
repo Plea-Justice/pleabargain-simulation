@@ -309,7 +309,7 @@ jail_cell[avatarSex].assetPalette = MainAvatar.palette;
 console.log("Resetting palette for clips and actor");
 
 var scene_intro1		 = new Scene("intro1",
-				"~~~~~~~~~~~~~Good afternoon,~~~~~~ my name is Mr. Clark ~~~~~~~and I will be prosecuting this case on behalf of the State of Massachusetts, ~~~~~~~~~~your Honor.~~~~~~~~~~~~",
+				"~~~~~~~~~~~~~Good afternoon,~~~~~~ my name is Mr. Clark ~~~~~~~and I will be prosecuting this case, ~~~~~~~~~~your Honor.~~~~~~~~~~~~",
 				actor_prosecutor,
 				bg_p_courtroom,
 				fg_table);

@@ -315,7 +315,7 @@ if (avatarSex) {
 
 // Declaring the scenes with lines, actors, foreground and background as arguments.
 var scene_intro0 = new Scene("intro0",
-    "Good afternoon,~~~~~~~~ my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, Your Honor.~~~~~~~~",
+    "Good afternoon,~~~~~~~~ my name is Mr. Clark and I will be prosecuting this case, Your Honor.~~~~~~~~",
     actor_prosecutor,
     bg_courtroom,
     fg_table);
