@@ -173,6 +173,18 @@ if ("hair" in inParams) {
   alert("ERROR: Parameter Parsing - Invalid hair in Palette: " + inParams["hair"]);
 }
 
+var con_months_0;
+if ("con_months_0" in inParams)
+	con_months_0 = inParams["con_months_0"];
+  else
+	alert("ERROR: Parameter Parsing - Invalid Module Setting 'con_months_0': " + inParams["con_months_0"]);
+
+var plea_months_0;
+if ("plea_months_0" in inParams)
+	plea_months_0 = inParams["plea_months_0"];
+  else
+	alert("ERROR: Parameter Parsing - Invalid Module Setting 'plea_months_0': " + inParams["plea_months_0"]);
+
 console.log("****** Palette from Customizer ******");
 console.log("Hair A: " + hairA);
 console.log("Hair B: " + hairB);
@@ -425,13 +437,13 @@ var scene_offer_P1 = new Scene("offer_P1",
 				null);
 
 var scene_offer_P2		= new Scene("offer_P2",
-				"~~~~~~~~~~~If this case does go to trial,~~~~~~~~~~~~~~~~ Mr. Clark will be seeking the maximum penalty of 12 months in jail.~~~~~~~~~~~~",
+				"~~~~~~~~~~~If this case does go to trial,~~~~~~~~~~~~~~~~ Mr. Clark will be seeking the maximum penalty of " + con_months_0 + " in jail.~~~~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
 
 var scene_offer_P3		= new Scene("offer_P3",
-				"~~~~~~~~~~If you plead guilty now,~~~~~~~~~~~~~ saving the State the resources needed for a formal trial,~~~~~~~~~~ Mr. Clark is prepared to recommend that the district court judge sentence you to 1 month in jail, rather than 12 months in jail.~~~~~~~~~~~~~",
+				"~~~~~~~~~~If you plead guilty now,~~~~~~~~~~~~~ saving the State the resources needed for a formal trial,~~~~~~~~~~ Mr. Clark is prepared to recommend that the district court judge sentence you to " + plea_months_0 + " in jail, rather than " + con_months_0 + " in jail.~~~~~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
@@ -443,7 +455,7 @@ var scene_offer_P4		= new Scene("offer_P4",
 				null);
 
 var scene_offer_P5		= new Scene("offer_P5",
-				"If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 12 months.~~~~~~~~~",
+				"If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of " + con_months_0 + ".~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
@@ -457,7 +469,7 @@ var scene_offer_P6		= new Scene("offer_P6",
 
 
 var scene_offer_F		= new Scene("pleadeal",
-				"~~~~~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (1 month in jail). Reject the offer and risk a more severe sentence if found guilty at trial (12 months in jail).~~~~~~~~",
+				"~~~~~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + plea_months_0 + " in jail). Reject the offer and risk a more severe sentence if found guilty at trial (" + con_months_0 + " in jail).~~~~~~~~",
 				null,
 				bg_meetingroom,
 				null);
