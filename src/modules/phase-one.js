@@ -298,7 +298,7 @@ var scene_intro2		= new Scene("intro2",
 				null);
 
 var scene_initial_P0  = new Scene("initial_P0",
-				"~~~~~~~~~~~~~~~~~~~~" + username + " is accused of being involved in a hit-and-run ~~~~occurring around 6 PM ~~~~on the 26th day of June ~~~~in the year 2019.~~~~~~~~~",
+				"~~~~~~~~~~~~~~~~~~~~" + username + " is accused of being involved in a hit-and-run ~~~~occurring around 6 PM ~~~~on the 26th day of March ~~~~in the year 2019.~~~~~~~~~",
 				actor_prosecutor,
 				bg_p_courtroom,
 				fg_table);
@@ -358,12 +358,7 @@ var scene_initial_J4 = new Scene("initial_J4",
 				actor_judge,
 				bg_judge_seat,
 				null);
-
-var scene_initial_J5 = new Scene("initial_J5",
-				"~~~~~~~At this time you will be held until counsel has been assigned to you, ~~~~~~~~~~~which will occur within the next 48 hours.~~~~~~~~~~~~~~~~~~~~~~~~",
-				actor_judge,
-				bg_judge_seat,
-				null);
+				
 
 var scene_initial_J6 = new Scene("initial_J6",
 				"~~~~~~~~~~~~~~~~~~~~It is so ordered.~~~~~~~~~",
@@ -390,7 +385,7 @@ var scene_offer_P0		= new Scene("offer_P0",
 				null);
 
 var scene_offer_P1 = new Scene("offer_P1",
-				"Based on the security camera footage and the damage to the victim's car, ~~~~ Mr. Clark believes that he could win this case if it goes to trial.~~~~~~~",
+				"Based on the security camera footage and the damage to the victim's car, ~~~~ I would estimate that you have a 75 percent chance of being convicted if this case goes to trial.~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
@@ -402,7 +397,7 @@ var scene_offer_P2		= new Scene("offer_P2",
 				null);
 
 var scene_offer_P3		= new Scene("offer_P3",
-				"~~~~~~~~~~If you plead guilty now,~~~~~~~~~~~~~ saving the State the resources needed for a formal trial,~~~~~~~~~~ Mr. Clark is prepared to recommend that the district court judge sentence you to 1 month in jail, rather than 12 months in jail.~~~~~~~~~~~~~",
+				"~~~~~~~~~~If you plead guilty now,~~~~~~~~~~~~~ saving the State the resources needed for a formal trial,~~~~~~~~~~ Mr. Clark is prepared to recommend that the district court judge sentence you to 3.5 months in jail, rather than 12 months in jail.~~~~~~~~~~~~~",
 				actor_defense,
 				bg_meetingroom,
 				null);
@@ -419,11 +414,35 @@ var scene_offer_P5		= new Scene("offer_P5",
 				bg_meetingroom,
 				null);
 
+if (time = "immediately")
+{
 var scene_offer_P6		= new Scene("offer_P6",
-				"You are free to go for " + time + ",~~~~~ after which you will decide on accepting or rejecting the plea deal.~~~~~~~",
-				actor_defense,
-				bg_meetingroom,
-				null);
+	"Before you tell me how you would like to plead, please take a few minutes to consider your offer.~~~~~~~",
+	actor_defense,
+	bg_meetingroom,
+	null);
+}
+else
+{
+var scene_offer_P6		= new Scene("offer_P6",
+	"You are being given " + time + ",~~~~~ time to make your decision. You may leave now, but you must return in " + time + " to render your decision before the court.~~~~~~~",
+	actor_defense,
+	bg_meetingroom,
+	null);
+
+var scene_offer_P7		= new Scene("offer_P7",
+	"You may talk about your choice with your friends and family and take the full " + time + " to decide.",
+	actor_defense,
+	bg_meetingroom,
+	null);
+
+var scene_offer_P8		= new Scene("offer_P8",
+	"Before you leave, however, please take a few minutes to consder your offer.",
+	actor_defense,
+	bg_meetingroom,
+	null);
+}
+
 
 
 var scene_offer_F		= new Scene("pleadeal",
@@ -458,8 +477,7 @@ scene_initial_P7.setNext(scene_initial_J1, "a");
 
 
 scene_initial_J1.setNext(scene_initial_J4, "a");
-scene_initial_J4.setNext(scene_initial_J5, "a");
-scene_initial_J5.setNext(scene_initial_J6, "a");
+scene_initial_J4.setNext(scene_initial_J6, "a");
 scene_initial_J6.setNext(scene_jail_intro, "a");
 
 scene_jail_intro.setNext(guilty_clips[avatarSex], "a");
@@ -471,7 +489,20 @@ scene_offer_P1.setNext(scene_offer_P2, "a");
 scene_offer_P2.setNext(scene_offer_P3, "a");
 scene_offer_P3.setNext(scene_offer_P4, "a");
 scene_offer_P4.setNext(scene_offer_P5, "a");
-scene_offer_P5.setNext(scene_offer_F, "a");
+
+if (time = "immedately") 
+{
+	scene_offer_P5.setNext(scene_offer_P6, "a");
+	scene_offer_P6.setNext(scene_offer_F, "a");
+}
+else 
+{
+	scene_offer_P5.setNext(scene_offer_P6, "a");
+	scene_offer_P6.setNext(scene_offer_P7, "a");
+	scene_offer_P7.setNext(scene_offer_P8, "a");
+	scene_offer_P8.setNext(scene_offer_F, "a");
+}
+
 
 scene_offer_F.setNext(null, "continue");
 
