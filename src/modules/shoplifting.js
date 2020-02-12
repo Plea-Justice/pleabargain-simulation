@@ -429,7 +429,7 @@ var scene_offer3 = new Scene("offer3",
     bg_meetingroom,
 	null);
 var scene_offer4 = new Scene("offer4",
-	"If you plead guilty now, saving the State the resources needed for a formal trial, Mr. Clark is prepared to recommend that the district court judge sentence you to " + plea_months_1 + " rather than " + con_months_1 + " in jail.~~~~~~~~~~~",
+	"If you plead guilty now, saving the State the resources needed for a formal trial, Mr. Clark is prepared to recommend that the district court judge sentence you to " + plea_months_1 + " probation rather than " + con_months_1 + " in jail.~~~~~~~~~~~",
 	actor_defense,
 	bg_meetingroom,
 	null);
@@ -450,7 +450,7 @@ var scene_offer7 = new Scene("offer7",
     null);
 
 var scene_offer_F = new Scene("pleadeal",
-    "~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + plea_months_1 + " in jail). Reject the offer and risk a more severe sentence if found guilty at trial (" + con_months_1 + " in jail). ~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~Plead guilty in exchange for a lower sentence (" + plea_months_1 + " probation). Reject the offer and risk a more severe sentence if found guilty at trial (" + con_months_1 + " in jail). ~~~~~~",
     null,
     bg_meetingroom,
     null);
