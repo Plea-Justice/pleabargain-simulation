@@ -65,8 +65,6 @@ lib.ssMetadata = [];
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_11},{t:this.shape_10},{t:this.shape_9},{t:this.shape_8},{t:this.shape_7},{t:this.shape_6},{t:this.shape_5},{t:this.shape_4},{t:this.shape_3},{t:this.shape_2},{t:this.shape_1},{t:this.shape}]}).wait(1));
 
-	this._renderFirstFrame();
-
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(-1927.7,-214.8,3855.4,464.20000000000005);
 
@@ -86,8 +84,6 @@ p.nominalBounds = new cjs.Rectangle(-1927.7,-214.8,3855.4,464.20000000000005);
 	this.shape_1.setTransform(0,0.025);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_1},{t:this.shape}]}).wait(1));
-
-	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(-1369.5,-658.1,2739,1316.3000000000002);
@@ -259,20 +255,20 @@ if (this.assetPalette.hair == 0) 	this.timeline.addTween(cjs.Tween.get({}).to({s
 
 	// Clouds
 	this.instance = new lib.Tween13("synched",0);
-	this.instance.setTransform(-24.15,135.95);
+	this.instance.parent = this;
+	this.instance.setTransform(1938.75,219.9);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(189).to({startPosition:0},0).wait(1));
 
 	// Sky2
 	this.instance_1 = new lib.Tween11("synched",0);
-	this.instance_1.setTransform(-680.5,214.4,1.38,0.39,0,0,0,0.1,0.1);
+	this.instance_1.parent = this;
+	this.instance_1.setTransform(1888.65,221.9,1.38,0.39,0,0,0,0.1,0.1);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(189).to({startPosition:0},0).wait(1));
 
-	this._renderFirstFrame();
-
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(-1610.1,505.1,3788.4,1143.8000000000002);
+p.nominalBounds = new cjs.Rectangle(902.3,505.1,2964.2,1143.8000000000002);
 // library properties:
 lib.properties = {
 	id: '7B220A6A3B8849148DBA4188D3D09284',
@@ -291,7 +287,7 @@ lib.properties = {
 
 (lib.Stage = function(canvas) {
 	createjs.Stage.call(this, canvas);
-}).prototype = p = new createjs.StageGL();
+}).prototype = p = new createjs.Stage();
 
 p.setAutoPlay = function(autoPlay) {
 	this.tickEnabled = autoPlay;
@@ -319,7 +315,7 @@ an.bootstrapCallback=function(fnCallback) {
 
 an.compositions = an.compositions || {};
 an.compositions['7B220A6A3B8849148DBA4188D3D09284'] = {
-	getStage: function() { return exportRoot.stage; },
+	getStage: function() { return exportRoot.getStage(); },
 	getLibrary: function() { return lib; },
 	getSpriteSheet: function() { return ss; },
 	getImages: function() { return img; }
