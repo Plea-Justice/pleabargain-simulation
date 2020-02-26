@@ -256,19 +256,19 @@ if (this.assetPalette.hair == 0) 	this.timeline.addTween(cjs.Tween.get({}).to({s
 	// Clouds
 	this.instance = new lib.Tween13("synched",0);
 	this.instance.parent = this;
-	this.instance.setTransform(1938.75,219.9);
+	this.instance.setTransform(-457.25,219.9);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(189).to({startPosition:0},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(190));
 
 	// Sky2
 	this.instance_1 = new lib.Tween11("synched",0);
 	this.instance_1.parent = this;
-	this.instance_1.setTransform(1888.65,221.9,1.38,0.39,0,0,0,0.1,0.1);
+	this.instance_1.setTransform(-507.35,221.9,1.38,0.39,0,0,0,0.1,0.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(189).to({startPosition:0},0).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(190));
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(902.3,505.1,2964.2,1143.8000000000002);
+p.nominalBounds = new cjs.Rectangle(-1437,505.1,3615.3,1143.8000000000002);
 // library properties:
 lib.properties = {
 	id: '7B220A6A3B8849148DBA4188D3D09284',
