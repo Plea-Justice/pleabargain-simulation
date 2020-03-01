@@ -90,14 +90,6 @@ function Clip(clipname, movieclip){
   this.index = this.MC.currentFrame;
   this.length = this.MC.totalFrames;
   console.log("Clip " + this.name + " constructed");
-
-  this.setNext = function(nextScene) {
-    this.Next = nextScene;
-    if (nextScene == null)
-      console.log(this.name + " -> " + null);
-    else
-      console.log(this.name + " -> " + nextScene);
-  }
 }
 
 /**
@@ -124,13 +116,6 @@ function AvatarCustomizer(){
 
   console.log("Avatar Customizer constructed");
 
-  this.setNext = function(nextScene) {
-    this.Next = nextScene;
-    if (nextScene == null)
-      console.log(this.name + " -> " + null);
-    else
-      console.log(this.name + " -> " + nextScene);
-  }
   this.setActorF = function(customAvatar) {
     this.actor = customAvatar;
   }
@@ -165,12 +150,17 @@ function AvatarCustomizer(){
  * Define transition functions for specific buttons. Especially the final transition functions.
  * These buttons are used to transition from the simulation back to qualtrics.
  * @param stage
- * @param initialscene
+ * @param scenes
  */
-function Frame(stage, initialscene) {
+function Frame(stage, scenes) {
   this.Stage = stage;
   this.UI = new UI(this.Stage);
-  this.Scene = initialscene;
+  this.Scenes = scenes;
+  this.Index = 0;
+  if (scenes.length < 1)
+    alert("ERROR: Frame() - scenes array empty.");
+  this.Scene = scenes[this.Index];
+  console.log(this.Scene);
   console.log("Frame constructed");
   // TODO: unify Listener functions using event.target
   // TODO: make button behavior more modular
@@ -269,45 +259,29 @@ function Frame(stage, initialscene) {
     }
   }
   this.transition = function(index) {
-    if (this.Scene.Next != null) {
-      if (this.Scene.Next[index] != null) {
-        console.log("Transitioning through index '" + index + "' to " + this.Scene.Next[index].name);
-        this.Stage.removeAllChildren();
-        this.deactivate();
-        this.UI.clear();
-        //reset previous Scene to original state
-        if (this.Scene.Script != null)
-          this.Scene.Script.initialize();
-        //reset previous Clip to original state
-        if (this.Scene.MC != null)
-          this.Scene.MC.gotoAndPlay(0);
-        this.Scene = this.Scene.Next[index];
-        this.Scene.index = 0;
-      }
-      else if (index == null) {
-        console.log("Transitioning to " + this.Scene.Next.name);
-        this.Stage.removeAllChildren();
-        this.deactivate();
-        this.UI.clear();
-        //reset previous Scene to original state
-        if (this.Scene.Script != null)
-          this.Scene.Script.initialize();
-        //reset previous Clip to original state
-        if (this.Scene.MC != null)
-          this.Scene.MC.gotoAndPlay(0);
-        this.Scene = this.Scene.Next;
-        this.Scene.index = 0;
-      }
-      else
-        alert("ERROR: Frame.transition(" +index +"); failed to find Next Scene at index " + index);
-    }
-    else
-      alert("ERROR: Frame.transition(" + index + "); failed to find Next Scene Array");
+    if (this.Index < this.Scenes.length -1) {
+      this.Index++;
+      console.log("Transitioning to " + this.Scenes[this.Index].name);
+      this.Stage.removeAllChildren();
+      this.deactivate();
+      this.UI.clear();
+      //reset previous Scene to original state
+      if (this.Scene.Script != null)
+        this.Scene.Script.initialize();
+      //reset previous Clip to original state
+      if (this.Scene.MC != null)
+        this.Scene.MC.gotoAndPlay(0);
+        this.Scene = this.Scenes[this.Index];
+      this.Scene.index = 0;
+    } else
+      alert("REACHED END");
+      // TODO we've reached the end. Present options.
   }
+
   //Activate all buttons in the Scene - making them visible and enable their event handlers
   this.activate = function() {
     console.log("Button Activation");
-    if ("a" in this.Scene.Next) {
+    if (this.Scene instanceof Scene) {
       console.log("Activating Advancer");
       this.UI.Advancer.activate();
       this.advanceListener = this.advanceListener.bind(this);

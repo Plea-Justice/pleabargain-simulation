@@ -1,103 +1,123 @@
-// NULL FRAME is overwritten once initial frame has been completely loaded.
-var frame = null;
-var canvas = null;
-var stage = null;
-var flow = null;
+console.log("LOADING init.js");
 
-// CHECKS FOR MODULES
-/**
- * Method used for initializing the json. 
- * This has been abandoned.
- */
-function initModule() {
-        console.log("Beginning Initialization");
-	// LOAD FLOW
-	console.log("Loading Flow");
+// Globabl Variables
+var canvas = document.getElementById("canvas");
 
-	// remainder of initialization occurs after flow is loaded from json
-	// see initializeFirstFrame for continuation
-	if (inParams["module"] == null) {
-		console.log("FATAL ERROR: no module provided");
-		alert("FATAL ERROR: no module provided");
-	} else
-		loadFlow("modules/" + inParams["module"] + ".json", flow);
+const experiment_path = "modules/experiment/";
+const manifest_filename = "manifest.json";
+const condition_file_prefix = "condition";
+
+var manifest;   // Animation asset files for all conditions.
+var condition;  // Ordered scene description for each experimental condition.
+
+var actors = {};
+var clips = {};
+var images = {};
+
+var scenes = [];
+
+// SIMULATION ENTRY POINT
+// Load the experiment manifest and proceed to load_condition().
+function load_manifest() {
+
+    console.log("Loading manifest " + experiment_path + manifest_filename);
+    
+    let condition_number = inParams["condition"];
+
+    if (condition_number == null) {
+        alert("ERROR: No experimental condition specified.")
+        return;
+    }
+
+    console.log("Experimental condition number: " + condition_number);
+
+    let manifest_filepath = experiment_path + manifest_filename;
+    let condition_filepath = experiment_path + condition_file_prefix + condition_number + ".json";
+
+    let queue = new createjs.LoadQueue(true);
+
+    queue.on("fileload", (event)=>{
+
+        switch (event.item.type) {
+        case "javascript":
+            document.head.appendChild(event.result);
+            break;
+            
+        case "manifest":
+            manifest = event.result.manifest;
+            // TODO: Check that properties exist.
+            // Will need to change such that can be loaded without naming constructors.
+            for (const actor of event.result.actors)
+                actors[actor] = new Actor(new lib[actor]());
+
+            for (const clip of event.result.clips)
+                clips[clip] = new lib[clip]();
+            break;
+
+        case "json":
+            if (event.result.condition != null) {
+                condition = event.result.condition;
+                break;
+            }
+            alert("ERROR: Malformed condition file: " + experiment_path + condition_file_prefix + condition_number + ".json")
+            break;
+
+        case "image":
+            let img = event.item.src;
+            img = img.slice(img.lastIndexOf("/")+1);
+            images[img] = new createjs.Bitmap(event.rawResult);
+            break;
+
+        default:
+            alert("ERROR: Malformed experimental manifest.");
+        } // switch
+
+    }, this); // queue fileload event
+
+    queue.on("complete", arrange_scenes, this);
+    queue.loadManifest(manifest_filepath, false);
+    queue.loadFile(condition_filepath, false);
+    queue.load();
 }
 
-/**
- * Another abandoned method for when we use the json files.
- * @param jsonData 
- */
-function initializeFirstFrame(jsonData) {
-	console.log("Initializing for First Frame");
-        flow = jsonData;
-	console.log("FLOW: " + JSON.stringify(flow));
+function arrange_scenes(preload_queue_event) {
 
-	// IDENTIFY CANVAS AND CREATE STAGE
-	console.log("Creating canvas and stage");
-        canvas = document.getElementById("canvas");
-        canvas.getContext("2d").font = "300px Garamond";
-        canvas.getContext("2d").fillStyle = "#C0C0C0";
-        canvas.getContext("2d").textAlign = "center";
-        canvas.getContext("2d").textBaseline = "middle";
-        stage = new createjs.Stage(canvas);
+    if (condition == null || manifest == null)
+        alert("ERROR: Did not load manifest or condition JSON.");
+    
+    // Create each scene.
+    for(const sceneDescr of condition.scenes) {
+        // Dialogue scenes consist of a background, foreground, actor, and script.
+        if (sceneDescr.script != undefined && sceneDescr.actor != undefined) {
+            // TODO username must be passeed as a parameter.
+            let name = sceneDescr.name;
+            let actor = actors[sceneDescr.actor];
+            let script = sceneDescr.script.replace("@U", inParams["Name"]);
+            let bg = null, fg = null;
+            if (sceneDescr.bg != "None")
+                bg = images[sceneDescr.bg];
+            if (sceneDescr.fg != "None")
+                fg = images[sceneDescr.fg];
 
-        canvas.style.width = window.innerWidth + "px";
-        canvas.style.height = 9/16 * window.innerWidth + "px"; 
+            scenes.push(new Scene(name, script, actor, bg, fg));
+            // TODO fix advancer.
+            scenes[scenes.length -1].Next = {"a":4};
+        
+        // Cutscenes are premade scenes that consist of a movie clip.
+        } else if (sceneDescr.clip != undefined) {
 
-	// CREATE INITIAL SCENE FROM FLOW SCENE INDEX 0
-	if (flow != null) {
-		var initialScene = getScenes(flow, "prologue")[0];
-		console.log(getScenes(flow, "prologue")[0]);
-		frame = new Frame(stage, initialScene);
-	} else
-		console.log("FLOW NOT LOADED: " + flow);
+            scenes.push(new Clip(sceneDescr.name, clips[sceneDescr.clip]));
+            // TODO fix advancer.
+            scenes[scenes.length -1].Next = {"a":4};
 
-	// CONFIGURE EVENT HANDLER
-	console.log("Setting up Event Handling");
-        createjs.Ticker.addEventListener("tick", tick);
-	if (inParams["mode"] == "fast") {
-		alert("DEBUG: FAST MODE ACTIVE");
-		createjs.Ticker.setInterval(1);
-        } else
-		createjs.Ticker.setInterval(1000/24);
+        } else {
+            alert("ERROR: Malformed condition configuration.");
+            console.log("ERROR! Problematic scene description. " + scene);
+        }
+    } // for
 
-
-	console.log("Initialization Finished");
+    init();
 }
 
-// DEFINE FRAME TICK PROCESSING
-/**
- * Define tick function used for animation features. It sets the size of the
- * canvas and initializes the frame.
- */
-function tick() {
-	// RESIZE CANVAS SUCH THAT CONTENT IS SCALED
-	if ((window.innerWidth * 9/16) < window.innerHeight) {	// if width is limiting factor
-		canvas.style.width = window.innerWidth + "px";
-		canvas.style.height = 9/16 * window.innerWidth + "px";
-	} else {  // if height is limiting factor
-		// NOTE: decrementing by 4 prevents display of scrollbar on most browsers
-		canvas.style.width = 16/9 * (window.innerHeight - 4) + "px";
-		canvas.style.height = (window.innerHeight - 4) + "px";
-	}
-	// TODO: Insert character selection alternative control flow
-	
-	// Frame initializes as initialScene
-	// FRAME ADVANCEMENT
-	if (frame != null) {
-		if (frame.Scene.index < frame.Scene.length) {
-			frame.render();
-		} else if (frame.Scene.index == frame.Scene.length) {
-			frame.activate();
-			stage.update();
-			frame.Scene.index++;
-		} else {
-			// DO NOTHING
-			// keep this loop clear for event capturing.
-		}
 
-	
-	}
-		
-}
-
+console.log("LOADED init.js");

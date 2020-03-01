@@ -1,0 +1,25 @@
+{
+    "condition":{
+        "name":"Experimental Condition 1",
+        "description":"This object describes the outline of a single experimental condition.",
+        "scenes":[
+            {
+                "name":"Scene Name", "actor":"prosecutorActor", "fg":"None", "bg":"None",
+                "script":"Good afternoon, my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, your Honor."
+            },
+            {
+                "name":"Scene Name", "actor":"judgeActor", "fg":"None", "bg":"None",
+                "script":"Good afternoon. What is the nature of this case, Mr. Clark?"
+            },
+            {
+                "name":"Scene Name", "actor":"prosecutorActor", "fg":"None", "bg":"None",
+                "script":"@U is accused of being involved in a hit-and-run occurring around 6 PM on the 26th day of June in the year 2019."
+            },
+            {
+                "name":"Clip Name",
+                "clip":"Scenario1_Intro_Figure0"
+            }
+            
+        ]
+    }
+}
