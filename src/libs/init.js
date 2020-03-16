@@ -21,7 +21,13 @@ var scenes = [];
 function load_manifest() {
 
     console.log("Loading manifest " + experiment_path + manifest_filename);
+    let canvas = document.getElementById("canvas");
     
+    // Loading message.
+    let ctx = canvas.getContext("2d")
+    ctx.fillStyle = "white";
+    ctx.fillText("Loading...", 100, 100);
+
     let condition_number = inParams["condition"];
 
     if (condition_number == null) {
@@ -44,7 +50,7 @@ function load_manifest() {
             break;
             
         case "manifest":
-            manifest = event.result.manifest;
+            manifest = event.result;
             // TODO: Check that properties exist.
             // Will need to change such that can be loaded without naming constructors.
             for (const actor of event.result.actors)
@@ -82,33 +88,47 @@ function load_manifest() {
 
 function arrange_scenes(preload_queue_event) {
 
-    if (condition == null || manifest == null)
+    if (condition == undefined || manifest == undefined)
         alert("ERROR: Did not load manifest or condition JSON.");
     
     // Create each scene.
     for(const sceneDescr of condition.scenes) {
         // Dialogue scenes consist of a background, foreground, actor, and script.
-        if (sceneDescr.script != undefined && sceneDescr.actor != undefined) {
+        // TODO: Jail scene for instance has no actor, instead uses image.
+        if (sceneDescr.script != undefined) {
             // TODO username must be passeed as a parameter.
             let name = sceneDescr.name;
-            let actor = actors[sceneDescr.actor];
-            let script = sceneDescr.script.replace("@U", inParams["Name"]);
+            let actor = null;
+            if (sceneDescr.actor != undefined)
+                actor = actors[sceneDescr.actor];
+            let script = sceneDescr.script.replace(/@U/g, inParams["Name"]);
+            let i = 0;
+            while ((i = script.search(/@\d/)) != -1) {
+                let d  = Number(script[i+1]);
+                if (d == 0) {
+                    script = script.replace("@0", "");
+                } else {
+                script = script.slice(0, i+1) + (d-1) + "~~~" + script.slice(i+2);
+                }
+            }
+            console.log(script);
             let bg = null, fg = null;
             if (sceneDescr.bg != "None")
                 bg = images[sceneDescr.bg];
             if (sceneDescr.fg != "None")
                 fg = images[sceneDescr.fg];
 
-            scenes.push(new Scene(name, script, actor, bg, fg));
-            // TODO fix advancer.
-            scenes[scenes.length -1].Next = {"a":4};
+            scene = new Scene(name, script, actor, bg, fg);
+            scenes.push(scene);
+            if (sceneDescr.buttons != undefined)
+                scene.ButtonsToAdd = sceneDescr.buttons;
         
         // Cutscenes are premade scenes that consist of a movie clip.
         } else if (sceneDescr.clip != undefined) {
 
             scenes.push(new Clip(sceneDescr.name, clips[sceneDescr.clip]));
             // TODO fix advancer.
-            scenes[scenes.length -1].Next = {"a":4};
+            //[scenes.length -1].Next = {"a":4};
 
         } else {
             alert("ERROR: Malformed condition configuration.");

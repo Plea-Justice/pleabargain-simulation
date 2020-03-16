@@ -10,15 +10,14 @@ console.log("LOADING renderer.js");
 //   - animated actor
 //   - background elements
 //   - foreground elements
-//   - array of potential next scenes/clips
 //   - array of potential buttons
 //   - index of current position in Scene (cloned from Script)
 //   - length of Scene (cloned from Script)
 
 /**
  * A method for rendering Actors to the canvas with a script, background and foreground
- * image. Render function and setNext functions are important for drawing the scene to
- * the canvas. It then sets the next next scene to be displayed for continuous flow.
+ * image. Render function function is important for drawing the scene to
+ * the canvas.
  * @param scenename
  * @param script
  * @param actor
@@ -46,8 +45,6 @@ function Scene(scenename, script, actor, background, foreground) {
   // indexing
   this.index = this.Script.index;
   this.length = this.Script.length;
-  // Next Scene is initially Null
-  this.Next = [];
   this.MC = null;
   console.log("Scene " + this.name + " constructed");
 
@@ -58,33 +55,19 @@ function Scene(scenename, script, actor, background, foreground) {
       this.Actor.draw(stage, this.Script);
     stage.addChild(this.Foreground);
   }
-  this.setNext = function(nextScene, index) {
-    // reinitialize as empty array if null
-    if (this.Next == null)
-      this.Next = []
-    // set value at given transition to be nextScene
-    this.Next[index] = nextScene;
-    if (nextScene == null)
-      console.log(this.name + " -> " + null);
-    else
-      console.log(this.name + " -> " + nextScene);
-  }
 }
 
 // Clip defines a fully-animated Movieclip and points to the scene which follows
 //  - Movieclip (createjs structure)
-//  - Next Scene (stored at this.Next)
 
 /**
- * A method to play a premade clip to the canvas. A clip is a fully-animated Movieclip which points to
- * the next scene.
+ * A method to play a premade clip to the canvas. A clip is a fully-animated Movieclip.
  * @param clipname
  * @param movieclip
  */
 function Clip(clipname, movieclip){
   this.name = clipname;
   this.MC = movieclip;
-  this.Next = null;
   this.Script = null;
   this.Buttons = [];
   this.index = this.MC.currentFrame;
@@ -104,7 +87,6 @@ function AvatarCustomizer(){
   console.log("Beginning to construct Avatar Customizer")
   this.name = "avatar_customizer";
   this.MC = null;       // Movieclip
-  this.Next = null;     // Next movieclip
   this.Script = null;
   this.Buttons = [];
   this.index = 0;
@@ -168,62 +150,15 @@ function Frame(stage, scenes) {
   this.advanceListener = function(event) {
     console.log("Advancer clicked");
     this.deactivate();
-    this.transition("a");
+    this.transition();
   }
   this.yesListener = function(event) {
     console.log("Yes Button clicked");
     // store interaction
+    console.log(event);
     outParams[this.Scene.name] = "yes";
     this.deactivate();
-    this.transition("yes");
-  }
-  this.noListener = function(event) {
-    console.log("No Button clicked");
-    // store interaction
-    outParams[this.Scene.name] = "no";
-    this.deactivate();
-    this.transition("no");
-  }
-  this.acceptListener = function(event) {
-    console.log("Accept Button clicked");
-    // store interaction
-    outParams[this.Scene.name] = "accept";
-    this.deactivate();
-    //exit to survey
-    exitToSurvey();
-  }
-  this.declineListener = function(event) {
-    console.log("Decline Button clicked");
-    // store interaction
-    outParams[this.Scene.name] = "decline";
-    this.deactivate();
-    //exit to survey
-    exitToSurvey();
-  }
-  this.pleadguiltyListener = function(event) {
-    console.log("Plead Guilty Button clicked");
-    // store interaction
-    outParams[this.Scene.name] = "pleadguilty";
-
-    this.deactivate();
-    //exit to survey
-    exitToSurvey();
-  }
-  this.rejectofferListener = function(event) {
-    console.log("Reject Offer Button clicked");
-    // store interaction
-    outParams[this.Scene.name] = "rejectoffer";
-    this.deactivate();
-    //exit to survey
-    exitToSurvey();
-  }
-  this.exitListener = function(event) {
-    console.log("Exit Button clicked");
-    // store interaction
-    [this.Scene.name] = "exit";
-    this.deactivate();
-    //exit to survey
-    exitToSurvey();
+    this.transition();
   }
   this.render = function() {
     // If the current Scene is a Scene (not a MovieClip)
@@ -258,7 +193,7 @@ function Frame(stage, scenes) {
       alert("ERROR: Frame.render() - invalid Frame.Scene");
     }
   }
-  this.transition = function(index) {
+  this.transition = function() {
     if (this.Index < this.Scenes.length -1) {
       this.Index++;
       console.log("Transitioning to " + this.Scenes[this.Index].name);
@@ -273,8 +208,9 @@ function Frame(stage, scenes) {
         this.Scene.MC.gotoAndPlay(0);
         this.Scene = this.Scenes[this.Index];
       this.Scene.index = 0;
-    } else
-      alert("REACHED END");
+    } else {
+      exitToSurvey();
+    }
       // TODO we've reached the end. Present options.
   }
 
@@ -287,62 +223,18 @@ function Frame(stage, scenes) {
       this.advanceListener = this.advanceListener.bind(this);
       this.UI.Advancer.Container.addEventListener("click", this.advanceListener);
       console.log("Advancer activated");
-    }
-    if ("yes" in this.Scene.Next) {
-      console.log("Activating Yes Button");
-      this.Scene.Buttons["yes"] = new Button(locale.prompt["yes"], 3, 3);
-      this.yesListener = this.yesListener.bind(this);
-      this.Scene.Buttons["yes"].Container.addEventListener("click", this.yesListener);
-      this.Stage.addChild(this.Scene.Buttons["yes"].Container);
-      console.log("Yes Button activated");
-    }
-    if ("no" in this.Scene.Next) {
-      console.log("Activating No Button");
-      this.Scene.Buttons["no"] = new Button(locale.prompt["no"], 3, 5);
-      this.noListener = this.noListener.bind(this);
-      this.Scene.Buttons["no"].Container.addEventListener("click", this.noListener);
-      this.Stage.addChild(this.Scene.Buttons["no"].Container);
-      console.log("No Button activated");
-    }
-    if ("accept" in this.Scene.Next) {
-      console.log("Activating Accept Button");
-      this.Scene.Buttons["accept"] = new Button(locale.prompt["accept"], 1, 3);
-      this.acceptListener = this.acceptListener.bind(this);
-      this.Scene.Buttons["accept"].Container.addEventListener("click", this.acceptListener);
-      this.Stage.addChild(this.Scene.Buttons["accept"].Container);
-      console.log("Accept Button activated");
-    }
-    if ("decline" in this.Scene.Next) {
-      console.log("Activating Decline Button");
-      this.Scene.Buttons["decline"] = new Button(locale.prompt["decline"], 1, 5);
-      this.declineListener = this.declineListener.bind(this);
-      this.Scene.Buttons["decline"].Container.addEventListener("click", this.declineListener);
-      this.Stage.addChild(this.Scene.Buttons["decline"].Container);
-      console.log("Decline Button activated");
-    }
-    if ("pleadguilty" in this.Scene.Next) {
-      console.log("Activating Plead Guilty Button");
-      this.Scene.Buttons["pleadguilty"] = new Button(locale.prompt["pleadguilty"], 1, 4);
-      this.pleadguiltyListener = this.pleadguiltyListener.bind(this);
-      this.Scene.Buttons["pleadguilty"].Container.addEventListener("click", this.pleadguiltyListener);
-      this.Stage.addChild(this.Scene.Buttons["pleadguilty"].Container);
-      console.log("Plead Guilty Button activated");
-    }
-    if ("rejectoffer" in this.Scene.Next) {
-      console.log("Activating Reject Offer Button");
-      this.Scene.Buttons["rejectoffer"] = new Button(locale.prompt["rejectoffer"], 3, 4);
-      this.rejectofferListener = this.rejectofferListener.bind(this);
-      this.Scene.Buttons["rejectoffer"].Container.addEventListener("click", this.rejectofferListener);
-      this.Stage.addChild(this.Scene.Buttons["rejectoffer"].Container);
-      console.log("Reject Offer Button activated");
-    }
-    if ("continue" in this.Scene.Next) {
-      console.log("Continue Button");
-      this.Scene.Buttons["continue"] = new Button(locale.prompt["continue"], 2, 4);
-      this.exitListener = this.exitListener.bind(this);
-      this.Scene.Buttons["continue"].Container.addEventListener("click", this.exitListener);
-      this.Stage.addChild(this.Scene.Buttons["continue"].Container);
-      console.log("Continue Button activated");
+      
+      if (this.Scene.ButtonsToAdd != undefined && this.Scene.ButtonsToAdd instanceof Array) {
+        for (let i = 0; i < this.Scene.ButtonsToAdd.length; i++){
+          console.log("Activating Button");
+          buttonName = this.Scene.ButtonsToAdd[i];
+          button = this.Scene.Buttons[buttonName] = new Button(this, buttonName, 1 + (i%2?2:0), 3 + Math.floor(i/2));
+          this.yesListener = this.yesListener.bind(this);
+          button.Container.addEventListener("click", button.Listener);
+          this.Stage.addChild(this.Scene.Buttons[buttonName].Container);
+          console.log(buttonName + " Button activated");
+        }
+      }
     }
   }
   //Deactivate all buttons in the Scene - disabling their event handlers

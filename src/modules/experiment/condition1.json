@@ -4,22 +4,26 @@
         "description":"This object describes the outline of a single experimental condition.",
         "scenes":[
             {
-                "name":"Scene Name", "actor":"prosecutorActor", "fg":"None", "bg":"None",
-                "script":"Good afternoon, my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, your Honor."
+                "name":"Intro", "actor":"prosecutorActor", "fg":"None", "bg":"None",
+                "script":"Good afternoon@9, my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, your Honor."
             },
             {
-                "name":"Scene Name", "actor":"judgeActor", "fg":"None", "bg":"None",
-                "script":"Good afternoon. What is the nature of this case, Mr. Clark?"
+                "name":"Judge_1", "actor":"judgeActor", "fg":"None", "bg":"None",
+                "script":"Good afternoon.@9 What is the nature of this case,@5 Mr. Clark?"
             },
             {
-                "name":"Scene Name", "actor":"prosecutorActor", "fg":"None", "bg":"None",
-                "script":"@U is accused of being involved in a hit-and-run occurring around 6 PM on the 26th day of June in the year 2019."
+                "name":"Prosecutor_1", "actor":"prosecutorActor", "fg":"None", "bg":"None",
+                "script":"@U@3 is accused of being involved in a hit-and-run@2 occurring around 6 PM on the 26th day of June in the year 2019."
             },
             {
-                "name":"Clip Name",
+                "name":"Clip1",
                 "clip":"Scenario1_Intro_Figure0"
+            },
+            {   
+                "name":"Decision1",
+                "script":"Select @4accept @4or @4reject.",
+                "buttons":["Accept", "Reject"]
             }
-            
         ]
     }
 }

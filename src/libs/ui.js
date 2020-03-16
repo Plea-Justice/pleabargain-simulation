@@ -88,7 +88,7 @@ var BUT_HOR_PADDING = 50;
  * @param horizontal 
  * @param vertical 
  */
-function Button(labeltext, horizontal, vertical) {
+function Button(parentFrame, labeltext, horizontal, vertical) {
   console.log("Constructing Button Background");
   this.Background = new createjs.Shape();
   this.Background.name = labeltext + " Button Background Shape";
@@ -106,6 +106,14 @@ function Button(labeltext, horizontal, vertical) {
   this.Label.x = BUT_WIDTH / 2;
   this.Label.y = BUT_HEIGHT / 2;
   this.Label.text = labeltext;
+  this.parentFrame = parentFrame;
+  this.Listener = (event)=>{
+    console.log(this.Label.text + "Button clicked");
+    // store interaction
+    outParams[this.parentFrame.Scene.name] = this.Label.text;
+    this.parentFrame.deactivate();
+    this.parentFrame.transition();
+  };
   console.log("Constructing Button Container");
   this.Container = new createjs.Container();
   this.Container.name = labeltext + " Button Container";
@@ -168,7 +176,7 @@ function Advancer() {
 this.name = "Advancer";
   console.log("Advancer onclick function");
   this.onclick = function(event) {
-    frame.transition("A");
+    frame.transition();
   }
   console.log("Advancer constructed");
 

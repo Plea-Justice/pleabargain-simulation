@@ -34,15 +34,16 @@ for (var pair of urlparams.entries()){
  */
 function exitToSurvey() {
   "use strict";
+  let surl = manifest["survey"] + "?";
   for (var key in outParams) {
     let value = outParams[key];
-    surveyURL += "&" + key + "=" + value;
+    surl += "&" + key + "=" + value;
   }
 
   // Add the palette features
-  surveyURL += "&" + "palette=" + window.location.search.substr(1);
+  //surl += "&" + "palette=" + window.location.search.substr(1);
 
-  window.open(surveyURL, "_self");
+  window.open(surl, "_self");
 }
 
 console.log("LOADED params.js");
