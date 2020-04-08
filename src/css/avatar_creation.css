@@ -14,6 +14,7 @@ body {
   text-align: center;
   height: 100vh;
   width: 100vw;
+  position: absolute;
 }
 
 #Figure-Selector-Content button {
@@ -21,14 +22,13 @@ body {
 }
 
 div#Figure-Selector-Content h3 {
-  margin: 5px;
+  margin: 10px;
 }
 
 #button-wrap {
-  float: left;
-  padding: 5%;
+  float: right;
   width: 40%;
-  height: auto;
+  height: 80%;
   vertical-align: middle;
 }
 
@@ -39,7 +39,7 @@ div.buttons {
 div#canvas-wrap {
   float: left;
   width: 50%;
-  height: 90%;
+  height: 85%;
   margin-top: -100px;
   overflow: hidden;
   position: relative;
@@ -67,12 +67,31 @@ div#canvas-wrap {
     font-size: 20px;
 }
 
-#NextButton {
-    margin-top: 2em;
+#navControls {
+    bottom: 3%;
+    position: fixed;
+    margin-right: 5%;
+    margin-left: 5%;
+    width: 90%
 }
 
+#openFigSelector {
+    float: left;
+}
+#returnToQualtrics {
+    float: right;
+}
 
-#nextButton {
+#introContent {
+    margin: auto;
+    width: 60vw;
+    height: 31vw;
+}
+
+/* modal */
+
+
+.nextButtons {
     background-color: lightgray;
     color: black;
     padding: 15px 25px;
@@ -80,12 +99,10 @@ div#canvas-wrap {
     font-weight: bold;
 }
 
-
-/* modal */
-
 .openModalButton{
     padding: 10px 25px;
     margin: 6px;
+    width: 200px;
 }
 
 .modal_background {
@@ -94,7 +111,7 @@ div#canvas-wrap {
     display: none;
     position: absolute;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color:transparent;
     animation-name: anim_modal;
     animation-duration: 0.5s;
 }
@@ -103,22 +120,42 @@ div#canvas-wrap {
     background-color: white;
     color: black;
     display: flex;
-    position:relative;
+    position: relative;
     justify-content: center;
     align-items: center;
     margin: auto;
     margin-top: 10vh;
-    padding: 10px;
+    padding: 20px;
     border: 2px solid grey;
-    background-color: #3b3b3b;
+    border-radius: 25px;
+    background-color: lightgray;
+}
+
+.okay_button {
+    font-size: 20px;
+    display: inline-flex;
+    margin-left: 10px;
+    background-color: lightgreen;
+    padding: 4px;
+    border-radius: 4px;
 }
 
 .close_button {
-    color: grey;
-    font-size: 20px;
-    font-weight: bold;
-    display: inline-flex;
-    margin-left: 10px;
+    color: firebrick;
+    height: 40px;
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    font-size: 40px;
+    margin-right: 6px;
+}
+.close_button:hover {
+    cursor: default;
+}
+
+#Eye, #Hair {
+    width: 100px;
 }
 
 @keyframes anim_modal {
@@ -130,6 +167,7 @@ div#canvas-wrap {
 .color-picker{
     cursor: none;
     z-index: 1;
+    border: 2px solid gray
 }
 
 .selected-color{
@@ -150,6 +188,15 @@ div#canvas-wrap {
     background-color: #202020;
 }
 
+.intro_background {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    background-color: #202020;
+}
+
 .mcontent_figure{
     background-color: white;
     color: black;
@@ -161,14 +208,11 @@ div#canvas-wrap {
     min-height: 150px;
 }
 
-
 #figure_button_wrap{
     display: inline-flex;
     width: 100%;
     height: 97%;
 }
-
-
 
 .figure_button{
     -webkit-user-select: none; /* Safari */
@@ -181,12 +225,15 @@ div#canvas-wrap {
     height: 90%;
     margin-left: 2.5%;
     margin-right: 2.5%;
-}
 
+    box-sizing: border-box;
+}
 
 .figure_button:hover{
     background-color: rgb(201, 201, 201);
     cursor: pointer;
+
+    border: 5px solid black;
 }
 
 .figure_button_selected{
@@ -200,4 +247,14 @@ div#canvas-wrap {
     height: 90%;
     margin-left: 2.5%;
     margin-right: 2.5%;
+
+    box-sizing: border-box;
+    border: 5px solid yellow;
+}
+
+.progress_bar {
+    margin: 0;
+    top: 1%;
+    width: 100%;
+    position: absolute;
 }
