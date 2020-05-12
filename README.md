@@ -44,10 +44,10 @@ To run the simulation on your own local machine, download the source code by clo
 or download and extract the zip file on the desktop site. Once the files are on your machine, create a local web server by way of navigating to the folder of the project in the terminal and typing either `python3 -m http.server` or `http-server`. 
 
 * To download Python,  [visit the Python homepage](https://www.python.org/) and download the release that corresponds to your operating system.
-* To download http-server, [here](https://www.npmjs.com/package/http-server) is the link to the http-server README on the NPM webpage. 
+* To download http-server, [here is the link to the http-server README](https://www.npmjs.com/package/http-server) on the NPM webpage. 
 
 ## Contribution 
-Interested in contributing to the development of this project or collaborating on related research? You can contact the Principal Investigator [here](https://mikowilford.wixsite.com/website-1) if you have any questions, comments, concerns or inquiries regarding the project or the related research. 
+Interested in contributing to the development of this project or collaborating on related research? You can [contact the Principal Investigator here](https://mikowilford.wixsite.com/website-1) if you have any questions, comments, concerns or inquiries regarding the project or the related research. 
 
 Before contributing to the software, take a look at **how the project is made** or the **source code** and see if there is an area in need of improvements.
 
