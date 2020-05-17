@@ -2,7 +2,7 @@
 The Plea Justice Project offers a simulation of plea bargaining processes, which has been made using Adobe Animate and JavaScript. This animated software was created as a potential alternative to existing research paradigms (i.e., vignettes and high-stakes deceptions) used to study plea decision-making.
 
 ## Examples
-If you want to take the simulation for a test run, [here is a link to a demo](https://umasslowell.co1.qualtrics.com/jfe/form/SV_25DlciTSNf0F5nn). The link will bring you to a landing page where you will be asked to give informed consent: there will be two text-entry fields. The first will ask you to enter your first name to be used in the simulation; the second will request a UML student email address (because the primary study for which the simulation was used recruited students from UMass Lowell). Entering the string “[any characters]@student.uml.edu” in this text-entry box will allow you to proceed.
+If you want to take the simulation for a test run, [here is a link to a demo][simulation-demo]. The link will bring you to a landing page where you will be asked to give informed consent: there will be two text-entry fields. The first will ask you to enter your first name to be used in the simulation; the second will request a UML student email address (because the primary study for which the simulation was used recruited students from UMass Lowell). Entering the string “[any characters]@student.uml.edu” in this text-entry box will allow you to proceed.
 
 ### Features
 
@@ -43,21 +43,29 @@ To run the simulation on your own local machine, download the source code by clo
 
 or download and extract the zip file on the desktop site. Once the files are on your machine, create a local web server by way of navigating to the folder of the project in the terminal and typing either `python3 -m http.server` or `http-server`. 
 
-* To download Python,  [visit the Python homepage](https://www.python.org/) and download the release that corresponds to your operating system.
-* To download http-server, [here is the link to the http-server README](https://www.npmjs.com/package/http-server) on the NPM webpage. 
+* To download Python,  [visit the Python homepage][python] and download the release that corresponds to your operating system.
+* To download http-server, [here is the link to the http-server README][http-server] on the NPM webpage. 
 
 ## Contribution 
-Interested in contributing to the development of this project or collaborating on related research? You can [contact the Principal Investigator here](https://mikowilford.wixsite.com/website-1) if you have any questions, comments, concerns or inquiries regarding the project or the related research. 
+Interested in contributing to the development of this project or collaborating on related research? You can [contact the Principal Investigator here][contact-PI] if you have any questions, comments, concerns or inquiries regarding the project or the related research. 
 
-Before contributing to the software, take a look at [how the project is made](https://github.com/Plea-Justice/pleabargain-simulation/wiki/Software-Architecture-Layout) or the [source code](https://github.com/Plea-Justice/pleabargain-simulation) and see if there is an area in need of improvements.
+Before contributing to the software, take a look at [how the project is made][Software-Architecture-Layout] or the [source code][github-page] and see if there is an area in need of improvements.
 
 ### License 
-This project is licensed using [GNU GPLv3](https://github.com/Plea-Justice/pleabargain-simulation/blob/master/LICENSE.txt).
+This project is licensed using [GNU GPLv3](./LICENSE.txt).
 
 ## Related Articles
-* 06/04/2018 - [To Plead or Not to Plead](https://www.uml.edu/news/stories/2018/pleabargains.aspx): Psychology and Art Faculty Team Up with Students on Plea Bargain Research Tool
-* 02/26/2019 - [Why Do Innocent People Plead Guilty?](https://www.uml.edu/news/press-releases/2019/wilfordresearch022619.aspx): UMass Lowell Researcher Wins NSF Grant to Find Answers
+* 06/04/2018 - [To Plead or Not to Plead][article-1]: Psychology and Art Faculty Team Up with Students on Plea Bargain Research Tool
+* 02/26/2019 - [Why Do Innocent People Plead Guilty?][article-2]: UMass Lowell Researcher Wins NSF Grant to Find Answers
 
 ["Installing; Note: The current implementation"]: <> (be sure to update the method for implementing it on a remote server)
 ["Recording responses in Qualtrics"]: <> (add a link documentation on data cleaner)
 
+[simulation-demo]: https://umasslowell.co1.qualtrics.com/jfe/form/SV_25DlciTSNf0F5nn
+[python]: https://www.python.org/
+[http-server]: https://www.npmjs.com/package/http-server
+[contact-PI]: https://mikowilford.wixsite.com/website-1
+[Software-Architecture-Layout]: https://github.com/Plea-Justice/pleabargain-simulation/wiki/Software-Architecture-Layout
+[github-page]: https://github.com/Plea-Justice/pleabargain-simulation
+[article-1]: https://www.uml.edu/news/stories/2018/pleabargains.aspx
+[article-2]: https://www.uml.edu/news/press-releases/2019/wilfordresearch022619.aspx
