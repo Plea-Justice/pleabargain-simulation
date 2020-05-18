@@ -15,29 +15,25 @@ var mainAvatar = new AvatarCustomizer();
 var avatarPalette = new Palette();
 
 // Declaring Lib Fixer
-var mc_lib_fixer = new lib.AllScenarios_LibFixer();
+var mc_lib_fixer = new lib.LibFixer();
 var lib_fixer = new Actor(mc_lib_fixer);
 
-// Declaring Male Movie Clips
-var mc_male = new lib.AllScenarios_AvatarCustomization_Figure0();
-// Declaring Male avatar actors
-var actor_male = new Actor(mc_male);
-
-// Declaring Female Movie Clips
-var mc_female = new lib.AllScenarios_AvatarCustomization_Figure1();
-// Declaring Female Actors
-var actor_female = new Actor(mc_female);
+// Declaring  Movie Clips
+figures = 2;
+Actors = [];
+for (var figure = 0; figure < figures; figure++) {
+    var mc = new lib.AllScenarios_AvatarCustomization_Figures();
+    var actor = new Actor(mc);
+    Actors.push(actor);
+}
 
 
 // window resize event
 window.onResize = OnWindowResize();
 
 
-// ARRAY OF ACTORS:
-var Actors = [actor_male,actor_female];
 
 // VARIABLES FOR INDEXING ASSET ARRAYS:
-var sex = 0;
 var avatar = 0;
 var avatarScript = new Script(" ");
 
@@ -283,33 +279,25 @@ function refreshColors()
 function prevEye() {
     if (!((avatar - 3) < 0)) {
         avatar -= 3;
-        if(sex) {
-            mainAvatar.setActorF(Actors[sex]);
-        } else {
-            mainAvatar.setActorM(Actors[sex]);
-        }
+        mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
         mainAvatar.palette.eyes = Math.floor(avatar / 3);
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
-        mainAvatar.palette.setAvatarNum(sex, avatar);
+        mainAvatar.palette.setFigure(figure);
 
         document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.eyes+1);
 
     } else {
         avatar += 6;
-        if(sex) {
-            mainAvatar.setActorF(Actors[sex]);
-        } else {
-            mainAvatar.setActorM(Actors[sex]);
-        }
+        mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
         mainAvatar.palette.eyes = Math.floor(avatar / 3);
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
-        mainAvatar.palette.setAvatarNum(sex, avatar);
+        mainAvatar.palette.setFigure(figure);
 
         document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.eyes+1);
 
@@ -318,99 +306,80 @@ function prevEye() {
 function nextEye() {
     if (!((avatar + 3) > Math.pow(3, 2) - 1)) {
         avatar += 3;
-        if(sex) {
-            mainAvatar.setActorF(Actors[sex]);
-        } else {
-            mainAvatar.setActorM(Actors[sex]);
-        }
+        mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
         mainAvatar.palette.eyes = Math.floor(avatar / 3);
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
-        mainAvatar.palette.setAvatarNum(sex, avatar);
+        mainAvatar.palette.setFigure(figure);
 
         document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.eyes+1);
     } else {
         avatar = avatar % 3;
-        if(sex) {
-            mainAvatar.setActorF(Actors[sex]);
-        } else {
-            mainAvatar.setActorM(Actors[sex]);
-        }
+        mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
         mainAvatar.palette.eyes = Math.floor(avatar / 3);
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
-        mainAvatar.palette.setAvatarNum(sex, avatar);
+        mainAvatar.palette.setFigure(figure);
 
         document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.eyes+1);
     }
 }
 // CYCLE THROUGH THE HAIR STYLES
 function prevHair() {
-    if (!(((avatar - 1) < 0) || (avatar % 3) == 0)) {
+    // Four hair types for figure 1, three for 2.
+    let nHairStyle = (figure == 1) ? 4 : 3;
+    if (!(((avatar - 1) < 0) || (avatar % nHairStyle) == 0)) {
         avatar--;
-        if (sex) {
-            mainAvatar.setActorF(Actors[sex]);
-        } else {
-            mainAvatar.setActorM(Actors[sex]);
-        }
+        mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
-        mainAvatar.palette.hair = avatar % 3;
+        mainAvatar.palette.hair = avatar % nHairStyle;
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
-        mainAvatar.palette.setAvatarNum(sex, avatar);
+        mainAvatar.palette.setFigure(figure);
 
         document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.hair + 1);
     } else {
-        avatar += 2;
-        if (sex) {
-            mainAvatar.setActorF(Actors[sex]);
-        } else {
-            mainAvatar.setActorM(Actors[sex]);
-        }
+        avatar += nHairStyle -1;
+        mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
-        mainAvatar.palette.hair = avatar % 3;
+        mainAvatar.palette.hair = avatar % nHairStyle;
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
-        mainAvatar.palette.setAvatarNum(sex, avatar);
+        mainAvatar.palette.setFigure(figure);
 
         document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.hair + 1);
     }
 }
 function nextHair() {
-    if (!(((avatar + 1) % 3) == 0)) {
+    // Four hair types for figure 1, three for 2.
+    let nHairStyle = (figure == 1) ? 4 : 3;
+    if (!(((avatar + 1) % nHairStyle) == 0)) {
         avatar++;
-        if (sex) {
-            mainAvatar.setActorF(Actors[sex]);
-        } else {
-            mainAvatar.setActorM(Actors[sex]);
-        }
+        mainAvatar.setActor(Actors[figure]);	
+
         stage.removeAllChildren();
 
-        mainAvatar.palette.hair = avatar % 3;
+        mainAvatar.palette.hair = avatar % nHairStyle;
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
-        mainAvatar.palette.setAvatarNum(sex, avatar);
+        mainAvatar.palette.setFigure(figure);
 
         document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.hair + 1);
     } else {
-        avatar -= 2;
-        if (sex) {
-            mainAvatar.setActorF(Actors[sex]);
-        } else {
-            mainAvatar.setActorM(Actors[sex]);
-        }
+        avatar -= nHairStyle -1;
+        mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
-        mainAvatar.palette.hair = avatar % 3;
+        mainAvatar.palette.hair = avatar % nHairStyle;
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
-        mainAvatar.palette.setAvatarNum(sex, avatar);
+        mainAvatar.palette.setFigure(figure);
 
         document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.hair + 1);
     }
@@ -441,9 +410,10 @@ function changeSexMale() {
     // Remove children for rendering new avatar
     stage.removeAllChildren();
     // Setting Actors index for male
-    sex = 0;
+    figure = 0;
     // Set the AvatarCustomizer to mainAvatar
-    mainAvatar.setActorM(Actors[sex]);
+    mainAvatar.setActor(Actors[figure]);
+    updateAvatar();
     // Draw mainAvatar
     mainAvatar.actor.draw(stage, avatarScript);
 }
@@ -456,8 +426,9 @@ function changeSexFemale() {
 
     // Following code is the same as above but for female sex
     stage.removeAllChildren();
-    sex = 1;
-    mainAvatar.setActorF(Actors[sex]);
+    figure = 1;
+    mainAvatar.setActor(Actors[figure]);
+    updateAvatar();
     mainAvatar.actor.draw(stage, avatarScript);
 }
 
@@ -478,19 +449,14 @@ function updateAvatar() {
     Actors[i].MC.assetPalette = avatarPalette;
     // Check for male or female avatar and then for each avatar, re-initialize the avatar.
     // ***** This has to be done in order to get the dynamic refreshing of the avatar *****
-    if (i == 0) {
-        // At specific indicies in the Actors array, reinitialize movieclip
-        Actors[i].MC = new lib.AllScenarios_AvatarCustomization_Figure0();
-    } else {
-        // same for female avatars too.
-        Actors[i].MC = new lib.AllScenarios_AvatarCustomization_Figure1();
-    }
+    Actors[i].MC = new lib.AllScenarios_AvatarCustomization_Figures();
+    
   }
 }
 
 // window resize function
-canvas.style.minWidth = "1600px";
-canvas.style.maxWidth = "2600px";
+//canvas.style.minWidth = "1600px";
+//canvas.style.maxWidth = "2600px";
 function OnWindowResize()
 {
     canvas.style.width = "120vw";
@@ -508,7 +474,8 @@ function initCustomizer() {
     mainAvatar.setPalette(avatarPalette);
 
     // Setting Default Actor to Male 1
-    mainAvatar.setActorM(Actors[sex]);
+    figure = 0;
+    mainAvatar.setActor(Actors[figure]);
 
     // Drawing mainAvatar
     mainAvatar.actor.draw(stage, avatarScript);
@@ -530,20 +497,22 @@ function setAvatar() {
     //create UrlSearchParams object
     var urlparams = new URLSearchParams(window.location.search);
 
-    mainAvatar.palette.setAvatarNum(sex, avatar);
+    mainAvatar.palette.setFigure(figure);
     // Serialize the palette (which includes which avatar to choose)
     let params = mainAvatar.palette.serializePalette();
 
     // qualtrics randomly generates module as 0 or 1, if module is 1 then
     // the first simulation is hit and run.
-    var module_is_shoplifting = parseInt(urlparams.get("module"));
+    var mod = parseInt(urlparams.get("module"));
     urlparams.set("modcounter", "0");
-    if (module_is_shoplifting) {
+    if (mod == 0) {
         first_scenario = 'simulation-shoplifting.html';
         //urlparams.set("module", "0");
-    } else {
+    } else if (mod == 1) {
         first_scenario = 'simulation-hitandrun.html';
         //urlparams.set("module", "1");
+    } else {
+        first_scenario = 'simulation-modular.html';
     }
     var urlparams_str = "";
     urlparams.forEach(function(value, key) {
@@ -554,5 +523,53 @@ function setAvatar() {
     window.location=first_scenario + "?" + urlparams_str + params;
 }
 
-console.log("FIRST SCENARIO: " + Qualtrics.SurveyEngine.getEmbeddedData(module));
+// Create a pallete from passed URL parameters.
+function loadAvatarParams() {
+    if (avatarPalette == undefined)
+        avatarPalette = new Palette();
+
+    features = ["skinA", "skinB", "outfitA", "outfitB", "hair", "hairA", "hairB", "eyes", "eyeA", "eyeB", "figure"]
+    for (const feature of features)
+        if (!(feature in inParams)) {
+            alert("Error: Customized avatar not recieved. "+ feature + " not defined.");
+            return
+        }
+
+    let skinA = inParams["skinA"];
+    let skinB = inParams["skinB"];
+    let hairA = inParams["hairA"];
+    let hairB = inParams["hairB"];
+    let eyeA = inParams["eyeA"];
+    let eyeB = inParams["eyeB"];
+    let outfitA = inParams["outfitA"];
+    let outfitB = inParams["outfitB"];
+    let figure = inParams["figure"];
+    let eyes = inParams["eyes"];
+    let hair = inParams["hair"];
+
+    console.log("****** Palette from Customizer ******");
+    console.log("Hair A: " + hairA);
+    console.log("Hair B: " + hairB);
+    console.log("Eye A: " + eyeA);
+    console.log("Eye B: " + eyeB);
+    console.log("Outfit A: " + outfitA);
+    console.log("Outfit B: " + outfitB);
+    console.log("Skin A: " + skinA);
+    console.log("Skin B: " + skinB);
+    console.log("Figure: " + figure);
+    console.log("Avatar eyes: " + eyes);
+    console.log("Avatar hair: " + hair);
+    
+    avatarPalette.setSkin(skinA, skinB);
+    avatarPalette.setHair(hairA, hairB);
+    avatarPalette.setEye(eyeA, eyeB);
+    avatarPalette.setOutfit(outfitA, outfitB);
+    avatarPalette.setFigure(figure);
+    avatarPalette.eyes = eyes;
+    avatarPalette.hair = hair;
+    
+    mainAvatar.setPalette(avatarPalette);
+    return avatarPalette;
+}
+//console.log("FIRST SCENARIO: " + Qualtrics.SurveyEngine.getEmbeddedData(module));
 console.log("LOADED avatar_customization.js");

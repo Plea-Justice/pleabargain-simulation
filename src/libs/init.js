@@ -28,6 +28,9 @@ function load_manifest() {
     ctx.fillStyle = "white";
     ctx.fillText("Loading...", 100, 100);
 
+    // Read avatar features passed in by customizer.
+    loadAvatarParams();
+
     let condition_number = inParams["condition"];
 
     if (condition_number == null) {
@@ -118,17 +121,15 @@ function arrange_scenes(preload_queue_event) {
             if (sceneDescr.fg != "None")
                 fg = images[sceneDescr.fg];
 
-            scene = new Scene(name, script, actor, bg, fg);
+            let scene = new Scene(name, script, actor, bg, fg);
             scenes.push(scene);
             if (sceneDescr.buttons != undefined)
                 scene.ButtonsToAdd = sceneDescr.buttons;
         
         // Cutscenes are premade scenes that consist of a movie clip.
         } else if (sceneDescr.clip != undefined) {
-
-            scenes.push(new Clip(sceneDescr.name, clips[sceneDescr.clip]));
-            // TODO fix advancer.
-            //[scenes.length -1].Next = {"a":4};
+            let scene = new Clip(sceneDescr.name, clips[sceneDescr.clip])
+            scenes.push(scene);
 
         } else {
             alert("ERROR: Malformed condition configuration.");

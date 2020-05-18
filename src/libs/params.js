@@ -40,8 +40,8 @@ function exitToSurvey() {
     surl += "&" + key + "=" + value;
   }
 
-  // Add the palette features
-  //surl += "&" + "palette=" + window.location.search.substr(1);
+  // Pass on any parameters passed in.
+  surl += "&" + window.location.search.substr(1);
 
   window.open(surl, "_self");
 }

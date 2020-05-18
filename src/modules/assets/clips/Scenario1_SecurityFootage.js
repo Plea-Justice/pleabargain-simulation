@@ -1,7 +1,8 @@
+// Published.
 (function (cjs, an) {
 
 var p; // shortcut to reference prototypes
-var lib={};var ss={};var img={};
+var lib = window.lib || AdobeAn.getComposition(Object.keys(AdobeAn.compositions)[0]).getLibrary();var ss={};var img={};
 lib.ssMetadata = [];
 
 
@@ -12,6 +13,7 @@ lib.ssMetadata = [];
 // stage content:
 (lib.Scenario1_SecurityFootage = function(mode,startPosition,loop) {
 if (loop == null) { loop = false; }	this.initialize(mode,startPosition,loop,{});
+this.assetPalette = avatarPalette;
 
 	// tv
 	this.shape = new cjs.Shape();

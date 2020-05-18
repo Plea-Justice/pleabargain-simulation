@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>UML Plea Bargain Simulation</title>
+		<link rel="shortcut icon" type="image/png" href="src/favicon.png" />
+		<link rel="stylesheet" href="css/bootstrap/4.3.1/css/bootstrap.min.css" />
+		<script src="libs/params.js"></script>
+	</head>
+	<body>
+		<main role="main" class="flex-shrink-0">
+			<div class="container">
+			  <h1 class="mt-5">No Qualtrics URL has been set.</h1>
+			  <p>The survey URL must be set in the simulation settings.</p>
+			  <h4 class="mt-5">Embedded Data</h4>
+			  <p>This data would be recieved from the simulation by Qualtrics.</p>
+			  <div id="ParamList"></div>
+			</div>
+		</main>
+	  
+		<footer class="footer mt-auto py-3">
+			<div class="container">
+			  <span class="text-muted">Plea Justice Simulation. Documentation may be found <a href="https://github.com/Plea-Justice/pleabargain-simulation/wiki/Configuration">here</a>.</span>
+			</div>
+		</footer>
+		<script>
+			div = document.getElementById("ParamList");
+			
+			console.log(inParams);
+			for (i in inParams) {
+				p = document.createElement("p");
+				p.innerHTML = i + ": " + inParams[i];
+				div.appendChild(p);
+			}
+		</script>
+	</body>
+</html>

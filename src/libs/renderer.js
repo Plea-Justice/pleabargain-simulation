@@ -92,16 +92,11 @@ function AvatarCustomizer(){
   this.index = 0;
   this.length = 1000000;
   this.actor = null;
-  this.actorM = null;
-  this.actorF = null;
   this.palette = null; //avatarPalette;
 
   console.log("Avatar Customizer constructed");
 
-  this.setActorF = function(customAvatar) {
-    this.actor = customAvatar;
-  }
-  this.setActorM = function(customAvatar) {
+  this.setActor = function(customAvatar) {
     this.actor = customAvatar;
   }
   this.setSkin = function(A, B) {
@@ -142,7 +137,6 @@ function Frame(stage, scenes) {
   if (scenes.length < 1)
     alert("ERROR: Frame() - scenes array empty.");
   this.Scene = scenes[this.Index];
-  console.log(this.Scene);
   console.log("Frame constructed");
   // TODO: unify Listener functions using event.target
   // TODO: make button behavior more modular

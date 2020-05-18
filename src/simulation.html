@@ -1,134 +1,96 @@
 <!DOCTYPE html>
-<!-- simulation frontend
-     Thomas Nelson 2017
-     University of Massachusetts Lowell, Psychology Department
-     simulation.html acts as the frontend for a simulation instance, parsing
-     the module name from the URI, loading that specified module js file,
-     and then calling on the renderer for running the simulation
-     Art by Jordi Love
-     Typography decisions by Will Crow
--->
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <title>UML Plea Bargain Simulation</title>
-    <style type="text/css">
-      body {
-        background-color: #202020;
-        margin: 0;
-        text-align: center;
-      }
-      html {
-      }
-    </style>
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="css/stylesheet.css" />
 
     <!-- LOAD CREATE.JS LIBRARY -->
-    <script src="libs/createjs-2015.11.26.min.js"></script>
+    <script src="libs/createjs.min.js"></script>
 
-    <!-- LOAD PROSECUTOR ANIMATION FILES -->
-    <script src="actors/prosecutor/prosecutor_close.js"></script>
-    <script src="actors/prosecutor/prosecutor_ai.js"></script>
-    <script src="actors/prosecutor/prosecutor_e.js"></script>
-    <script src="actors/prosecutor/prosecutor_consonant.js"></script>
-    <script src="actors/prosecutor/prosecutor_mb.js"></script>
-    <script src="actors/prosecutor/prosecutor_o.js"></script>
-    <script src="actors/prosecutor/prosecutor_l.js"></script>
-    <script src="actors/prosecutor/prosecutor_slightlyopen.js"></script>
-    <script src="actors/prosecutor/prosecutor_u.js"></script>
+    <!-- Lib Fixer -->
+    <script src="libs/LibFixer.js"></script>
 
-    <!-- LOAD JUDGE ANIMATION FILES -->
-    <script src="actors/judge/judge_close.js"></script>
-    <script src="actors/judge/judge_ai.js"></script>
-    <script src="actors/judge/judge_e.js"></script>
-    <script src="actors/judge/judge_consonant.js"></script>
-    <script src="actors/judge/judge_mb.js"></script>
-    <script src="actors/judge/judge_o.js"></script>
-    <script src="actors/judge/judge_l.js"></script>
-    <script src="actors/judge/judge_slightlyopen.js"></script>
-    <script src="actors/judge/judge_u.js"></script>
-
-    <!-- LOAD CLIPS -->
-    <script src="assets/clip/Plea Bargain Rough Animationj.js"></script>
-    <script src="assets/clip/prologueAnimation.js"></script>
+   <!-- Figure AVATARS -->
+   <script src="modules/assets/actors/avatar/AllScenarios_AvatarCustomization_Figures.js"></script>
+    
 
     <!-- LOAD LIBRARIES -->
     <script src="libs/actor.js"></script>
     <script src="libs/renderer.js"></script>
     <script src="libs/parser.js"></script>
-    <script src="libs/ui.js"></script> 
+    <script src="libs/ui.js"></script>
     <script src="libs/params.js"></script>
+    <script src="libs/avatar_customization.js"></script>
+    <script src="libs/init.js"></script>
 
     <!-- LOAD LOCALES -->
     <script src="locales/en_US.js"></script>
     <script src="locales/es_DO.js"></script>
 
+
     <!-- PRIMARY SCRIPT -->
     <script>
       var RES_WIDTH = 1920;
       var RES_HEIGHT = 1080;
+
+      /**
+       * Sets up the cavnas for use by the simulation. It adjusts to the set size by resolution standards.
+       * It also defines a new frame object to start our simulation off.
+      */
       function init() {
         console.log("Beginning Initialization");
-        console.log("Locating Canvas");
+        console.log("Creating canvas and stage");
         var canvas = document.getElementById("canvas");
-        canvas.width = RES_WIDTH;
-        canvas.height = RES_HEIGHT;
         canvas.getContext("2d").font = "300px Garamond";
         canvas.getContext("2d").fillStyle = "#C0C0C0";
         canvas.getContext("2d").textAlign = "center";
         canvas.getContext("2d").textBaseline = "middle";
+        var stage = new createjs.Stage(canvas);
 
-	console.log("Setting up LoadQueue");
-        var queue = new createjs.LoadQueue();
-        queue.on("complete", handleComplete, this);
+        canvas.style.width = window.innerWidth + "px";
+        canvas.style.height = 9/16 * window.innerWidth + "px";
 
-        console.log("Capturing Module Parameter");
-        if (inParams["Module"] != null) {
-          canvas.getContext("2d").fillText("LOADING...", RES_WIDTH/2, RES_HEIGHT/2);
-          console.log("Loading Module: " + inParams["Module"]);
-          queue.loadFile({id:"module", src:"modules/" + inParams["Module"]});
-        }
-        else {
-          alert("CRITICAL ERROR: No Simulation Module Specified");
-          canvas.getContext("2d").fillText("ERROR", RES_WIDTH/2, RES_HEIGHT/2);
-        }
-        function handleComplete() {
-          var module = queue.getResult("module");
-          document.body.appendChild(module);
-          console.log("Module Loaded: " + module);
-          console.log("Creating Stage");
-          var stage = new createjs.Stage(canvas);
-          var renderFrame = new Frame(stage, initialScene);
-          var iterator = 0;
-        
-          console.log("Setting up Event Handling");
-          createjs.Ticker.addEventListener("tick", tick);
-          createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
-          createjs.Ticker.setFPS(30);
+        var frame = new Frame(stage, scenes);
 
-          console.log("Initialization complete");
-          function tick() {
-            if (renderFrame.Scene.index < renderFrame.Scene.length) {
-              // During Scene or Clip
-              renderFrame.render();
-            } else if (renderFrame.Scene.index == renderFrame.Scene.length) {
-              // After Scene or Clip
-              // Activate Advancer if relevant
-              renderFrame.activate();
-	      // Activate any other Buttons
+        console.log("Setting up Event Handling");
+        createjs.Ticker.addEventListener("tick", tick);
+        if (inParams["mode"] == "fast") {
+          alert("DEBUG: FAST MODE ACTIVE");
+          createjs.Ticker.setInterval(1);
+        } else
+          createjs.Ticker.setInterval(1000/24);
 
-              stage.update();
-              renderFrame.Scene.index++;
-            } else {
-              // DO NOTHING
-	      // keep this loop clear for event capturing.
-            }
+        console.log("Initialization complete");
+
+        function tick() {
+          // RESIZE CANVAS SUCH THAT CONTENT IS SCALED
+          if ((window.innerWidth * 9/16) < window.innerHeight) {	// if width is limiting factor
+            canvas.style.width = window.innerWidth + "px";
+            canvas.style.height = 9/16 * window.innerWidth + "px";
+          } else {							// if height is limiting factor
+            // NOTE: decrementing by 4 prevents display of scrollbar on most browsers
+            canvas.style.width = 16/9 * (window.innerHeight - 4) + "px";
+            canvas.style.height = (window.innerHeight - 4) + "px";
+          }
+          // FRAME ADVANCEMENT
+          if (frame.Scene.index < frame.Scene.length) {
+            frame.render();
+          } else if (frame.Scene.index == frame.Scene.length) {
+            frame.activate();
+            stage.update();
+            frame.Scene.index++;
+          } else {
+	    // DO NOTHING
+            // keep this loop clear for event capturing.
           }
         }
       }
     </script>
   </head>
-  
-  <body onLoad="init();">
-    <canvas id="canvas" width="1920" height="1080" style="background-color:#202020"></canvas>
+  <!-- Simulation entry point is load_manifest() in modules/init.js. -->
+  <body onLoad="load_manifest();">
+    <canvas id="canvas" width="1920" height="1080" style="background-color:#220022; width:1920px; height:1080px;"></canvas>
   </body>
 </html>

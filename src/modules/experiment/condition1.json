@@ -4,6 +4,46 @@
         "description":"This object describes the outline of a single experimental condition.",
         "scenes":[
             {
+                "name":"Clip0",
+                "clip":"Scenario2_Intro"
+            },
+            {
+                "name":"Clip0",
+                "clip":"Scenario1_Intro"
+            },
+            {
+                "name":"Clip0",
+                "clip":"Scenario1_FlashbackGuilty"
+            },
+            {
+                "name":"Clip0",
+                "clip":"Scenario1_FlashbackInnocent"
+            },
+            {
+                "name":"Clip0",
+                "clip":"Scenario1_SecurityFootage"
+            },
+            {
+                "name":"Clip0",
+                "clip":"Scenario2_Intro"
+            },
+            {
+                "name":"Clip0",
+                "clip":"Scenario2_FlashbackGuilty"
+            },
+            {
+                "name":"Clip0",
+                "clip":"Scenario2_FlashbackInnocent"
+            },
+            {
+                "name":"Clip0",
+                "clip":"Scenario2_SecurityCam"
+            },
+            {
+                "name":"Avatar Test", "actor":"prosecutorActor", "fg":"None", "bg":"None",
+                "script":"Good afternoon@9, my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, your Honor."
+            },
+            {
                 "name":"Intro", "actor":"prosecutorActor", "fg":"None", "bg":"None",
                 "script":"Good afternoon@9, my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, your Honor."
             },
@@ -17,7 +57,7 @@
             },
             {
                 "name":"Clip1",
-                "clip":"Scenario1_Intro_Figure0"
+                "clip":"Scenario1_Intro"
             },
             {   
                 "name":"Decision1",

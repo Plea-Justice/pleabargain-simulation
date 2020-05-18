@@ -11,7 +11,7 @@ console.log("LOADING actor.js");
 /**
  * An object to store the colors that we want to give an avatar
  * customizer object. Stores two versions of skin, hair, eyes, and outfits.
- * It also contains avatarSex and avatarNum which are indicies to be passed
+ * It also contains figure which are indicies to be passed
  * to simulations in order to know which clips and avatars to use.
  * <p>
  * The function methods set the functions variables to the two parameters
@@ -27,8 +27,7 @@ Palette = function () {
   this.eyeB	= "#FF00FF";
   this.outfitA	= "#E5CCFF";
   this.outfitB	= "#70618D";
-  this.avatarSex = 0;
-  this.avatarNum = 0;
+  this.figure = 0;
 
   //eyes and hair the subject selected
   this.eyes = 0;
@@ -68,9 +67,8 @@ Palette = function () {
     this.outfitA = A;
     this.outfitB = B;
   }
-  this.setAvatarNum = function(A, B) {
-    this.avatarSex = A;
-    this.avatarNum = B;
+  this.setFigure = function(A) {
+    this.figure = A;
   }
 
   // format as query string
@@ -79,7 +77,7 @@ Palette = function () {
            "&hairA=" + this.hairA.substr(1) + "&hairB=" + this.hairB.substr(1) +
            "&eyeA=" + this.eyeA.substr(1) + "&eyeB=" + this.eyeB.substr(1) +
            "&outfitA=" + this.outfitA.substr(1) + "&outfitB=" + this.outfitB.substr(1) + 
-           "&avatarSex=" + this.avatarSex + "&avatarNum=" + this.avatarNum + 
+           "&figure=" + this.figure +
            "&eyes=" + this.eyes + "&hair=" + this.hair;
   }
 

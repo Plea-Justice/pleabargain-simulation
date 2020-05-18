@@ -1,7 +1,8 @@
+// Published.
 (function (cjs, an) {
 
 var p; // shortcut to reference prototypes
-var lib={};var ss={};var img={};
+var lib = window.lib || AdobeAn.getComposition(Object.keys(AdobeAn.compositions)[0]).getLibrary();var ss={};var img={};
 lib.ssMetadata = [
 		{name:"AllScenarios_PhoneRoom_atlas_", frames: [[621,1902,282,66],[1052,1882,264,72],[905,1956,280,64],[0,638,583,775],[585,843,523,492],[0,1415,619,577],[1040,0,640,841],[621,1970,203,54],[1187,1956,191,49],[0,1994,200,44],[1491,843,433,548],[621,1337,429,563],[1491,1393,415,570],[1052,1337,437,543],[0,0,1038,636]]}
 ];
@@ -13,18 +14,21 @@ lib.ssMetadata = [
 
 (lib.CachedBmp_18 = function() {
 	this.initialize(img.CachedBmp_18);
+this.assetPalette = avatarPalette;
 }).prototype = p = new cjs.Bitmap();
 p.nominalBounds = new cjs.Rectangle(0,0,5211,1958);
 
 
 (lib.CachedBmp_17 = function() {
 	this.initialize(img.CachedBmp_17);
+this.assetPalette = avatarPalette;
 }).prototype = p = new cjs.Bitmap();
 p.nominalBounds = new cjs.Rectangle(0,0,1690,2838);
 
 
 (lib.CachedBmp_16 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
 
@@ -32,6 +36,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2838);
 
 (lib.CachedBmp_15 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(1);
 }).prototype = p = new cjs.Sprite();
 
@@ -39,6 +44,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2838);
 
 (lib.CachedBmp_14 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(2);
 }).prototype = p = new cjs.Sprite();
 
@@ -46,6 +52,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2838);
 
 (lib.CachedBmp_13 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(3);
 }).prototype = p = new cjs.Sprite();
 
@@ -53,6 +60,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2838);
 
 (lib.CachedBmp_12 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(4);
 }).prototype = p = new cjs.Sprite();
 
@@ -60,6 +68,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2838);
 
 (lib.CachedBmp_11 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(5);
 }).prototype = p = new cjs.Sprite();
 
@@ -67,6 +76,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2838);
 
 (lib.CachedBmp_10 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(6);
 }).prototype = p = new cjs.Sprite();
 
@@ -74,12 +84,14 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2838);
 
 (lib.CachedBmp_9 = function() {
 	this.initialize(img.CachedBmp_9);
+this.assetPalette = avatarPalette;
 }).prototype = p = new cjs.Bitmap();
 p.nominalBounds = new cjs.Rectangle(0,0,1690,2830);
 
 
 (lib.CachedBmp_8 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(7);
 }).prototype = p = new cjs.Sprite();
 
@@ -87,6 +99,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2830);
 
 (lib.CachedBmp_7 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(8);
 }).prototype = p = new cjs.Sprite();
 
@@ -94,6 +107,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2830);
 
 (lib.CachedBmp_6 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(9);
 }).prototype = p = new cjs.Sprite();
 
@@ -101,6 +115,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2830);
 
 (lib.CachedBmp_5 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(10);
 }).prototype = p = new cjs.Sprite();
 
@@ -108,6 +123,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2830);
 
 (lib.CachedBmp_4 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(11);
 }).prototype = p = new cjs.Sprite();
 
@@ -115,6 +131,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2830);
 
 (lib.CachedBmp_3 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(12);
 }).prototype = p = new cjs.Sprite();
 
@@ -122,6 +139,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2830);
 
 (lib.CachedBmp_2 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(13);
 }).prototype = p = new cjs.Sprite();
 
@@ -129,6 +147,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2830);
 
 (lib.CachedBmp_1 = function() {
 	this.initialize(ss["AllScenarios_PhoneRoom_atlas_"]);
+this.assetPalette = avatarPalette;
 	this.gotoAndStop(14);
 }).prototype = p = new cjs.Sprite();
 
@@ -137,6 +156,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1690,2830);
 // stage content:
 (lib.AllScenarios_PhoneRoom = function(mode,startPosition,loop) {
 if (loop == null) { loop = false; }	this.initialize(mode,startPosition,loop,{});
+this.assetPalette = avatarPalette;
 
 	// Phone
 	this.instance = new lib.CachedBmp_1();
@@ -148,43 +168,43 @@ if (loop == null) { loop = false; }	this.initialize(mode,startPosition,loop,{});
 	this.instance_1 = new lib.CachedBmp_2();
 	this.instance_1.setTransform(239.95,233.35,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+if (this.assetPalette.figure == 0 && this.assetPalette.hair == 3)	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
 
 	// figure0hair2
 	this.instance_2 = new lib.CachedBmp_3();
 	this.instance_2.setTransform(241.65,209.2,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
+if (this.assetPalette.figure == 0 && this.assetPalette.hair == 2)	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
 
 	// figure0hair1
 	this.instance_3 = new lib.CachedBmp_4();
 	this.instance_3.setTransform(233.6,226.85,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
+if (this.assetPalette.figure == 0 && this.assetPalette.hair == 1)	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
 
 	// figure0hair0
 	this.instance_4 = new lib.CachedBmp_5();
 	this.instance_4.setTransform(231.5,201.45,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_4).wait(1));
+if (this.assetPalette.figure == 0 && this.assetPalette.hair == 0)	this.timeline.addTween(cjs.Tween.get(this.instance_4).wait(1));
 
 	// figure0eyes2
 	this.instance_5 = new lib.CachedBmp_6();
 	this.instance_5.setTransform(350.55,355.75,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_5).wait(1));
+if (this.assetPalette.figure == 0 && this.assetPalette.eyes == 2)	this.timeline.addTween(cjs.Tween.get(this.instance_5).wait(1));
 
 	// figure0eyes1
 	this.instance_6 = new lib.CachedBmp_7();
 	this.instance_6.setTransform(356.9,354.7,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_6).wait(1));
+if (this.assetPalette.figure == 0 && this.assetPalette.eyes == 1)	this.timeline.addTween(cjs.Tween.get(this.instance_6).wait(1));
 
 	// figure0eyes0
 	this.instance_7 = new lib.CachedBmp_8();
 	this.instance_7.setTransform(349.35,352.35,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_7).wait(1));
+if (this.assetPalette.figure == 0 && this.assetPalette.eyes == 0)	this.timeline.addTween(cjs.Tween.get(this.instance_7).wait(1));
 
 	// figure0
 	this.instance_8 = new lib.CachedBmp_9();
@@ -196,43 +216,43 @@ if (loop == null) { loop = false; }	this.initialize(mode,startPosition,loop,{});
 	this.instance_9 = new lib.CachedBmp_10();
 	this.instance_9.setTransform(182.55,220.85,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_9).wait(1));
+if (this.assetPalette.figure == 1 && this.assetPalette.hair == 3)	this.timeline.addTween(cjs.Tween.get(this.instance_9).wait(1));
 
 	// figure1hair2
 	this.instance_10 = new lib.CachedBmp_11();
 	this.instance_10.setTransform(172.7,184.1,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_10).wait(1));
+if (this.assetPalette.figure == 1 && this.assetPalette.hair == 2)	this.timeline.addTween(cjs.Tween.get(this.instance_10).wait(1));
 
 	// figure1hair1
 	this.instance_11 = new lib.CachedBmp_12();
 	this.instance_11.setTransform(231.5,226.25,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_11).wait(1));
+if (this.assetPalette.figure == 1 && this.assetPalette.hair == 1)	this.timeline.addTween(cjs.Tween.get(this.instance_11).wait(1));
 
 	// figure1hair0
 	this.instance_12 = new lib.CachedBmp_13();
 	this.instance_12.setTransform(194.45,211.45,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_12).wait(1));
+if (this.assetPalette.figure == 1 && this.assetPalette.hair == 0)	this.timeline.addTween(cjs.Tween.get(this.instance_12).wait(1));
 
 	// figure1eyes2
 	this.instance_13 = new lib.CachedBmp_14();
 	this.instance_13.setTransform(346.55,346.75,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_13).wait(1));
+if (this.assetPalette.figure == 1 && this.assetPalette.eyes == 2)	this.timeline.addTween(cjs.Tween.get(this.instance_13).wait(1));
 
 	// figure1eyes1
 	this.instance_14 = new lib.CachedBmp_15();
 	this.instance_14.setTransform(354.65,344.7,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_14).wait(1));
+if (this.assetPalette.figure == 1 && this.assetPalette.eyes == 1)	this.timeline.addTween(cjs.Tween.get(this.instance_14).wait(1));
 
 	// figure1eyes0
 	this.instance_15 = new lib.CachedBmp_16();
 	this.instance_15.setTransform(345,346,0.5,0.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_15).wait(1));
+if (this.assetPalette.figure == 1 && this.assetPalette.eyes == 0)	this.timeline.addTween(cjs.Tween.get(this.instance_15).wait(1));
 
 	// figure1
 	this.instance_16 = new lib.CachedBmp_17();
