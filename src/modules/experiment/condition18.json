@@ -1,7 +1,7 @@
 {
     "condition":{
-        "name":"Grant Study Hit and Run Condition 1/18",
-        "description":"Innocent, 6 Month Offer, 20% Chance Conviction",
+        "name":"Grant Study Hit and Run Condition 18/18",
+        "description":"Guilty, 18 Month Offer, 80% Chance Conviction",
         "scenes":[
 			{
 				"name":"H&R Intro Scene",
@@ -111,12 +111,12 @@
 			},
 			{
 				"name":"Flashback",
-				"clip":"Scenario1_FlashbackInnocent"
+				"clip":"Scenario1_FlashbackGuilty"
 			},
 			{
-				"name":"Jail_innocent",
+				"name":"Jail_guilty",
 				"actor":"AllScenarios_Jail",
-				"script":"I know it was tight when I pulled out, but I didn't actually come into contact with that person's car. When I looked in my mirror, the other car was fine! I know I'm innocent."
+				"script":"I know it was tight when I pulled out, but I thought I just barely grazed that person’s car. I must have missed some of the damage I caused when pulling out. I must be guilty."
 			},
 			{
 				"name":"offer_P0",
@@ -126,7 +126,7 @@
 			},
 			{
 				"name":"offer_P1",
-				"script":"Based on the security camera footage and the damage to the victim’s car, I would estimate that you have a 20 percent chance of being convicted if this case goes to trial.",
+				"script":"Based on the security camera footage and the damage to the victim’s car, I would estimate that you have a 80 percent chance of being convicted if this case goes to trial.",
 				"actor":"daActor",
 				"bg":"meetingroom.png"
 			},
@@ -138,7 +138,7 @@
 			},
 			{
 				"name":"offer_P3",
-				"script":"If you plead guilty now, saving the State the resources needed for a formal trial, Mr. Clark is prepared to recommend that the district court judge sentence you to 6 months in jail, rather than 24 months in jail.",
+				"script":"If you plead guilty now, saving the State the resources needed for a formal trial, Mr. Clark is prepared to recommend that the district court judge sentence you to 18 months in jail, rather than 24 months in jail.",
 				"actor":"daActor",
 				"bg":"meetingroom.png"
 			},
@@ -162,7 +162,7 @@
 			},
 			{
 				"name":"pleadeal",
-				"script":"Plead guilty in exchange for a lower sentence (6 months in jail). Reject the offer and risk a more severe sentence if found guilty at trial (24 months in jail).",
+				"script":"Plead guilty in exchange for a lower sentence (18 months in jail). Reject the offer and risk a more severe sentence if found guilty at trial (24 months in jail).",
 				"bg":"meetingroom.png",
 				"buttons":["Plead Guilty", "Reject Offer"]
 			}

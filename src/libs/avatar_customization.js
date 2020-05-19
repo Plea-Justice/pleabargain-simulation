@@ -330,8 +330,8 @@ function nextEye() {
 }
 // CYCLE THROUGH THE HAIR STYLES
 function prevHair() {
-    // Four hair types for figure 1, three for 2.
-    let nHairStyle = (figure == 1) ? 4 : 3;
+    // Five hair types for figure 1, four for 2.
+    let nHairStyle = (figure == 1) ? 5 : 4;
     if (!(((avatar - 1) < 0) || (avatar % nHairStyle) == 0)) {
         avatar--;
         mainAvatar.setActor(Actors[figure]);
@@ -357,8 +357,8 @@ function prevHair() {
     }
 }
 function nextHair() {
-    // Four hair types for figure 1, three for 2.
-    let nHairStyle = (figure == 1) ? 4 : 3;
+    // Five hair types for figure 1, four for 2.
+    let nHairStyle = (figure == 1) ? 5 : 4;
     if (!(((avatar + 1) % nHairStyle) == 0)) {
         avatar++;
         mainAvatar.setActor(Actors[figure]);	
@@ -501,26 +501,13 @@ function setAvatar() {
     // Serialize the palette (which includes which avatar to choose)
     let params = mainAvatar.palette.serializePalette();
 
-    // qualtrics randomly generates module as 0 or 1, if module is 1 then
-    // the first simulation is hit and run.
-    var mod = parseInt(urlparams.get("module"));
-    urlparams.set("modcounter", "0");
-    if (mod == 0) {
-        first_scenario = 'simulation-shoplifting.html';
-        //urlparams.set("module", "0");
-    } else if (mod == 1) {
-        first_scenario = 'simulation-hitandrun.html';
-        //urlparams.set("module", "1");
-    } else {
-        first_scenario = 'simulation-modular.html';
-    }
     var urlparams_str = "";
     urlparams.forEach(function(value, key) {
         urlparams_str += "&" + key + "=" + value;
     });
     urlparams_str = urlparams_str.substr(1);
     // Go to the simulation-hitandrun with the palette and avatar parameters included.
-    window.location=first_scenario + "?" + urlparams_str + params;
+    window.location="simulation.html" + "?" + urlparams_str + params;
 }
 
 // Create a pallete from passed URL parameters.

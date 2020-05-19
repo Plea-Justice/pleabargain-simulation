@@ -1,7 +1,7 @@
 {
     "condition":{
-        "name":"Grant Study Hit and Run Condition 1/18",
-        "description":"Innocent, 6 Month Offer, 20% Chance Conviction",
+        "name":"Grant Study Hit and Run Condition 3/18",
+        "description":"Innocent, 6 Month Offer, 80% Chance Conviction",
         "scenes":[
 			{
 				"name":"H&R Intro Scene",
@@ -126,7 +126,7 @@
 			},
 			{
 				"name":"offer_P1",
-				"script":"Based on the security camera footage and the damage to the victim’s car, I would estimate that you have a 20 percent chance of being convicted if this case goes to trial.",
+				"script":"Based on the security camera footage and the damage to the victim’s car, I would estimate that you have a 80 percent chance of being convicted if this case goes to trial.",
 				"actor":"daActor",
 				"bg":"meetingroom.png"
 			},

@@ -30,10 +30,10 @@
     "actors":[
         "prosecutorActor",
         "judgeActor",
-        "daActor"
+        "daActor",
+        "AllScenarios_Jail"
     ],
     "clips":[
-        "AllScenarios_Jail",
         "Scenario1_Intro",
         "Scenario1_FlashbackGuilty",
         "Scenario1_FlashbackInnocent",
