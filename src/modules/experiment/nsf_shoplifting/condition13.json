@@ -143,7 +143,7 @@
 			},
 			{
 				"name": "offer2",
-				"script": "Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have 20 percent chance of being convicted if this case goes to trial.",
+				"script": "Based on the security camera footage and the testimony from the salesclerk, I would estimate that you have a 20 percent chance of being convicted if this case goes to trial.",
 				"actor": "daActor",
 				"bg": "meetingroom.png",
 				"fg": null

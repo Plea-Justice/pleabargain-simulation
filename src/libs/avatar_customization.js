@@ -21,11 +21,8 @@ var lib_fixer = new Actor(mc_lib_fixer);
 // Declaring  Movie Clips
 figures = 2;
 Actors = [];
-for (var figure = 0; figure < figures; figure++) {
-    var mc = new lib.AllScenarios_AvatarCustomization();
-    var actor = new Actor(mc);
-    Actors.push(actor);
-}
+for (var figure = 0; figure < figures; figure++)
+    Actors.push(new Actor(new lib.AllScenarios_AvatarCustomization()));
 
 
 // window resize event
@@ -138,8 +135,9 @@ function presetHairPicked(preset)
 		default:
 			console.log("case error on hair");
 			break;
-	}
-	avastruct_hair.picker.secondaryHex = avastruct_hair.generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
+    }
+    let colorOffset = 30;
+	avastruct_hair.picker.secondaryHex = avastruct_hair.picker.generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
 
 }
 
@@ -187,8 +185,9 @@ function presetEyePicked(preset)
 		default:
 			console.log("case error on eye");
 			break;
-	}
-	avastruct_eye.picker.secondaryHex = avastruct_eye.generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
+    }
+    let colorOffset = 30;
+	avastruct_eye.picker.secondaryHex = avastruct_eye.picker.generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
 
 }
 
@@ -236,8 +235,9 @@ function presetSkinPicked(preset)
 		default:
 			console.log("case error on skin");
 			break;
-	}
-	avastruct_skin.picker.secondaryHex = avastruct_skin.generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
+    }
+    let colorOffset = 30;
+	avastruct_skin.picker.secondaryHex = avastruct_skin.picker.generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
 
 }
 
@@ -413,6 +413,7 @@ function changeSexMale() {
     figure = 0;
     // Set the AvatarCustomizer to mainAvatar
     mainAvatar.setActor(Actors[figure]);
+    mainAvatar.palette.setFigure(figure);
     updateAvatar();
     // Draw mainAvatar
     mainAvatar.actor.draw(stage, avatarScript);
@@ -428,6 +429,7 @@ function changeSexFemale() {
     stage.removeAllChildren();
     figure = 1;
     mainAvatar.setActor(Actors[figure]);
+    mainAvatar.palette.setFigure(figure);
     updateAvatar();
     mainAvatar.actor.draw(stage, avatarScript);
 }

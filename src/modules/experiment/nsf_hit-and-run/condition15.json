@@ -126,7 +126,7 @@
 			},
 			{
 				"name":"offer_P1",
-				"script":"Based on the security camera footage and the damage to the victim’s car, I would estimate that you have a 80 percent chance of being convicted if this case goes to trial.",
+				"script":"Based on the security camera footage and the damage to the victim’s car, I would estimate that you have an 80 percent chance of being convicted if this case goes to trial.",
 				"actor":"daActor",
 				"bg":"meetingroom.png"
 			},
