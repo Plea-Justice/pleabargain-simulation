@@ -22,7 +22,7 @@ var lib_fixer = new Actor(mc_lib_fixer);
 figures = 2;
 Actors = [];
 for (var figure = 0; figure < figures; figure++) {
-    var mc = new lib.AllScenarios_AvatarCustomization_Figures();
+    var mc = new lib.AllScenarios_AvatarCustomization();
     var actor = new Actor(mc);
     Actors.push(actor);
 }
@@ -449,7 +449,7 @@ function updateAvatar() {
     Actors[i].MC.assetPalette = avatarPalette;
     // Check for male or female avatar and then for each avatar, re-initialize the avatar.
     // ***** This has to be done in order to get the dynamic refreshing of the avatar *****
-    Actors[i].MC = new lib.AllScenarios_AvatarCustomization_Figures();
+    Actors[i].MC = new lib.AllScenarios_AvatarCustomization();
     
   }
 }

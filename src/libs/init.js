@@ -3,7 +3,7 @@ console.log("LOADING init.js");
 // Globabl Variables
 var canvas = document.getElementById("canvas");
 
-const experiment_path = "modules/experiment/";
+var experiment_path = "modules/experiment/";
 const manifest_filename = "manifest.json";
 const condition_file_prefix = "condition";
 
@@ -19,6 +19,15 @@ var scenes = [];
 // SIMULATION ENTRY POINT
 // Load the experiment manifest and proceed to load_condition().
 function load_manifest() {
+
+    let scenario = inParams["scenario"];
+
+    if (scenario == null) {
+        alert("ERROR: No scenario specified.")
+        return;
+    }
+
+    experiment_path += scenario +'/';
 
     console.log("Loading manifest " + experiment_path + manifest_filename);
     let canvas = document.getElementById("canvas");
@@ -74,7 +83,7 @@ function load_manifest() {
         case "image":
             let img = event.item.src;
             img = img.slice(img.lastIndexOf("/")+1);
-            images[img] = new createjs.Bitmap(event.rawResult);
+            images[img] = new createjs.Bitmap(event.result);
             break;
 
         default:
@@ -115,11 +124,8 @@ function arrange_scenes(preload_queue_event) {
                 }
             }
             console.log(script);
-            let bg = null, fg = null;
-            if (sceneDescr.bg != "None")
-                bg = images[sceneDescr.bg];
-            if (sceneDescr.fg != "None")
-                fg = images[sceneDescr.fg];
+            let bg = images[sceneDescr.bg];
+            let fg = images[sceneDescr.fg];
 
             let scene = new Scene(name, script, actor, bg, fg);
             scenes.push(scene);

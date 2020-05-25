@@ -1,7 +1,7 @@
 {
     "condition":{
-        "name":"Grant Study Hit and Run Condition 10/18",
-        "description":"Guilty, 6 Month Offer, 20% Chance Conviction",
+        "name":"Grant Study Hit and Run Condition 3/18",
+        "description":"Innocent, 6 Month Offer, 80% Chance Conviction",
         "scenes":[
 			{
 				"name":"H&R Intro Scene",
@@ -11,7 +11,7 @@
 				"name":"intro1",
 				"script":"Good afternoon, my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, your Honor.",
 				"actor":"prosecutorActor",
-				"bg":"courtrooom_2019.png",
+				"bg":"courtroom_2019.png",
 				"fg":"table.png"
 			},
 			{
@@ -24,28 +24,28 @@
 				"name":"initial_P0",
 				"script":"@U is accused of being involved in a hit-and-run occurring around 6 PM on the 26th day of June in the year 2019.",
 				"actor":"prosecutorActor",
-				"bg":"courtrooom_2019.png",
+				"bg":"courtroom_2019.png",
 				"fg":"table.png"
 			},
 			{
 				"name":"initial_P1",
 				"script":"In accordance with state law, a hit-and-run occurs when the operator of a motor vehicle damages public or private property, and the operator fails to report it.",
 				"actor":"prosecutorActor",
-				"bg":"courtrooom_2019.png",
+				"bg":"courtroom_2019.png",
 				"fg":"table.png"
 			},
 			{
 				"name":"initial_P2",
 				"script":"According to the information provided in the police report, there was property damage exceeding $1,000, which resulted from a collision in a store parking lot. The victim's car was legally parked within the lines of the space.",
 				"actor":"prosecutorActor",
-				"bg":"courtrooom_2019.png",
+				"bg":"courtroom_2019.png",
 				"fg":"table.png"
 			},
 			{
 				"name":"initial_P3",
 				"script":"There is security footage provided by the owner of the business where the accident occurred that shows a car with a plate number registered to @U appearing to come in contact with the victim's car.",
 				"actor":"prosecutorActor",
-				"bg":"courtrooom_2019.png",
+				"bg":"courtroom_2019.png",
 				"fg":"table.png"
 			},
 			{
@@ -56,28 +56,28 @@
 				"name":"initial_P4",
 				"script":"Although the impact might look minor, according to a quote from the victim's auto body repair shop the damage to the body was significant.",
 				"actor":"prosecutorActor",
-				"bg":"courtrooom_2019.png",
+				"bg":"courtroom_2019.png",
 				"fg":"table.png"
 			},
 			{
 				"name":"initial_P5",
 				"script":"Thus, according to statute, failure of @U to stop and check the status of the other vehicle constitutes a hit-and-run. The security footage appears to show @U's car striking a vehicle and failing to check for or report damages.",
 				"actor":"prosecutorActor",
-				"bg":"courtrooom_2019.png",
+				"bg":"courtroom_2019.png",
 				"fg":"table.png"
 			},
 			{
 				"name":"initial_P6",
 				"script":"This is a textbook hit-and-run, which is considered a serious misdemeanor punishable by significant fines and/or time in jail.",
 				"actor":"prosecutorActor",
-				"bg":"courtrooom_2019.png",
+				"bg":"courtroom_2019.png",
 				"fg":"table.png"
 			},
 			{
 				"name":"initial_P7",
 				"script":"We request a court date be set by the State as soon as it is possible.",
 				"actor":"prosecutorActor",
-				"bg":"courtrooom_2019.png",
+				"bg":"courtroom_2019.png",
 				"fg":"table.png"
 			},
 			{
@@ -111,12 +111,12 @@
 			},
 			{
 				"name":"Flashback",
-				"clip":"Scenario1_FlashbackGuilty"
+				"clip":"Scenario1_FlashbackInnocent"
 			},
 			{
-				"name":"Jail_guilty",
+				"name":"Jail_innocent",
 				"actor":"AllScenarios_Jail",
-				"script":"I know it was tight when I pulled out, but I thought I just barely grazed that person’s car. I must have missed some of the damage I caused when pulling out. I must be guilty."
+				"script":"I know it was tight when I pulled out, but I didn't actually come into contact with that person's car. When I looked in my mirror, the other car was fine! I know I'm innocent."
 			},
 			{
 				"name":"offer_P0",
@@ -126,7 +126,7 @@
 			},
 			{
 				"name":"offer_P1",
-				"script":"Based on the security camera footage and the damage to the victim’s car, I would estimate that you have a 20 percent chance of being convicted if this case goes to trial.",
+				"script":"Based on the security camera footage and the damage to the victim’s car, I would estimate that you have a 80 percent chance of being convicted if this case goes to trial.",
 				"actor":"daActor",
 				"bg":"meetingroom.png"
 			},
