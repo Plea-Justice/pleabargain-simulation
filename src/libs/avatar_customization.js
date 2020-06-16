@@ -16,7 +16,6 @@ var avatarPalette = new Palette();
 
 // Declaring Lib Fixer
 var mc_lib_fixer = new lib.LibFixer();
-var lib_fixer = new Actor(mc_lib_fixer);
 
 // Declaring  Movie Clips
 figures = 2;

@@ -18,7 +18,22 @@ console.log("LOADING parser.js");
  * @see draw 
  */
 function Script (inputString) {
-  this.input = inputString;
+
+  // Replace the @U control character with the particpant's name.
+  let script = inputString.replace(/@U/g, inParams["Name"]);
+
+  // Expand @0 - @9 into '~~~' for natural pauses in speech.
+  let i = 0;
+  while ((i = script.search(/@\d/)) != -1) {
+      let d  = Number(script[i+1]);
+      if (d == 0) {
+          script = script.replace("@0", "");
+      } else {
+      script = script.slice(0, i+1) + (d-1) + "~~~" + script.slice(i+2);
+      }
+  }
+
+  this.input = script;
   this.length = this.input.length;
   this.initialize = function() {
     this.index = 0;
