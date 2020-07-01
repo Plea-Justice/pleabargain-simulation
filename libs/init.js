@@ -3,7 +3,7 @@ console.log("LOADING init.js");
 // Globabl Variables
 var canvas = document.getElementById("canvas");
 
-var experiment_path = "modules/experiment/";
+var experiment_path = "experiments/";
 const manifest_filename = "manifest.json";
 const condition_file_prefix = "condition";
 

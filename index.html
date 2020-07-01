@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <title>Plea Justice Plea Bargain Simulation</title>
+  <title>Plea Bargain Simulation</title>
 
   <link rel="canonical" href="https://demo.pleajustice.org">
 
@@ -28,11 +28,11 @@
         document.getElementById("cond_helptext").innerText = "";
       }
 
-      let page = avatar ? "avatar_creation.html" : "simulation.html";
+      let page = avatar ? "avatar.html" : "simulation.html";
       let mode = fast ? "&mode=fast" : "";
       let scen = "&scenario=" + (scenario == 0 ? "nsf_hit-and-run" : "nsf_shoplifting");
 
-      let url = "src/" + (avatar ? "avatar_creation.html" : "simulation.html") + "?" + scen + "&condition=" + cond + "&Name=" + name + mode;
+      let url = (avatar ? "avatar.html" : "simulation.html") + "?" + scen + "&condition=" + cond + "&Name=" + name + mode;
       window.location.href = url;
     }
 

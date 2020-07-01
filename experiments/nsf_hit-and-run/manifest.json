@@ -1,39 +1,35 @@
 {
-    "path":"modules/assets/",
-    "manifest":[
-        "actors/prosecutor.js",
-        "actors/defenseattorney.js",
-        "actors/judge.js",
-
+    "path": "assets/",
+    "manifest": [
+        "actors/prosecutorActor.js",
+        "actors/daActor.js",
+        "actors/judgeActor.js",
         "clips/AllScenarios_Jail.js",
         "clips/AllScenarios_PhoneRoom.js",
-
         "clips/Scenario1_Intro.js",
         "clips/Scenario1_FlashbackGuilty.js",
         "clips/Scenario1_FlashbackInnocent.js",
         "clips/Scenario1_SecurityFootage.js",
-
         "clips/Scenario2_Intro.js",
         "clips/Scenario2_FlashbackGuilty.js",
         "clips/Scenario2_FlashbackInnocent.js",
         "clips/Scenario2_SecurityCam.js",
-
-        "scenes/backgrounds/blankjail.png",
-        "scenes/backgrounds/courtroom_2019.png",
-        "scenes/backgrounds/courtroom.png",
-        "scenes/backgrounds/judgecourtroom.png",
-        "scenes/backgrounds/JudgeSeat.png",
-        "scenes/backgrounds/meetingroom.png",
-        "scenes/backgrounds/plainwhite.png",
-        "scenes/foregrounds/table.png"
+        "backgrounds/blankjail.png",
+        "backgrounds/courtroom_2019.png",
+        "backgrounds/courtroom.png",
+        "backgrounds/judgecourtroom.png",
+        "backgrounds/JudgeSeat.png",
+        "backgrounds/meetingroom.png",
+        "backgrounds/plainwhite.png",
+        "foregrounds/table.png"
     ],
-    "actors":[
+    "actors": [
         "prosecutorActor",
         "judgeActor",
         "daActor",
         "AllScenarios_Jail"
     ],
-    "clips":[
+    "clips": [
         "Scenario1_Intro",
         "Scenario1_FlashbackGuilty",
         "Scenario1_FlashbackInnocent",
@@ -43,5 +39,5 @@
         "Scenario2_FlashbackInnocent",
         "Scenario2_SecurityCam"
     ],
-    "survey":"/src/no-url-set.html"
+    "survey": "no-url-set.html"
 }

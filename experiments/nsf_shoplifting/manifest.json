@@ -1,9 +1,9 @@
 {
-    "path":"modules/assets/",
+    "path":"assets/",
     "manifest":[
-        "actors/prosecutor.js",
-        "actors/defenseattorney.js",
-        "actors/judge.js",
+        "actors/prosecutorActor.js",
+        "actors/daActor.js",
+        "actors/judgeActor.js",
 
         "clips/AllScenarios_Jail.js",
         "clips/AllScenarios_PhoneRoom.js",
@@ -43,5 +43,5 @@
         "Scenario2_FlashbackInnocent",
         "Scenario2_SecurityCam"
     ],
-    "survey":"/src/no-url-set.html"
+    "survey":"no-url-set.html"
 }
