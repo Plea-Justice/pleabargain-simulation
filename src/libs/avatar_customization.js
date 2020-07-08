@@ -370,17 +370,8 @@ function setAvatar() {
     // Serialize the palette (which includes which avatar to choose)
     let params = mainAvatar.palette.serializePalette();
 
-    // qualtrics randomly generates module as 0 or 1, if module is 1 then
-    // the first simulation is hit and run.
-    var module_is_shoplifting = parseInt(urlparams.get("module"));
-    urlparams.set("modcounter", "0");
-    if (module_is_shoplifting) {
-        first_scenario = 'simulation-shoplifting.html';
-        //urlparams.set("module", "0");
-    } else {
-        first_scenario = 'simulation-hitandrun.html';
-        //urlparams.set("module", "1");
-    }
+    first_scenario = 'simulation-part-one.html';
+
     var urlparams_str = "";
     urlparams.forEach(function(value, key) {
         urlparams_str += "&" + key + "=" + value;

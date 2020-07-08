@@ -19,28 +19,29 @@
 
     <!-- INTRO SCENES -->
     <!-- Figure 0 -->
-    <script src="modules/assets/clips/Scenario1_Intro_Figure0.js"></script>
+    <script src="modules/assets/clips/Scenario2_Intro_Figure0.js"></script>
     <!-- Figure 1 -->
-    <script src="modules/assets/clips/Scenario1_Intro_Figure1.js"></script>
+    <script src="modules/assets/clips/Scenario2_Intro_Figure1.js"></script>
 
     <!-- GUILTY SCENES -->
     <!-- Figure 0 -->
-    <script src="modules/assets/clips/Scenario1_FlashbackGuilty_Figure0.js"></script>
+    <script src="modules/assets/clips/Scenario2_FlashbackGuilty_Figure0.js"></script>
     <!-- Figure 1 -->
-    <script src="modules/assets/clips/Scenario1_FlashbackGuilty_Figure1.js"></script>
+    <script src="modules/assets/clips/Scenario2_FlashbackGuilty_Figure1.js"></script>
 
     <!-- INNOCENT SCENES -->
     <!-- Figure 0 -->
-    <script src="modules/assets/clips/Scenario1_FlashbackInnocent_Figure0.js"></script>
+    <script src="modules/assets/clips/Scenario2_FlashbackInnocent_Figure0.js"></script>
     <!-- Figure 1 -->
-    <script src="modules/assets/clips/Scenario1_FlashbackInnocent_Figure1.js"></script>
+    <script src="modules/assets/clips/Scenario2_FlashbackInnocent_Figure1.js"></script>
 
     <!-- AVATAR JAIL CELL SCENES -->
     <script src="modules/assets/clips/AllScenarios_Jail_Figure0.js"></script>
     <script src="modules/assets/clips/AllScenarios_Jail_Figure1.js"></script>
 
     <!-- SECURITY FOOTAGE -->
-    <script src="modules/assets/clips/Scenario1_SecurityFootage_AllFigures.js"></script>
+    <script src="modules/assets/clips/Scenario2_SecurityCam_Figure0.js"></script>
+    <script src="modules/assets/clips/Scenario2_SecurityCam_Figure1.js"></script>
 
     <!-- LOAD PROSECUTOR ANIMATION FILES -->
     <script src="modules/assets/actors/prosecutor.js"></script>
@@ -50,6 +51,7 @@
 
     <!-- LOAD JUDGE ANIMATION FILES -->
     <script src="modules/assets/actors/judge.js"></script>
+
 
     <!-- LOAD LIBRARIES -->
     <script src="libs/actor.js"></script>
@@ -64,17 +66,12 @@
     <script src="locales/es_DO.js"></script>
 
     <!-- LOAD MODULE MANIFEST -->
-    <script src="modules/hitandrun_1.2.js"></script>
+    <script src="modules/part-two.js"></script>
 
     <!-- PRIMARY SCRIPT -->
     <script>
       var RES_WIDTH = 1920;
       var RES_HEIGHT = 1080;
-
-      /**
-       * Sets up the cavnas for use by the simulation. It adjusts to the set size by resolution standards.
-       * It also defines a new frame object to start our simulation off.
-      */
       function init() {
         console.log("Beginning Initialization");
         console.log("Creating canvas and stage");
