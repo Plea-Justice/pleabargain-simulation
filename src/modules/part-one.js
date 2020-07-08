@@ -308,7 +308,7 @@ var scene_intro1 = new Scene("intro1",
     bg_judge_courtroom,
     fg_table);
 var scene_intro2 = new Scene("intro2",
-    username + " is accused of committing larceny occurring around 12PM on the 3rd day of November in the year 2018.~~~~~~~~~~~~~~~",
+    username + " is accused of committing larceny occurring around 12PM on the 3rd day of November in the year 2019.~~~~~~~~~~~~~~~",
     actor_prosecutor,
     bg_courtroom,
     fg_table);
@@ -389,10 +389,15 @@ var scene_jailcellG = new Scene("jailcellGuilty",
   jail_cell[avatarSex]);
 // Flashback of event from User's point of view (Innocent)
 var scene_jailcellI = new Scene("jailcellInnocent",
-	"I couldn't return the sunglasses to the sales clerk because he was helping another customer,~~~~~~ but I did remember to leave them on the counter before I left the store.~~~~~~~~~ I know I'm innocent.~~~ Someone else must have swiped them!~~~~~~~",
+    "I couldn't return the sunglasses to the sales clerk because he was helping another customer,~~~~~~ but I did remember to leave them on the counter before I left the store.~~~~~~~~~ I know I'm innocent.~~~ Someone else must have swiped them!~~~~~~~",
   null,
   null,
   jail_cell[avatarSex]);
+var scene_jailcell2 = new Scene("jailcell2",
+    "I think I'm supposed to meet with my attorney soon.~~~ I wonder what's going to happen...~~~~",
+    null,
+    null,
+    jail_cell[avatarSex]);
 
 var scene_offer1 = new Scene("offer1",
     "~~~~~~~~Hello, " + username + ".~~~~~ I am your defense attorney, Mr. Grant. ~~~~~~~~ Mr. Clark, the prosecutor on your case, is interested in seeing whether the case could be resolved without a trial.~~~~~~~~~~~~~",
@@ -456,12 +461,13 @@ scene_post_crime_footage6.setNext(scene_jailcell1, "a");
 if (guilt) {
 	scene_jailcell1.setNext(guilty_clips[avatarSex], "a");
 	guilty_clips[avatarSex].setNext(scene_jailcellG);
-	scene_jailcellG.setNext(scene_offer1, "a");
+	scene_jailcellG.setNext(scene_jailcell2, "a");
 } else {
 	scene_jailcell1.setNext(innocent_clips[avatarSex], "a");
 	innocent_clips[avatarSex].setNext(scene_jailcellI);
-	scene_jailcellI.setNext(scene_offer1, "a");
+	scene_jailcellI.setNext(scene_jailcell2, "a");
 }
+scene_jailcell2.setNext(scene_offer1, "a");
 scene_offer1.setNext(scene_offer2, "a");
 scene_offer2.setNext(scene_offer3, "a");
 scene_offer3.setNext(scene_offer4, "a");
