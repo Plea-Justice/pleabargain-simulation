@@ -18,14 +18,14 @@
         "clips/Scenario2_FlashbackInnocent.js",
         "clips/Scenario2_SecurityCam.js",
 
-        "scenes/backgrounds/blankjail.png",
-        "scenes/backgrounds/courtroom_2019.png",
-        "scenes/backgrounds/courtroom.png",
-        "scenes/backgrounds/judgecourtroom.png",
-        "scenes/backgrounds/JudgeSeat.png",
-        "scenes/backgrounds/meetingroom.png",
-        "scenes/backgrounds/plainwhite.png",
-        "scenes/foregrounds/table.png"
+        "backgrounds/blankjail.png",
+        "backgrounds/courtroom_2019.png",
+        "backgrounds/courtroom.png",
+        "backgrounds/judgecourtroom.png",
+        "backgrounds/JudgeSeat.png",
+        "backgrounds/meetingroom.png",
+        "backgrounds/plainwhite.png",
+        "foregrounds/table.png"
     ],
     "actors":[
         "prosecutorActor",

@@ -1,0 +1,50 @@
+{
+	"condition": {
+		"name": "Covid Study Condition 3/4",
+		"description": "part two, covid = false",
+		"scenes": [
+			{
+				"name": "offer0",
+				"script": "If you accept this plea offer, you will be asked to sign this form, which includes the recommendations for lower sentencing that I just described.",
+				"type":"dialogue",
+				"actor": "daActor",
+				"bg": "meetingroom.png",
+				"fg": null
+			},
+			{
+				"name": "offer1",
+				"script": "Again, if you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 9 months and will push to have you detained to await your trial.",
+				"type":"dialogue",
+				"actor": "daActor",
+				"bg": "meetingroom.png",
+				"fg": null
+			},
+			{
+				"name": "offer2",
+				"script": "Ultimately, the decision to plead guilty or go to trial is up to you.",
+				"type":"dialogue",
+				"actor": "daActor",
+				"bg": "meetingroom.png",
+				"fg": null
+			},
+			{
+				"name": "offer3",
+				"script": "Your signature will indicate your agreement to plead guilty and forgo your right to a trial.",
+				"type":"dialogue",
+				"actor": "daActor",
+				"bg": "meetingroom.png",
+				"fg": null
+			},
+			{
+				"name": "pleadeal",
+				"type":"question",
+				"script": "Plead guilty in exchange for a lower sentence (6 months probation). Reject the offer and risk a more severe sentence if found guilty at trial (9 months in jail).",
+				"bg": "meetingroom.png",
+				"buttons": [
+					"Plead Guilty",
+					"Reject Offer"
+				]
+			}
+		]
+	}
+}
