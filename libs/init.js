@@ -35,7 +35,7 @@ function load_manifest() {
     // Loading message.
     let ctx = canvas.getContext("2d")
     ctx.fillStyle = "white";
-    ctx.fillText("Loading...", 100, 100);
+    ctx.fillText("Loading simulation. Please wait, loading may take up to a minute.", 100, 100);
 
     // Read avatar features passed in by customizer.
     loadAvatarParams();
@@ -63,13 +63,6 @@ function load_manifest() {
             
         case "manifest":
             manifest = event.result;
-            // TODO: Check that properties exist.
-            // Will need to change such that can be loaded without naming constructors.
-            for (const actor of event.result.actors)
-                actors[actor] = new Actor(new lib[actor]());
-
-            for (const clip of event.result.clips)
-                clips[clip] = new lib[clip]();
             break;
 
         case "json":
@@ -92,56 +85,114 @@ function load_manifest() {
 
     }, this); // queue fileload event
 
-    queue.on("complete", arrange_scenes, this);
+    queue.on("complete", load_animate_assets, this);
     queue.loadManifest(manifest_filepath, false);
     queue.loadFile(condition_filepath, false);
     queue.load();
 }
 
-function arrange_scenes(preload_queue_event) {
+// Handle any additional items requested by Animate exports (cached bitmaps, etc).
+function anHandleFileLoad(evt, comp) {
+    let images=comp.getImages();	
+    if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
+}
 
-    if (condition == undefined || manifest == undefined)
-        alert("ERROR: Did not load manifest or condition JSON.");
+function anHandleComplete(evt,comp) {
+    let lib=comp.getLibrary();
+    let ss=comp.getSpriteSheet();
+    let queue = evt.target;
+    let ssMetadata = lib.ssMetadata;
+    for(i=0; i<ssMetadata.length; i++) {
+        ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} );
+    }
+    AdobeAn.compositionLoaded(lib.properties.id);
+}
+
+function load_animate_assets(evt) {
+    if (!window.FILE_TO_ID)
+        alert('Error: FILE_TO_ID not found. Please report this error to a developer.');
+
     
-    // Create each scene.
-    for(const sceneDescr of condition.scenes) {
-        // Dialogue scenes consist of a background, foreground, actor, and script.
-        // TODO: Jail scene for instance has no actor, instead uses image.
-        if (sceneDescr.script != undefined) {
-            // TODO username must be passeed as a parameter.
-            let name = sceneDescr.name;
-            let actor = null;
-            if (sceneDescr.actor != undefined)
-                actor = actors[sceneDescr.actor];
-            let script = sceneDescr.script.replace(/@U/g, inParams["Name"]);
-            let i = 0;
-            while ((i = script.search(/@\d/)) != -1) {
-                let d  = Number(script[i+1]);
-                if (d == 0) {
-                    script = script.replace("@0", "");
-                } else {
-                script = script.slice(0, i+1) + (d-1) + "~~~" + script.slice(i+2);
-                }
-            }
-            console.log(script);
-            let bg = images[sceneDescr.bg];
-            let fg = images[sceneDescr.fg];
+    for (let id of Object.keys(AdobeAn.compositions)) {
+        let comp = AdobeAn.getComposition(id);
+        let lib = comp.getLibrary();
+        let queue = new createjs.LoadQueue(false);
+        queue.addEventListener("fileload", function(evt){anHandleFileLoad(evt,comp)});
+        queue.addEventListener("complete", function(evt){anHandleComplete(evt,comp)});
+        queue.loadManifest(lib.properties.manifest);
+    }
+    
+    // TODO: A better method of loading is needed here.
+    // Considering that we intend to load assets as needed, a chain of
+    // LoadQueues may be what we want.
+    setTimeout(arrange_scenes, 8000);
+}
 
-            let scene = new Scene(name, script, actor, bg, fg);
-            scenes.push(scene);
-            if (sceneDescr.buttons != undefined)
-                scene.ButtonsToAdd = sceneDescr.buttons;
+function arrange_scenes(evt) {
+    try {
+        if (condition == undefined || manifest == undefined)
+            alert("ERROR: Did not load manifest or condition JSON.");
         
-        // Cutscenes are premade scenes that consist of a movie clip.
-        } else if (sceneDescr.clip != undefined) {
-            let scene = new Clip(sceneDescr.name, clips[sceneDescr.clip])
-            scenes.push(scene);
-
-        } else {
-            alert("ERROR: Malformed condition configuration.");
-            console.log("ERROR! Problematic scene description. " + scene);
+        for (const actor of manifest.actors) {
+            let comp = AdobeAn.getComposition(FILE_TO_ID[actor]);
+            let lib = comp.getLibrary();
+            actors[actor] = new Actor(new lib[actor]());
         }
-    } // for
+
+        for (const clip of manifest.clips) {
+            let comp = AdobeAn.getComposition(FILE_TO_ID[clip]);
+            let lib = comp.getLibrary();
+            clips[clip] = new lib[clip]();
+        }
+
+        // Create each scene.
+        for(const sceneDescr of condition.scenes) {
+            // Dialogue scenes consist of a background, foreground, actor, and script.
+            // TODO: Jail scene for instance has no actor, instead uses image.
+            if (sceneDescr.script != undefined) {
+                // TODO username must be passeed as a parameter.
+                let name = sceneDescr.name;
+                let actor = null;
+                if (sceneDescr.actor != undefined)
+                    actor = actors[sceneDescr.actor];
+                let script = sceneDescr.script.replace(/@U/g, inParams["Name"]);
+                let i = 0;
+                while ((i = script.search(/@\d/)) != -1) {
+                    let d  = Number(script[i+1]);
+                    if (d == 0) {
+                        script = script.replace("@0", "");
+                    } else {
+                    script = script.slice(0, i+1) + (d-1) + "~~~" + script.slice(i+2);
+                    }
+                }
+                console.log(script);
+                let bg = images[sceneDescr.bg];
+                let fg = images[sceneDescr.fg];
+
+                let scene = new Scene(name, script, actor, bg, fg);
+                scenes.push(scene);
+                if (sceneDescr.buttons != undefined)
+                    scene.ButtonsToAdd = sceneDescr.buttons;
+            
+            // Cutscenes are premade scenes that consist of a movie clip.
+            } else if (sceneDescr.clip != undefined) {
+                let scene = new Clip(sceneDescr.name, clips[sceneDescr.clip])
+                scenes.push(scene);
+
+            } else {
+                alert("ERROR: Malformed condition configuration.");
+                console.log("ERROR! Problematic scene description. " + sceneDescr.name);
+            }
+        } // for
+    } catch (err) {
+        alert('An error has occured. Please contact the developer.');
+        console.log(err);
+        console.log('NOTE: Please ensure assets are exported with the most recent Animate,' +
+                    ' that the publishing script has been run, and that there are no assets' +
+                    ' with duplicate IDs.'
+        );
+        throw(err);
+    }
 
     init();
 }

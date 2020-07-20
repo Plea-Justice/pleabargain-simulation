@@ -30,7 +30,7 @@
 
       let page = avatar ? "avatar.html" : "simulation.html";
       let mode = fast ? "&mode=fast" : "";
-      let scen = "&scenario=" + (scenario == 0 ? "nsf_hit-and-run" : "nsf_shoplifting");
+      let scen = "&scenario=" + (scenario == 0 ? "covid_shoplifting" : "covid_shoplifting");
 
       let url = (avatar ? "avatar.html" : "simulation.html") + "?" + scen + "&condition=" + cond + "&Name=" + name + mode;
       window.location.href = url;
@@ -74,8 +74,7 @@
           <div class="control">
             <div class="select">
               <select id="scenario" style="width:10em;">
-                <option>Hit and Run</option>
-                <option>Shoplifting</option>
+                <option>COVID Study</option>
               </select>
             </div>
           </div>
@@ -84,7 +83,7 @@
         <div class="field">
           <label class="label">Experimental Condition:</label>
           <div class="control">
-            <input class="input" style="width:10em;" type="number" id="condition" value="1" min="1" max="18"
+            <input class="input" style="width:10em;" type="number" id="condition" value="1" min="1" max="4"
               placeholder="1 - 18">
           </div>
           <p class="help" id="cond_helptext"></p>
@@ -122,29 +121,16 @@
       <table class="table is-narrow">
         <thead>
           <th><abbr title="Experimental Condition">Condition</abbr></th>
-          <th><abbr title="Guilt Status">Guilt</abbr></th>
-          <th><abbr title="Jail Sentence Length">Time</abbr></th>
-          <th><abbr title="Percent Chance of Conviction">Chance</abbr></th>
+          <th><abbr title="Guilt Status">Guilt Status</abbr></th>
+          <th><abbr title="Covid Warning">Covid Warning</abbr></th>
         </thead>
         <tbody>
-            <tr><th>1</th><td>I</td><td>6mos</td><td>20%</td></tr>
-            <tr><th>2</th><td>I</td><td>6mos</td><td>50%</td></tr>
-            <tr><th>3</th><td>I</td><td>6mos</td><td>80%</td></tr>
-            <tr><th>4</th><td>I</td><td>12mos</td><td>20%</td></tr>
-            <tr><th>5</th><td>I</td><td>12mos</td><td>50%</td></tr>
-            <tr><th>6</th><td>I</td><td>12mos</td><td>80%</td></tr>
-            <tr><th>7</th><td>I</td><td>18mos</td><td>20%</td></tr>
-            <tr><th>8</th><td>I</td><td>18mos</td><td>50%</td></tr>
-            <tr><th>9</th><td>I</td><td>18mos</td><td>80%</td></tr>
-            <tr><th>10</th><td>G</td><td>6mos</td><td>20%</td></tr>
-            <tr><th>11</th><td>G</td><td>6mos</td><td>50%</td></tr>
-            <tr><th>12</th><td>G</td><td>6mos</td><td>80%</td></tr>
-            <tr><th>13</th><td>G</td><td>12mos</td><td>20%</td></tr>
-            <tr><th>14</th><td>G</td><td>12mos</td><td>50%</td></tr>
-            <tr><th>15</th><td>G</td><td>12mos</td><td>80%</td></tr>
-            <tr><th>16</th><td>G</td><td>18mos</td><td>20%</td></tr>
-            <tr><th>17</th><td>G</td><td>18mos</td><td>50%</td></tr>
-            <tr><th>18</th><td>G</td><td>18mos</td><td>80%</td></tr>
+            <tr><td colspan="3">Part 1</td></tr>
+            <tr><th>1</th><td>Innocent</td><td></td></tr>
+            <tr><th>2</th><td>Guilty</td><td></td></tr>
+            <tr><td colspan="3">Part 2</td></tr>
+            <tr><th>3</th><td></td><td>False</td></tr>
+            <tr><th>4</th><td></td><td>True</td></tr>
         </tbody>
       </table>
     </div>
