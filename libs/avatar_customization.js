@@ -330,8 +330,8 @@ function nextEye() {
 }
 // CYCLE THROUGH THE HAIR STYLES
 function prevHair() {
-    // Five hair types for figure 1, four for 2.
-    let nHairStyle = (figure == 1) ? 5 : 4;
+    // Five hair types
+    let nHairStyle = 5;
     if (!(((avatar - 1) < 0) || (avatar % nHairStyle) == 0)) {
         avatar--;
         mainAvatar.setActor(Actors[figure]);
@@ -357,8 +357,8 @@ function prevHair() {
     }
 }
 function nextHair() {
-    // Five hair types for figure 1, four for 2.
-    let nHairStyle = (figure == 1) ? 5 : 4;
+    // Five hair types
+    let nHairStyle = 5;
     if (!(((avatar + 1) % nHairStyle) == 0)) {
         avatar++;
         mainAvatar.setActor(Actors[figure]);	
