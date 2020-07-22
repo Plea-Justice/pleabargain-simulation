@@ -196,7 +196,7 @@
 			},
 			{
 				"name": "offer5",
-				"script": "If you accept this plea offer, because of your prior conviction, the prosecuor will push to have you held in jail to await your trial.",
+				"script": "If you accept this plea offer, because of your prior conviction, the prosecutor will push to have you held in jail to await your trial.",
 				"type":"dialogue",
 				"actor": "DefenseAttorney",
 				"bg": "meetingroom.png",

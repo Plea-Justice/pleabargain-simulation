@@ -148,7 +148,7 @@
 			},
 			{
 				"name": "jailcellGuilty1",
-				"script": "I know I forgot to take those sunglasses off before I left. I should have returned them them... but I was afraid they'd think I intended to steal them. I guess I'm guilty of this!",
+				"script": "I know I forgot to take those sunglasses off before I left. I should have returned them... but I was afraid they'd think I intended to steal them. I guess I'm guilty of this!",
 				"type":"dialogue",
 				"actor": "AllScenarios_Jail",
 				"bg": null,
@@ -196,7 +196,7 @@
 			},
 			{
 				"name": "offer5",
-				"script": "If you accept this plea offer, because of your prior conviction, the prosecuor will push to have you held in jail to await your trial.",
+				"script": "If you accept this plea offer, because of your prior conviction, the prosecutor will push to have you held in jail to await your trial.",
 				"type":"dialogue",
 				"actor": "DefenseAttorney",
 				"bg": "meetingroom.png",
