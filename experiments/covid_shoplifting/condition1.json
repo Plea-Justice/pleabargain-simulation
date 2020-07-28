@@ -74,7 +74,7 @@
 			},
 			{
 				"name": "intro8",
-				"script": "There is also security footage provided by the owner of the sunglasses shop where the theft occurred that shows the defendant walking toward the exit wearing the sunglasses",
+				"script": "There is also security footage provided by the owner of the sunglasses shop where the theft occurred that shows the defendant walking toward the exit wearing the sunglasses.",
 				"type":"dialogue",
 				"actor": "Prosecutor",
 				"bg": "courtroom_2019.png",
