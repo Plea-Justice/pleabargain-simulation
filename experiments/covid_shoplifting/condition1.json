@@ -10,7 +10,7 @@
 			},
 			{
 				"name": "intro0",
-				"script": "Good afternoon, my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, Your Honor.",
+				"script": "Good afternoon, my name is Mr. Clark and I will be prosecuting this case on behalf of the State, Your Honor.",
 				"type":"dialogue",
 				"actor": "Prosecutor",
 				"bg": "courtroom_2019.png",
@@ -74,7 +74,7 @@
 			},
 			{
 				"name": "intro8",
-				"script": "There is also security footage provided by the owner of the sunglasses shop where the theft occurred that shows the defendant walking toward the exit wearing the sunglasses.",
+				"script": "There is also security footage provided by the owner of the shop where the theft occurred that shows the defendant walking toward the exit wearing the sunglasses.",
 				"type":"dialogue",
 				"actor": "Prosecutor",
 				"bg": "courtroom_2019.png",
@@ -119,7 +119,7 @@
 			},
 			{
 				"name": "pcf5",
-				"script": "You have the right to request the appointment of counsel if you cannot afford counsel; the right to not make a statement; and the right to a jury trial, judgement, and sentencing before a district judge.",
+				"script": "You have the right to request the appointment of counsel if you cannot afford counsel; the right to not make a statement; and the right to a jury trial, judgment, and sentencing before a district judge.",
 				"type":"dialogue",
 				"actor": "Judge",
 				"bg": "JudgeSeat.png",
@@ -164,7 +164,7 @@
 			},
 			{
 				"name": "offer1",
-				"script": "Hello, @U. I am your defense attorney, Mr. Grant. Mr. Clark, the prosecutor on your case, is interested in seeing whether the case could be resolved without a trial.",
+				"script": "Hello, @U. I am your defense attorney, Mr. Grant. Mr. Clark, the prosecutor on your case, is interested in seeing whether this case could be resolved without a trial.",
 				"type":"dialogue",
 				"actor": "DefenseAttorney",
 				"bg": "meetingroom.png",
@@ -172,7 +172,7 @@
 			},
 			{
 				"name": "offer2",
-				"script": "Based on the security camera footage and the testimony from the salesclerk, Mr. Clark believes that he could win if this case goes to trial.",
+				"script": "Based on the security camera footage and testimony from the salesclerk, Mr. Clark believes that he could win if this case goes to trial.",
 				"type":"dialogue",
 				"actor": "DefenseAttorney",
 				"bg": "meetingroom.png",
@@ -196,7 +196,7 @@
 			},
 			{
 				"name": "offer5",
-				"script": "If you accept this plea offer, because of your prior conviction, the prosecutor will push to have you held in jail to await your trial.",
+				"script": "If you reject the plea offer, because of your prior conviction, the prosecutor will push to have you held in jail to await your trial.",
 				"type":"dialogue",
 				"actor": "DefenseAttorney",
 				"bg": "meetingroom.png",

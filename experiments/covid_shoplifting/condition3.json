@@ -21,7 +21,7 @@
 			},
 			{
 				"name": "offer2",
-				"script": "Ultimately, the decision to plead guilty or go to trial is up to you.",
+				"script": "If you take Mr. Clark's offer and plead guilty, you can go home in a day or two; in the meantime, you would be returned to your holding cell.",
 				"type":"dialogue",
 				"actor": "DefenseAttorney",
 				"bg": "meetingroom.png",
@@ -29,6 +29,14 @@
 			},
 			{
 				"name": "offer3",
+				"script": "Ultimately, the decision to plead guilty or go to trial is up to you.",
+				"type":"dialogue",
+				"actor": "DefenseAttorney",
+				"bg": "meetingroom.png",
+				"fg": null
+			},
+			{
+				"name": "offer4",
 				"script": "Your signature will indicate your agreement to plead guilty and forgo your right to a trial.",
 				"type":"dialogue",
 				"actor": "DefenseAttorney",
