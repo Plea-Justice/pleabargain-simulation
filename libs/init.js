@@ -3,7 +3,9 @@ console.log("LOADING init.js");
 // Globabl Variables
 var canvas = document.getElementById("canvas");
 
+var experiment_path = "experiments/";
 const manifest_filename = "manifest.json";
+const condition_file_prefix = "condition";
 
 var manifest;   // Animation asset files for all conditions.
 var condition;  // Ordered scene description for each experimental condition.
@@ -18,7 +20,16 @@ var scenes = [];
 // Load the experiment manifest and proceed to load_condition().
 function load_manifest() {
 
-    console.log("Loading manifest.json");
+    let scenario = inParams["scenario"];
+
+    if (scenario == null) {
+        alert("ERROR: No scenario specified.")
+        return;
+    }
+
+    experiment_path += scenario +'/';
+
+    console.log("Loading manifest " + experiment_path + manifest_filename);
     let canvas = document.getElementById("canvas");
     
     // Loading message.
@@ -38,11 +49,13 @@ function load_manifest() {
 
     console.log("Experimental condition number: " + condition_number);
 
-    let manifest_filepath = "../src/" + manifest_filename;
+    let manifest_filepath = experiment_path + manifest_filename;
+    let condition_filepath = experiment_path + condition_file_prefix + condition_number + ".json";
 
     let queue = new createjs.LoadQueue(true);
 
     queue.on("fileload", (event)=>{
+
         switch (event.item.type) {
         case "javascript":
             document.head.appendChild(event.result);
@@ -57,13 +70,14 @@ function load_manifest() {
 
             for (const clip of event.result.clips)
                 clips[clip] = new lib[clip]();
+            break;
 
-            if (event.result.conditions[condition_number - 1] != null) {
-                condition = event.result.conditions[condition_number - 1];
+        case "json":
+            if (event.result.condition != null) {
+                condition = event.result.condition;
                 break;
-            } else 
-                alert("ERROR: Malformed condition: condition" + condition_number);
-            
+            }
+            alert("ERROR: Malformed condition file: " + experiment_path + condition_file_prefix + condition_number + ".json")
             break;
 
         case "image":
@@ -80,6 +94,7 @@ function load_manifest() {
 
     queue.on("complete", arrange_scenes, this);
     queue.loadManifest(manifest_filepath, false);
+    queue.loadFile(condition_filepath, false);
     queue.load();
 }
 

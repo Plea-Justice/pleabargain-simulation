@@ -1,0 +1,198 @@
+{
+    "condition":{
+        "name":"Grant Study Hit and Run Condition 9/18",
+        "description":"Innocent, 18 Month Offer, 80% Chance Conviction",
+        "scenes":[
+			{
+				"name":"H&R Intro Scene",
+				"type":"clip",
+				"clip":"Scenario1_Intro"
+			},
+			{
+				"name":"intro1",
+				"script":"Good afternoon, my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, your Honor.",
+				"type":"dialogue",
+				"actor":"prosecutorActor",
+				"bg":"courtroom_2019.png",
+				"fg":"table.png"
+			},
+			{
+				"name":"intro2",
+				"script":"Good afternoon. What is the nature of this case, Mr. Clark?",
+				"type":"dialogue",
+				"actor":"judgeActor",
+				"bg":"JudgeSeat.png"
+			},
+			{
+				"name":"initial_P0",
+				"script":"@U is accused of being involved in a hit-and-run occurring around 6 PM on the 26th day of June in the year 2019.",
+				"type":"dialogue",
+				"actor":"prosecutorActor",
+				"bg":"courtroom_2019.png",
+				"fg":"table.png"
+			},
+			{
+				"name":"initial_P1",
+				"script":"In accordance with state law, a hit-and-run occurs when the operator of a motor vehicle damages public or private property, and the operator fails to report it.",
+				"type":"dialogue",
+				"actor":"prosecutorActor",
+				"bg":"courtroom_2019.png",
+				"fg":"table.png"
+			},
+			{
+				"name":"initial_P2",
+				"script":"According to the information provided in the police report, there was property damage exceeding $1,000, which resulted from a collision in a store parking lot. The victim's car was legally parked within the lines of the space.",
+				"type":"dialogue",
+				"actor":"prosecutorActor",
+				"bg":"courtroom_2019.png",
+				"fg":"table.png"
+			},
+			{
+				"name":"initial_P3",
+				"script":"There is security footage provided by the owner of the business where the accident occurred that shows a car with a plate number registered to @U appearing to come in contact with the victim's car.",
+				"type":"dialogue",
+				"actor":"prosecutorActor",
+				"bg":"courtroom_2019.png",
+				"fg":"table.png"
+			},
+			{
+				"name":"H&R Security Footage",
+				"type":"clip",
+				"clip":"Scenario1_SecurityFootage"
+			},
+			{
+				"name":"initial_P4",
+				"script":"Although the impact might look minor, according to a quote from the victim's auto body repair shop the damage to the body was significant.",
+				"type":"dialogue",
+				"actor":"prosecutorActor",
+				"bg":"courtroom_2019.png",
+				"fg":"table.png"
+			},
+			{
+				"name":"initial_P5",
+				"script":"Thus, according to statute, failure of @U to stop and check the status of the other vehicle constitutes a hit-and-run. The security footage appears to show @U's car striking a vehicle and failing to check for or report damages.",
+				"type":"dialogue",
+				"actor":"prosecutorActor",
+				"bg":"courtroom_2019.png",
+				"fg":"table.png"
+			},
+			{
+				"name":"initial_P6",
+				"script":"This is a textbook hit-and-run, which is considered a serious misdemeanor punishable by significant fines and/or time in jail.",
+				"type":"dialogue",
+				"actor":"prosecutorActor",
+				"bg":"courtroom_2019.png",
+				"fg":"table.png"
+			},
+			{
+				"name":"initial_P7",
+				"script":"We request a court date be set by the State as soon as it is possible.",
+				"type":"dialogue",
+				"actor":"prosecutorActor",
+				"bg":"courtroom_2019.png",
+				"fg":"table.png"
+			},
+			{
+				"name":"initial_J1",
+				"script":"@U, you are being charged with leaving the scene of an accident involving property damage.",
+				"type":"dialogue",
+				"actor":"judgeActor",
+				"bg":"JudgeSeat.png"
+			},
+			{
+				"name":"initial_J4",
+				"script":"You have the right to request the appointment of counsel if you cannot afford counsel; the right to not make a statement; and the right to a jury trial, judgement, and sentencing before a district judge.",
+				"type":"dialogue",
+				"actor":"judgeActor",
+				"bg":"JudgeSeat.png"
+			},
+			{
+				"name":"initial_J5",
+				"script":"At this time you will be held until counsel has been assigned to you, which will occur within the next 48 hours.",
+				"type":"dialogue",
+				"actor":"judgeActor",
+				"bg":"JudgeSeat.png"
+			},
+			{
+				"name":"initial_J6",
+				"script":"It is so ordered.",
+				"type":"dialogue",
+				"actor":"judgeActor",
+				"bg":"JudgeSeat.png"
+			},
+			{
+				"name":"Jail_Intro",
+				"type":"dialogue",
+				"actor":"AllScenarios_Jail",
+				"script":"I can't believe this is happening. I think I remember the day Mr. Clark is referring to..."
+			},
+			{
+				"name":"Flashback",
+				"type":"clip",
+				"clip":"Scenario1_FlashbackInnocent"
+			},
+			{
+				"name":"Jail_innocent",
+				"type":"dialogue",
+				"actor":"AllScenarios_Jail",
+				"script":"I know it was tight when I pulled out, but I didn't actually come into contact with that person's car. When I looked in my mirror, the other car was fine! I know I'm innocent."
+			},
+			{
+				"name":"offer_P0",
+				"script":"Hello, @U. I am your defense attorney, Mr. Grant. Mr. Clark, the prosecutor on your case, is interested in seeing whether this case could be resolved without a trial.",
+				"type":"dialogue",
+				"actor":"daActor",
+				"bg":"meetingroom.png"
+			},
+			{
+				"name":"offer_P1",
+				"script":"Based on the security camera footage and the damage to the victim’s car, I would estimate that you have an 80 percent chance of being convicted if this case goes to trial.",
+				"type":"dialogue",
+				"actor":"daActor",
+				"bg":"meetingroom.png"
+			},
+			{
+				"name":"offer_P2",
+				"script":"If this case does go to trial, Mr. Clark will be seeking the maximum penalty of 24 months in jail.",
+				"type":"dialogue",
+				"actor":"daActor",
+				"bg":"meetingroom.png"
+			},
+			{
+				"name":"offer_P3",
+				"script":"If you plead guilty now, saving the State the resources needed for a formal trial, Mr. Clark is prepared to recommend that the district court judge sentence you to 18 months in jail, rather than 24 months in jail.",
+				"type":"dialogue",
+				"actor":"daActor",
+				"bg":"meetingroom.png"
+			},
+			{
+				"name":"offer_P4",
+				"script":"If you accept this plea offer, you will be asked to sign this form, which includes the recommendations for lower sentencing that I just described.",
+				"type":"dialogue",
+				"actor":"daActor",
+				"bg":"meetingroom.png"
+			},
+			{
+				"name":"offer_P5",
+				"script":"If you reject this plea offer and take your case to trial, Mr. Clark will pursue the maximum jail sentence of 24 months.",
+				"type":"dialogue",
+				"actor":"daActor",
+				"bg":"meetingroom.png"
+			},
+			{
+				"name":"offer_P6",
+				"script":"Your signature will indicate your agreement to plead guilty and forgo your right to a trial.",
+				"type":"dialogue",
+				"actor":"daActor",
+				"bg":"meetingroom.png"
+			},
+			{
+				"name":"pleadeal",
+				"type":"question",
+				"script":"Plead guilty in exchange for a lower sentence (18 months in jail). Reject the offer and risk a more severe sentence if found guilty at trial (24 months in jail).",
+				"bg":"meetingroom.png",
+				"buttons":["Plead Guilty", "Reject Offer"]
+			}
+		]
+	}
+}
