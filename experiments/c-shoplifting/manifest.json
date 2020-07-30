@@ -1,0 +1,34 @@
+{
+    "path":"assets/",
+    "manifest":[
+        "actors/Prosecutor.js",
+        "actors/DefenseAttorney.js",
+        "actors/Judge.js",
+
+        "clips/AllScenarios_Jail.js",
+
+        "clips/Larceny_Intro.js",
+        "clips/Larceny_FlashbackGuilty.js",
+        "clips/Larceny_FlashbackInnocent.js",
+        "clips/Larceny_SecurityCam.js",
+
+        "backgrounds/blankjail.png",
+        "backgrounds/courtroom_2019.png",
+        "backgrounds/JudgeSeat.png",
+        "backgrounds/meetingroom.png",
+        "foregrounds/table.png"
+    ],
+    "actors":[
+        "Prosecutor",
+        "Judge",
+        "DefenseAttorney",
+        "AllScenarios_Jail"
+    ],
+    "clips":[
+        "Larceny_Intro",
+        "Larceny_FlashbackGuilty",
+        "Larceny_FlashbackInnocent",
+        "Larceny_SecurityCam"
+    ],
+    "survey":"https://umasslowell.co1.qualtrics.com/jfe/form/SV_8oX3tiVOkd0Sf09"
+}

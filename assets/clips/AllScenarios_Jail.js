@@ -2,7 +2,7 @@
 (function (cjs, an) {
 
 var p; // shortcut to reference prototypes
-var lib = window.lib || AdobeAn.getComposition(Object.keys(AdobeAn.compositions)[0]).getLibrary();var ss={};var img={};
+var lib = {};var ss={};var img={};
 lib.ssMetadata = [];
 
 
@@ -596,6 +596,6 @@ an.handleSoundStreamOnTick = function(event) {
 	}
 }
 
-
+FILE_TO_ID = window.FILE_TO_ID || {}; FILE_TO_ID["AllScenarios_Jail"] = lib.properties.id;
 })(createjs = createjs||{}, AdobeAn = AdobeAn||{});
 var createjs, AdobeAn;

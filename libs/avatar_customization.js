@@ -14,14 +14,15 @@ var canvas = document.getElementById("canvas");
 var mainAvatar = new AvatarCustomizer();
 var avatarPalette = new Palette();
 
-// Declaring Lib Fixer
-var mc_lib_fixer = new lib.LibFixer();
+// Declare 'lib' for Animate
+var comp = AdobeAn.getComposition(FILE_TO_ID["AllScenarios_AvatarCustomization"]);
+var lib = comp.getLibrary();
 
 // Declaring  Movie Clips
 figures = 2;
 Actors = [];
 for (var figure = 0; figure < figures; figure++)
-    Actors.push(new Actor(new lib.AllScenarios_AvatarCustomization()));
+    Actors.push(new Actor(new lib["AllScenarios_AvatarCustomization"]()));
 
 
 // window resize event
@@ -329,8 +330,8 @@ function nextEye() {
 }
 // CYCLE THROUGH THE HAIR STYLES
 function prevHair() {
-    // Five hair types for figure 1, four for 2.
-    let nHairStyle = (figure == 1) ? 5 : 4;
+    // Five hair types
+    let nHairStyle = 5;
     if (!(((avatar - 1) < 0) || (avatar % nHairStyle) == 0)) {
         avatar--;
         mainAvatar.setActor(Actors[figure]);
@@ -356,8 +357,8 @@ function prevHair() {
     }
 }
 function nextHair() {
-    // Five hair types for figure 1, four for 2.
-    let nHairStyle = (figure == 1) ? 5 : 4;
+    // Five hair types
+    let nHairStyle = 5;
     if (!(((avatar + 1) % nHairStyle) == 0)) {
         avatar++;
         mainAvatar.setActor(Actors[figure]);	
@@ -450,17 +451,20 @@ function updateAvatar() {
     Actors[i].MC.assetPalette = avatarPalette;
     // Check for male or female avatar and then for each avatar, re-initialize the avatar.
     // ***** This has to be done in order to get the dynamic refreshing of the avatar *****
-    Actors[i].MC = new lib.AllScenarios_AvatarCustomization();
+    Actors[i].MC = new lib["AllScenarios_AvatarCustomization"]();
     
   }
 }
 
 // window resize function
-//canvas.style.minWidth = "1600px";
-//canvas.style.maxWidth = "2600px";
+if (window.canvas) {
+    canvas.style.minWidth = "1600px";
+    canvas.style.maxWidth = "2600px";
+}
 function OnWindowResize()
 {
-    canvas.style.width = "120vw";
+    if (window.canvas)
+        canvas.style.width = "120vw";
 }
 
 // INITIALIZER FOR THE CANVAS AND DRAWING THE AVATAR
@@ -511,53 +515,5 @@ function setAvatar() {
     window.location="simulation.html" + "?" + urlparams_str + params;
 }
 
-// Create a pallete from passed URL parameters.
-function loadAvatarParams() {
-    if (avatarPalette == undefined)
-        avatarPalette = new Palette();
-
-    features = ["skinA", "skinB", "outfitA", "outfitB", "hair", "hairA", "hairB", "eyes", "eyeA", "eyeB", "figure"]
-    for (const feature of features)
-        if (!(feature in inParams)) {
-            alert("Error: Customized avatar not recieved. "+ feature + " not defined.");
-            return
-        }
-
-    let skinA = inParams["skinA"];
-    let skinB = inParams["skinB"];
-    let hairA = inParams["hairA"];
-    let hairB = inParams["hairB"];
-    let eyeA = inParams["eyeA"];
-    let eyeB = inParams["eyeB"];
-    let outfitA = inParams["outfitA"];
-    let outfitB = inParams["outfitB"];
-    let figure = inParams["figure"];
-    let eyes = inParams["eyes"];
-    let hair = inParams["hair"];
-
-    console.log("****** Palette from Customizer ******");
-    console.log("Hair A: " + hairA);
-    console.log("Hair B: " + hairB);
-    console.log("Eye A: " + eyeA);
-    console.log("Eye B: " + eyeB);
-    console.log("Outfit A: " + outfitA);
-    console.log("Outfit B: " + outfitB);
-    console.log("Skin A: " + skinA);
-    console.log("Skin B: " + skinB);
-    console.log("Figure: " + figure);
-    console.log("Avatar eyes: " + eyes);
-    console.log("Avatar hair: " + hair);
-    
-    avatarPalette.setSkin(skinA, skinB);
-    avatarPalette.setHair(hairA, hairB);
-    avatarPalette.setEye(eyeA, eyeB);
-    avatarPalette.setOutfit(outfitA, outfitB);
-    avatarPalette.setFigure(figure);
-    avatarPalette.eyes = eyes;
-    avatarPalette.hair = hair;
-    
-    mainAvatar.setPalette(avatarPalette);
-    return avatarPalette;
-}
 //console.log("FIRST SCENARIO: " + Qualtrics.SurveyEngine.getEmbeddedData(module));
 console.log("LOADED avatar_customization.js");

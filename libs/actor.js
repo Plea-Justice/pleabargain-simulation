@@ -83,6 +83,54 @@ Palette = function () {
 
 }
 
+// Create a pallete from passed URL parameters.
+function loadAvatarParams() {
+  if (!window.avatarPalette)
+      avatarPalette = new Palette();
+
+  features = ["skinA", "skinB", "outfitA", "outfitB", "hair", "hairA", "hairB", "eyes", "eyeA", "eyeB", "figure"]
+  for (const feature of features)
+      if (!(feature in inParams)) {
+          console.log("Error: Customized avatar not recieved. "+ feature + " not defined.");
+          return
+      }
+
+  let skinA = inParams["skinA"];
+  let skinB = inParams["skinB"];
+  let hairA = inParams["hairA"];
+  let hairB = inParams["hairB"];
+  let eyeA = inParams["eyeA"];
+  let eyeB = inParams["eyeB"];
+  let outfitA = inParams["outfitA"];
+  let outfitB = inParams["outfitB"];
+  let figure = inParams["figure"];
+  let eyes = inParams["eyes"];
+  let hair = inParams["hair"];
+
+  console.log("****** Palette from Customizer ******");
+  console.log("Hair A: " + hairA);
+  console.log("Hair B: " + hairB);
+  console.log("Eye A: " + eyeA);
+  console.log("Eye B: " + eyeB);
+  console.log("Outfit A: " + outfitA);
+  console.log("Outfit B: " + outfitB);
+  console.log("Skin A: " + skinA);
+  console.log("Skin B: " + skinB);
+  console.log("Figure: " + figure);
+  console.log("Avatar eyes: " + eyes);
+  console.log("Avatar hair: " + hair);
+  
+  avatarPalette.setSkin(skinA, skinB);
+  avatarPalette.setHair(hairA, hairB);
+  avatarPalette.setEye(eyeA, eyeB);
+  avatarPalette.setOutfit(outfitA, outfitB);
+  avatarPalette.setFigure(figure);
+  avatarPalette.eyes = eyes;
+  avatarPalette.hair = hair;
+
+  return avatarPalette;
+}
+
 /**
  * An object that creates a drawable feature for avatars. Actors are used to draw our movieclips.
  * Actors are given a movieclip in which we give it an option to be rendered to a canvas element,
