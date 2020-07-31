@@ -81,55 +81,46 @@ function presetHairPicked(preset)
 		case "rgb(42, 22, 22)":
 			avastruct_hair.picker.currentHex = "#2A1616";
 			document.getElementById("hair-selected-color").style.backgroundColor = "#2A1616";
-			refreshColors();
 			rgb = [42, 22, 22];
 			break;
 		case "rgb(139, 69, 19)":
 			avastruct_hair.picker.currentHex = "#8B4513";
 			document.getElementById("hair-selected-color").style.backgroundColor = "#8B4513";
-			refreshColors();
 			rgb = [139, 69, 19];
 			break;
 		case "rgb(159, 167, 23)":
 			avastruct_hair.picker.currentHex = "#9FA717";
 			document.getElementById("hair-selected-color").style.backgroundColor = "#9FA717";
-			refreshColors();
 			rgb = [159, 167, 23];
 			break;
 		case "rgb(222, 225, 171)":
 			avastruct_hair.picker.currentHex = "#DEE1AB";
 			document.getElementById("hair-selected-color").style.backgroundColor = "#DEE1AB";
-			refreshColors();
 			rgb = [222, 225, 171];
 			break;
 		case "rgb(177, 177, 177)":
 			avastruct_hair.picker.currentHex = "#B1B1B1";
 			document.getElementById("hair-selected-color").style.backgroundColor = "#B1B1B1";
-			refreshColors();
 			rgb = [177, 177, 177];
 			break;
 		case "rgb(255, 255, 255)":
 			avastruct_hair.picker.currentHex = "#FFFFFF";
 			document.getElementById("hair-selected-color").style.backgroundColor = "#FFFFFF";
-			refreshColors();
 			rgb = [255, 255, 255];
 			break;
 		case "rgb(0, 0, 0)":
 			avastruct_hair.picker.currentHex = "#000000";
 			document.getElementById("hair-selected-color").style.backgroundColor = "#000000";
-			refreshColors();
 			rgb = [0, 0, 0];
 			break;
 		case "rgb(97, 15, 15)":
 			avastruct_hair.picker.currentHex = "#610F0F";
 			document.getElementById("hair-selected-color").style.backgroundColor = "#610F0F";
-			refreshColors();
 			rgb = [97, 15, 15];
 			break;
 		case "rgb(208, 59, 32)":
 			avastruct_hair.picker.currentHex = "#D03B20";
 			document.getElementById("hair-selected-color").style.backgroundColor = "#D03B20";
-			refreshColors();
 			rgb = [208, 59, 32];
 			break;
 		default:
@@ -137,8 +128,8 @@ function presetHairPicked(preset)
 			break;
     }
     let colorOffset = 30;
-	avastruct_hair.picker.secondaryHex = avastruct_hair.picker.generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
-
+    avastruct_hair.picker.secondaryHex = generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
+    refreshColors();
 }
 
 function presetEyePicked(preset)
@@ -149,37 +140,31 @@ function presetEyePicked(preset)
 		case "rgb(150, 75, 0)":
 			avastruct_eye.picker.currentHex = "#964b00"
 			document.getElementById("eye-selected-color").style.backgroundColor = "#964b00";
-			refreshColors();
 			rgb = [150, 75, 0];
 			break;
 		case "rgb(128, 117, 50)":
 			avastruct_eye.picker.currentHex = "#807532"
 			document.getElementById("eye-selected-color").style.backgroundColor = "#807532";
-			refreshColors();
 			rgb = [128, 117, 50];
 			break;
 		case "rgb(43, 52, 200)":
 			avastruct_eye.picker.currentHex = "#2B34C8"
 			document.getElementById("eye-selected-color").style.backgroundColor = "#2B34C8";
-			refreshColors();
 			rgb = [43, 52, 200];
 			break;
 		case "rgb(46, 184, 26)":
 			avastruct_eye.picker.currentHex = "#2EB81A"
 			document.getElementById("eye-selected-color").style.backgroundColor = "#2EB81A";
-			refreshColors();
 			rgb = [46, 184, 26];
 			break;
 		case "rgb(133, 191, 213)":
 			avastruct_eye.picker.currentHex = "#85bfd5"
 			document.getElementById("eye-selected-color").style.backgroundColor = "#85bfd5";
-			refreshColors();
 			rgb = [133, 191, 213];
 			break;
 		case "rgb(177, 177, 177)":
 			avastruct_eye.picker.currentHex = "#B1B1B1";
 			document.getElementById("eye-selected-color").style.backgroundColor = "#B1B1B1";
-			refreshColors();
 			rgb = [177, 177, 177];
 			break;
 		default:
@@ -187,8 +172,8 @@ function presetEyePicked(preset)
 			break;
     }
     let colorOffset = 30;
-	avastruct_eye.picker.secondaryHex = avastruct_eye.picker.generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
-
+    avastruct_eye.picker.secondaryHex = generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
+    refreshColors();
 }
 
 function presetSkinPicked(preset)
@@ -199,37 +184,31 @@ function presetSkinPicked(preset)
 		case "rgb(197, 140, 133)":
 			avastruct_skin.picker.currentHex = "#c58c85"
 			document.getElementById("skin-selected-color").style.backgroundColor = "#c58c85";
-			refreshColors();
 			rgb = [197, 140, 133];
 			break;
 		case "rgb(236, 188, 180)":
 			avastruct_skin.picker.currentHex = "#ecbcb4"
 			document.getElementById("skin-selected-color").style.backgroundColor = "#ecbcb4";
-			refreshColors();
 			rgb = [236, 188, 180];
 			break;
 		case "rgb(209, 163, 164)":
 			avastruct_skin.picker.currentHex = "#d1a3a4"
 			document.getElementById("skin-selected-color").style.backgroundColor = "#d1a3a4";
-			refreshColors();
 			rgb = [209, 163, 164];
 			break;
 		case "rgb(161, 102, 94)":
 			avastruct_skin.picker.currentHex = "#a1665e"
 			document.getElementById("skin-selected-color").style.backgroundColor = "#a1665e";
-			refreshColors();
 			rgb = [161, 102, 94];
 			break;
 		case "rgb(80, 51, 53)":
 			avastruct_skin.picker.currentHex = "#503335"
 			document.getElementById("skin-selected-color").style.backgroundColor = "#503335";
-			refreshColors();
 			rgb = [80, 51, 53];
 			break;
 		case "rgb(89, 47, 42)":
 			avastruct_skin.picker.currentHex = "#592f2a";
 			document.getElementById("skin-selected-color").style.backgroundColor = "#592f2a";
-			refreshColors();
 			rgb = [89, 47, 42];
 			break;
 		default:
@@ -237,7 +216,8 @@ function presetSkinPicked(preset)
 			break;
     }
     let colorOffset = 30;
-	avastruct_skin.picker.secondaryHex = avastruct_skin.picker.generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
+    avastruct_skin.picker.secondaryHex = generateSecondarySkinColor(rgb[0], rgb[1], rgb[2], colorOffset);
+    refreshColors();
 
 }
 

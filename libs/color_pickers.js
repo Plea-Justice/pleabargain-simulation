@@ -86,34 +86,9 @@ class ColorPicker {
         this.currentHex = "#" + ("000000" + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
 
         let colorOffset = 30;
-        this.secondaryHex = this.generateSecondaryColor(r, g, b, colorOffset);
+        this.secondaryHex = generateSecondaryColor(r, g, b, colorOffset);
     }
 
-    // generate secondary color
-    /* secondary color is darkened version of primary color, except for when the primary color is black.
-    */
-    generateSecondaryColor(r, g, b, colorOffset)
-    {
-        if (r <= 15 && g <= 15 && b <= 15)
-        {
-            r += colorOffset;
-            if (r > 255) r = 255;
-            g += colorOffset;
-            if (g > 255) g = 255;
-            b += colorOffset;
-            if (b > 255) b = 255;
-        }
-        else
-        {
-            r -= colorOffset;
-            if (r < 0) r = 0;
-            g -= colorOffset;
-            if (g < 0) g = 0;
-            b -= colorOffset;
-            if (b < 0) b = 0;
-        }
-        return "#" + ("000000" + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
-    }
 
     // function that andles events
     eventListeners() {
@@ -121,8 +96,8 @@ class ColorPicker {
 
         // move picker cursor to follow the mouse cursor
         const onMouseMove=(e) =>{
-            let newposX = e.layerX;
-            let newposY = e.layerY;
+            let newposX = e.offsetX;
+            let newposY = e.offsetY;
             this.pickerCursor.x = newposX;
             this.pickerCursor.y = newposY;
 
@@ -182,31 +157,22 @@ class SkinColorPicker extends ColorPicker {
         this.ctx.closePath();
     }
 
-    // generate secondary color
-    /* if the color is a "light color" (r + g + b over their midpoint) needs to subtract to create a darker
-        secondary color, otherwise lightens the channels to create a lighter secondary color
-    */
-    generateSecondaryColor(r, g, b, colorOffset)
-    {
-        if (((r + g + b) / 3) <= 100)
-        {
-            r += colorOffset;
-            if (r > 255) r = 255;
-            g += colorOffset;
-            if (g > 255) g = 255;
-            b += colorOffset;
-            if (b > 255) b = 255;
-        }
-        else
-        {
-            r -= colorOffset;
-            if (r < 0) r = 0;
-            g -= colorOffset;
-            if (g < 0) g = 0;
-            b -= colorOffset;
-            if (b < 0) b = 0;
-        }
-        return "#" + ("000000" + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
-    }
+    // called when mouse is down, gets RGB of the pixel the cursor is on
+    pickCurrentColor(){
+        let imgdata = this.ctx.getImageData(this.pickerCursor.x, this.pickerCursor.y, 1, 1);
+        // extract RGB from imgdata
+        let r = imgdata.data[0];
+        let g = imgdata.data[1];
+        let b = imgdata.data[2];
 
+        // current color stored as rgb(x, x, x);
+        this.currentColor = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+        this.selectedColor.style.backgroundColor = this.currentColor;
+
+        //current color stored as hex
+        this.currentHex = "#" + ("000000" + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
+
+        let colorOffset = 30;
+        this.secondaryHex = generateSecondarySkinColor(r, g, b, colorOffset);
+    }
 }

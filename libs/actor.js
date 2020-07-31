@@ -73,10 +73,10 @@ Palette = function () {
 
   // format as query string
   this.serializePalette = function() {
-    return "&skinA=" + this.skinA.substr(1) + "&skinB=" + this.skinB.substr(1) + 
-           "&hairA=" + this.hairA.substr(1) + "&hairB=" + this.hairB.substr(1) +
-           "&eyeA=" + this.eyeA.substr(1) + "&eyeB=" + this.eyeB.substr(1) +
-           "&outfitA=" + this.outfitA.substr(1) + "&outfitB=" + this.outfitB.substr(1) + 
+    return "&skinA=" + this.skinA.substr(1) +
+           "&hairA=" + this.hairA.substr(1) +
+           "&eyeA=" + this.eyeA.substr(1) +
+           "&outfitA=" + this.outfitA.substr(1) + 
            "&figure=" + this.figure +
            "&eyes=" + this.eyes + "&hair=" + this.hair;
   }
@@ -88,21 +88,34 @@ function loadAvatarParams() {
   if (!window.avatarPalette)
       avatarPalette = new Palette();
 
-  features = ["skinA", "skinB", "outfitA", "outfitB", "hair", "hairA", "hairB", "eyes", "eyeA", "eyeB", "figure"]
+  features = ["skinA", "outfitA", "hair", "hairA", "eyes", "eyeA", "figure"]
   for (const feature of features)
       if (!(feature in inParams)) {
           console.log("Error: Customized avatar not recieved. "+ feature + " not defined.");
           return
       }
+  
 
+  // TODD: colors are stored in hex and require conversion to RGB and back again to
+  //       utilize generateSecondaryColor(). Could the function be rewritten to 
+  //       work entirely in hex?
+  let colorOffset = 30;
   let skinA = inParams["skinA"];
-  let skinB = inParams["skinB"];
+  let skinA_RGB = hexToRgb(skinA);
+  let skinB = generateSecondarySkinColor(skinA_RGB[0], skinA_RGB[1], skinA_RGB[2], colorOffset);
+
   let hairA = inParams["hairA"];
-  let hairB = inParams["hairB"];
+  let hairA_RGB = hexToRgb(hairA);
+  let hairB = generateSecondaryColor(hairA_RGB[0], hairA_RGB[1], hairA_RGB[2], colorOffset);
+
   let eyeA = inParams["eyeA"];
-  let eyeB = inParams["eyeB"];
+  let eyeA_RGB = hexToRgb(eyeA);
+  let eyeB = generateSecondaryColor(eyeA_RGB[0], eyeA_RGB[1], eyeA_RGB[2], colorOffset);
+
   let outfitA = inParams["outfitA"];
-  let outfitB = inParams["outfitB"];
+  let outfitA_RGB = hexToRgb(outfitA);
+  let outfitB = generateSecondaryColor(outfitA_RGB[0], outfitA_RGB[1], outfitA_RGB[2], colorOffset);
+
   let figure = inParams["figure"];
   let eyes = inParams["eyes"];
   let hair = inParams["hair"];
@@ -218,6 +231,66 @@ Actor = function (movieclip) {
       }
     }
   }
+}
+
+// COLOR HELPER FUNCTIONS
+
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)];
+}
+
+// generate secondary color
+    /* secondary color is darkened version of primary color, except for when the primary color is black.
+    */
+function generateSecondaryColor(r, g, b, colorOffset)
+{
+  if (r <= 15 && g <= 15 && b <= 15)
+  {
+      r += colorOffset;
+      if (r > 255) r = 255;
+      g += colorOffset;
+      if (g > 255) g = 255;
+      b += colorOffset;
+      if (b > 255) b = 255;
+  }
+  else
+  {
+      r -= colorOffset;
+      if (r < 0) r = 0;
+      g -= colorOffset;
+      if (g < 0) g = 0;
+      b -= colorOffset;
+      if (b < 0) b = 0;
+  }
+  return "#" + ("000000" + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
+}
+
+// generate secondary color, returns as hex
+/* if the color is a "light color" (r + g + b over their midpoint) needs to subtract to create a darker
+    secondary color, otherwise lightens the channels to create a lighter secondary color
+*/
+function generateSecondarySkinColor(r, g, b, colorOffset)
+{
+  if (((r + g + b) / 3) <= 100)
+  {
+      r += colorOffset;
+      if (r > 255) r = 255;
+      g += colorOffset;
+      if (g > 255) g = 255;
+      b += colorOffset;
+      if (b > 255) b = 255;
+  }
+  else
+  {
+      r -= colorOffset;
+      if (r < 0) r = 0;
+      g -= colorOffset;
+      if (g < 0) g = 0;
+      b -= colorOffset;
+      if (b < 0) b = 0;
+  }
+  return "#" + ("000000" + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
 }
 
 console.log("LOADED actor.js");
