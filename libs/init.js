@@ -3,9 +3,7 @@ console.log("LOADING init.js");
 // Globabl Variables
 var canvas = document.getElementById("canvas");
 
-var experiment_path = "experiments/";
 const manifest_filename = "manifest.json";
-const condition_file_prefix = "condition";
 
 var manifest;   // Animation asset files for all conditions.
 var condition;  // Ordered scene description for each experimental condition.
@@ -27,9 +25,7 @@ function load_manifest() {
         return;
     }
 
-    experiment_path += scenario +'/';
-
-    console.log("Loading manifest " + experiment_path + manifest_filename);
+    console.log("Loading manifest " + manifest_filename);
     let canvas = document.getElementById("canvas");
     
     // Loading message.
@@ -49,8 +45,7 @@ function load_manifest() {
 
     console.log("Experimental condition number: " + condition_number);
 
-    let manifest_filepath = experiment_path + manifest_filename;
-    let condition_filepath = experiment_path + condition_file_prefix + condition_number + ".json";
+    let manifest_filepath = manifest_filename;
 
     let queue = new createjs.LoadQueue(true);
 
@@ -63,6 +58,12 @@ function load_manifest() {
             
         case "manifest":
             manifest = event.result;
+
+            if (event.result.conditions[condition_number - 1] != null) {
+                condition = event.result.conditions[condition_number - 1];
+                break;
+            } else 
+                alert("ERROR: Malformed condition: condition" + condition_number);
             break;
 
         case "json":
@@ -70,7 +71,7 @@ function load_manifest() {
                 condition = event.result.condition;
                 break;
             }
-            alert("ERROR: Malformed condition file: " + experiment_path + condition_file_prefix + condition_number + ".json")
+            alert("ERROR: Malformed condition: " + condition_number);
             break;
 
         case "image":
@@ -87,7 +88,6 @@ function load_manifest() {
 
     queue.on("complete", load_animate_assets, this);
     queue.loadManifest(manifest_filepath, false);
-    queue.loadFile(condition_filepath, false);
     queue.load();
 }
 
