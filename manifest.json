@@ -18,18 +18,6 @@
         "backgrounds/meetingroom.png",
         "foregrounds/table.png"
     ],
-    "actors": [
-        "Prosecutor",
-        "Judge",
-        "DefenseAttorney",
-        "AllScenarios_Jail"
-    ],
-    "clips": [
-        "Larceny_Intro",
-        "Larceny_FlashbackGuilty",
-        "Larceny_FlashbackInnocent",
-        "Larceny_SecurityCam"
-    ],
     "survey": "/no-url-set.html",
     "conditions": [
         {

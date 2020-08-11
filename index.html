@@ -5,34 +5,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <title>Plea Bargain Simulation</title>
+  <title>Simulation Testing Panel</title>
 
   <link rel="canonical" href="https://demo.pleajustice.org">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+  <link rel="stylesheet" href="css/bulma.min.css">
 
   <script>
     function go() {
       let name = document.getElementById("username").value;
       let cond = document.getElementById("condition").value;
-      let scenario = document.getElementById("scenario").selectedIndex;
       let avatar = document.getElementById("custom_avatar").checked;
       let fast = document.getElementById("fast_mode").checked;
 
-      if (isNaN(cond) || cond < 1 || cond > 18) {
+      if (isNaN(cond) || cond < 1 || cond > {{ n_conditions}}) {
         document.getElementById("condition").setAttribute("class", "input is-danger");
-        document.getElementById("cond_helptext").innerText = "Experimental condition must be between 1 and 18."
+        document.getElementById("cond_helptext").innerText = "Experimental condition must be between 1 and {{ n_conditions }}."
         return;
       } else {
         document.getElementById("condition").setAttribute("class", "input");
         document.getElementById("cond_helptext").innerText = "";
       }
 
-      let page = avatar ? "avatar.html" : "simulation.html";
-      let mode = fast ? "&mode=fast" : "";
-      let scen = "&scenario=" + (scenario == 0 ? "covid_shoplifting" : "covid_shoplifting");
-
-      let url = (avatar ? "avatar.html" : "simulation.html") + "?" + scen + "&condition=" + cond + "&Name=" + name + mode;
+      let url = `${avatar ? "avatar.html" : "simulation.html"}?condition=${cond}&Name=${name}${fast ? "&mode=fast" : ""}`;
       window.location.href = url;
     }
 
@@ -56,7 +51,7 @@
   <section class="section columns">
     <div class="container column">
       <h1 class="title">
-        Plea Bargain Simulation
+        {{ study_name }}
       </h1>
       <p class="subtitle">
         Input the required parameters and then click to start the simulation.
@@ -65,26 +60,15 @@
         <div class="field">
           <label class="label">Participant's Name:</label>
           <div class="control">
-            <input class="input" style="width:10em;" type="text" id="username" value="Test T. Tester">
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="label">Scenario</label>
-          <div class="control">
-            <div class="select">
-              <select id="scenario" style="width:10em;">
-                <option>COVID Study</option>
-              </select>
-            </div>
+            <input class="input" style="width:10em;" type="text" id="username" value="Test User">
           </div>
         </div>
 
         <div class="field">
           <label class="label">Experimental Condition:</label>
           <div class="control">
-            <input class="input" style="width:10em;" type="number" id="condition" value="1" min="1" max="4"
-              placeholder="1 - 18">
+            <input class="input" style="width:10em;" type="number" id="condition" value="1" min="1" max="{{ n_conditions }}"
+              placeholder="1 - {{ n_conditions }}">
           </div>
           <p class="help" id="cond_helptext"></p>
         </div>
@@ -121,27 +105,18 @@
       <table class="table is-narrow">
         <thead>
           <th><abbr title="Experimental Condition">Condition</abbr></th>
-          <th><abbr title="Guilt Status">Guilt Status</abbr></th>
-          <th><abbr title="Covid Warning">Covid Warning</abbr></th>
+          <th><abbr title="Description">Description</abbr></th>
         </thead>
         <tbody>
-            <tr><td colspan="3">Part 1</td></tr>
-            <tr><th>1</th><td>Innocent</td><td></td></tr>
-            <tr><th>2</th><td>Guilty</td><td></td></tr>
-            <tr><td colspan="3">Part 2</td></tr>
-            <tr><th>3</th><td></td><td>False</td></tr>
-            <tr><th>4</th><td></td><td>True</td></tr>
+            <tr><th></th><td></td></tr>
         </tbody>
       </table>
     </div>
   </section>
   <footer>
     <div class="content">
-      <p>A project overview can be found in this <a
-          href="https://www.uml.edu/news/stories/2019/plea_bargain_grant.aspx"
-          title="Psychology Prof Tackles Injustice in the Justice System">article</a>. The project wiki is <a
-          href="https://bitbucket.org/pleajustice/pleabargains/wiki/Home"
-          title="Plea Justice Bitbucket Wiki">here</a>.</p>
+      <p>This simulation has been created with the <a
+          href="https://pleajustice.org">Plea Justice Project</a>.
     </div>
   </footer>
 </body>
