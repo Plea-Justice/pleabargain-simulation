@@ -125,7 +125,7 @@ function arrange_scenes(evt) {
             alert("ERROR: Did not load manifest or condition JSON.");
 
         for (const file of manifest.manifest) {
-            if (file.match(/^(clips|actors)/)) {
+            if (file.match(/^(clip|actor)/)) {
                 let name = file.replace(/\..*?$/, '').replace(/^.*\//, '');
                 let comp = AdobeAn.getComposition(FILE_TO_ID[name]);
                 let lib = comp.getLibrary();

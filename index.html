@@ -12,15 +12,17 @@
   <link rel="stylesheet" href="css/bulma.min.css">
 
   <script>
+    var n_conditions = {{ n_conditions }};
+
     function go() {
       let name = document.getElementById("username").value;
       let cond = document.getElementById("condition").value;
       let avatar = document.getElementById("custom_avatar").checked;
       let fast = document.getElementById("fast_mode").checked;
 
-      if (isNaN(cond) || cond < 1 || cond > {{ n_conditions}}) {
+      if (isNaN(cond) || cond < 1 || cond > n_conditions) {
         document.getElementById("condition").setAttribute("class", "input is-danger");
-        document.getElementById("cond_helptext").innerText = "Experimental condition must be between 1 and {{ n_conditions }}."
+        document.getElementById("cond_helptext").innerText = `Experimental condition must be between 1 and ${n_conditions}.`
         return;
       } else {
         document.getElementById("condition").setAttribute("class", "input");
@@ -29,6 +31,10 @@
 
       let url = `${avatar ? "avatar.html" : "simulation.html"}?condition=${cond}&Name=${name}${fast ? "&mode=fast" : ""}`;
       window.location.href = url;
+    }
+
+    function randomlyAssign() {
+      document.getElementById("condition").value = Math.floor((Math.random() * n_conditions) + 1);
     }
 
   </script>
@@ -69,6 +75,7 @@
           <div class="control">
             <input class="input" style="width:10em;" type="number" id="condition" value="1" min="1" max="{{ n_conditions }}"
               placeholder="1 - {{ n_conditions }}">
+              <button class="button" onclick="randomlyAssign()">Randomly Assign</button>
           </div>
           <p class="help" id="cond_helptext"></p>
         </div>
@@ -92,7 +99,7 @@
         </div>
 
         <p class="help">
-          Additional parameters may be passed through by Qualtrics, but they will not affect the simulation.
+          Additional parameters may be passed through by Qualtrics, but they will not affect the simulation.<br/>
           Experimental condition would be randomly assigned by Qualtrics.
         </p>
 
@@ -108,7 +115,7 @@
           <th><abbr title="Description">Description</abbr></th>
         </thead>
         <tbody>
-            <tr><th></th><td></td></tr>
+            {{ condition_descriptions }}
         </tbody>
       </table>
     </div>

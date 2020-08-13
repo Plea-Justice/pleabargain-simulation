@@ -1,22 +1,22 @@
 {
     "path": "assets/",
     "manifest": [
-        "actors/Prosecutor.js",
-        "actors/DefenseAttorney.js",
-        "actors/Judge.js",
+        "actor/Prosecutor.js",
+        "actor/DefenseAttorney.js",
+        "actor/Judge.js",
 
-        "clips/AllScenarios_Jail.js",
+        "clip/AllScenarios_Jail.js",
 
-        "clips/Larceny_Intro.js",
-        "clips/Larceny_FlashbackGuilty.js",
-        "clips/Larceny_FlashbackInnocent.js",
-        "clips/Larceny_SecurityCam.js",
+        "clip/Larceny_Intro.js",
+        "clip/Larceny_FlashbackGuilty.js",
+        "clip/Larceny_FlashbackInnocent.js",
+        "clip/Larceny_SecurityCam.js",
 
-        "backgrounds/blankjail.png",
-        "backgrounds/courtroom_2019.png",
-        "backgrounds/JudgeSeat.png",
-        "backgrounds/meetingroom.png",
-        "foregrounds/table.png"
+        "background/blankjail.png",
+        "background/courtroom_2019.png",
+        "background/JudgeSeat.png",
+        "background/meetingroom.png",
+        "foreground/table.png"
     ],
     "survey": "/no-url-set.html",
     "conditions": [
