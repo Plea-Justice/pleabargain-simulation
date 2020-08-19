@@ -116,7 +116,7 @@ function Button(parentFrame, labeltext, horizontal, vertical) {
   };
   console.log("Constructing Button Container");
   this.Container = new createjs.Container();
-  this.Container.name = labeltext + " Button Container";
+  this.Container.name = labeltext;
   if (0 <= horizontal <= 4) {
     this.Container.x = (((RES_WIDTH - TEX_WIDTH) / 2) + ((BUT_WIDTH + BUT_HOR_PADDING ) * horizontal));
   }
@@ -125,8 +125,7 @@ function Button(parentFrame, labeltext, horizontal, vertical) {
   } 
   this.Container.addChild(this.Background, this.Label);
   this.name = labeltext + " Button";
-//    console.log("Registering Button for Mouseover");
-//    this.Container.addEventListener("click", function(event) { window.open("https://survey.az1.qualtrics.com/jfe/form/SV_8360jRMQgSbxaTz?ID=DEMO1", "_self") });
+
   console.log("button constructed");
 
   this.setPosition = function(horizontal, vertical) {
@@ -140,6 +139,31 @@ function Button(parentFrame, labeltext, horizontal, vertical) {
   this.deactivate = function() {
     this.Container.alpha = 0;
   }
+}
+
+function buttonLayout(n, i) {
+  let x = 1 , y = 3;
+  const ieven = i % 2 === 0;
+  const ilastrow3 = i - Math.floor(n / 3) * 3 > -1;
+  const neven = n % 2 === 0;
+  const ndiv3 = n % 3 === 0;
+
+  // Rows of three if n is divisible by three.
+  if (ndiv3)              { x += i % 3; y += Math.floor(i / 3); }
+
+  // Otherwise if n is even, do rows of two.
+  else if (neven)         { x += ieven ? 0.5 : 1.5; y += Math.floor(i / 2); }
+
+  // If neither, group in rows of three except for the last row.
+  else if (!ilastrow3)    { x += i % 3; y += Math.floor(i / 3); }
+
+  // If there are two buttons in the last row, distribute them like in even.
+  else if (n % 3 != 1)    { x += ieven ? 0.5 : 1.5; y += Math.floor(i / 3); }
+
+  // If there is only one button in the last row, center it.
+  else                    { x += 1; y += Math.floor(i / 3); }
+
+  return [x, y];
 }
 
 ADV_PADDING = 30;

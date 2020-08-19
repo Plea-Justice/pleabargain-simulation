@@ -24,11 +24,11 @@ console.log("LOADING renderer.js");
  * @param background
  * @param foreground
  */
-function Scene(scenename, script, actor, background, foreground) {
+function Scene(scenename, script, actor, background, foreground, buttons) {
   // TODO: incorporate button instantiation into Scene instantiation
   this.name = scenename;
   // create script object from script string
-  if (typeof(script) === 'string')
+  if (typeof (script) === 'string')
     this.Script = new Script(script);
   else if (script instanceof Script)
     this.Script = script;
@@ -41,7 +41,8 @@ function Scene(scenename, script, actor, background, foreground) {
   // and foreground
   this.Foreground = foreground;
   // any buttons
-  this.Buttons = [];
+  this.Buttons = buttons;
+  this.ActiveButtons = {};
   // indexing
   this.index = this.Script.index;
   this.length = this.Script.length;
@@ -49,7 +50,7 @@ function Scene(scenename, script, actor, background, foreground) {
   console.log("Scene " + this.name + " constructed");
 
   // render the scene contextually based on the state of the Script traversal
-  this.render = function(stage) {
+  this.render = function (stage) {
     stage.addChild(this.Background);
     if (this.Actor != null)
       this.Actor.draw(stage, this.Script);
@@ -65,7 +66,7 @@ function Scene(scenename, script, actor, background, foreground) {
  * @param clipname
  * @param movieclip
  */
-function Clip(clipname, movieclip){
+function Clip(clipname, movieclip) {
   this.name = clipname;
   this.MC = movieclip;
   this.Script = null;
@@ -83,7 +84,7 @@ function Clip(clipname, movieclip){
  * set the colors locally.
  * @see Palette
  */
-function AvatarCustomizer(){
+function AvatarCustomizer() {
   console.log("Beginning to construct Avatar Customizer")
   this.name = "avatar_customizer";
   this.MC = null;       // Movieclip
@@ -96,22 +97,22 @@ function AvatarCustomizer(){
 
   console.log("Avatar Customizer constructed");
 
-  this.setActor = function(customAvatar) {
+  this.setActor = function (customAvatar) {
     this.actor = customAvatar;
   }
-  this.setSkin = function(A, B) {
+  this.setSkin = function (A, B) {
     this.palette.setSkin(A, B);
   }
-  this.setHair = function(A, B) {
+  this.setHair = function (A, B) {
     this.palette.setHair(A, B);
   }
-  this.setEye = function(A, B) {
+  this.setEye = function (A, B) {
     this.palette.setEye(A, B);
   }
-  this.setOutfit = function(A, B) {
+  this.setOutfit = function (A, B) {
     this.palette.setOutfit(A, B);
   }
-  this.setPalette = function(Pal) {
+  this.setPalette = function (Pal) {
     this.palette = Pal;
   }
 }
@@ -139,22 +140,29 @@ function Frame(stage, scenes) {
   this.Scene = scenes[this.Index];
   console.log("Frame constructed");
   // TODO: unify Listener functions using event.target
-  // TODO: make button behavior more modular
-  // TODO: create a proper end of simulation system (attempt to transition to null? Create an end of survey object?)
-  this.advanceListener = function(event) {
+  this.advanceListener = function (event) {
     console.log("Advancer clicked");
     this.deactivate();
     this.transition();
   }
-  this.yesListener = function(event) {
-    console.log("Yes Button clicked");
+  this.buttonListener = function (event) {
+    console.log("Button clicked");
     // store interaction
-    console.log(event);
-    outParams[this.Scene.name] = "yes";
+    debugger;
+    const button = event.target instanceof createjs.Container
+      ? event.target
+      : event.target.parent;
+    
+    const output = this.Scene.name
+      ? `${this.Scene.name}_${button.name}`
+      : button.name;
+    
+    outParams[output] = "true";
     this.deactivate();
     this.transition();
   }
-  this.render = function() {
+
+  this.render = function () {
     // If the current Scene is a Scene (not a MovieClip)
     if (this.Scene instanceof Scene) {
       this.Stage.removeAllChildren();
@@ -187,8 +195,8 @@ function Frame(stage, scenes) {
       alert("ERROR: Frame.render() - invalid Frame.Scene");
     }
   }
-  this.transition = function() {
-    if (this.Index < this.Scenes.length -1) {
+  this.transition = function () {
+    if (this.Index < this.Scenes.length - 1) {
       this.Index++;
       console.log("Transitioning to " + this.Scenes[this.Index].name);
       this.Stage.removeAllChildren();
@@ -200,55 +208,60 @@ function Frame(stage, scenes) {
       //reset previous Clip to original state
       if (this.Scene.MC != null)
         this.Scene.MC.gotoAndPlay(0);
-        this.Scene = this.Scenes[this.Index];
+      this.Scene = this.Scenes[this.Index];
       this.Scene.index = 0;
     } else {
       exitToSurvey();
     }
-      // TODO we've reached the end. Present options.
+    // TODO we've reached the end. Present options.
   }
 
   //Activate all buttons in the Scene - making them visible and enable their event handlers
-  this.activate = function() {
+  this.activate = function () {
     console.log("Button Activation");
     if (this.Scene instanceof Scene) {
       console.log("Activating Advancer");
-      if (this.Scene.ButtonsToAdd == undefined){
+      if (this.Scene.Buttons == undefined) {
         this.UI.Advancer.activate();
         this.advanceListener = this.advanceListener.bind(this);
         this.UI.Advancer.Container.addEventListener("click", this.advanceListener);
         console.log("Advancer activated");
       }
-      
-      if (this.Scene.ButtonsToAdd != undefined && this.Scene.ButtonsToAdd instanceof Array) {
-        for (let i = 0; i < this.Scene.ButtonsToAdd.length; i++){
+
+      if (this.Scene.Buttons != undefined && this.Scene.Buttons instanceof Array) {
+        for (let i = 0; i < this.Scene.Buttons.length; i++) {
+          //for (const button of this.Scene.Buttons) {
           console.log("Activating Button");
-          buttonName = this.Scene.ButtonsToAdd[i];
-          button = this.Scene.Buttons[buttonName] = new Button(this, buttonName, 1 + (i%2?2:0), 3 + Math.floor(i/2));
-          this.yesListener = this.yesListener.bind(this);
-          button.Container.addEventListener("click", button.Listener);
-          this.Stage.addChild(this.Scene.Buttons[buttonName].Container);
+          buttonName = this.Scene.Buttons[i];
+          const [x, y] = buttonLayout(this.Scene.Buttons.length, i);
+          button = this.Scene.ActiveButtons[buttonName] = new Button(this, buttonName, x, y);
+          //   // Button x-coordinate.
+          //   (this.Scene.Buttons.length % 2) && i == this.Scene.Buttons.length - 1
+          //     ? 2            // If odd number of buttons, last button is centered.
+          //     : 1 + (i % 2 ? 2 : 0)        // Otherwise, alternate left and right.
+          //   ,
+          //   // Button y-coordinate.
+          //   3 + Math.floor(i / 2)
+          // );
+          this.buttonListener = this.buttonListener.bind(this);
+          button.Container.addEventListener("click", this.buttonListener);
+          this.Stage.addChild(this.Scene.ActiveButtons[buttonName].Container);
           console.log(buttonName + " Button activated");
         }
       }
     }
   }
   //Deactivate all buttons in the Scene - disabling their event handlers
-  this.deactivate = function() {
+  this.deactivate = function () {
     if (this.UI.Advancer != null) {
       this.UI.Advancer.deactivate();
       this.UI.Advancer.Container.removeEventListener("click", this.advanceListener);
-    console.log("Advancer deactivated");
+      console.log("Advancer deactivated");
     }
-    if (this.Scene.Buttons["yes"] != null) {
-      this.Scene.Buttons["yes"].deactivate();
-      this.Scene.Buttons["yes"].Container.removeEventListener("click", this.yesListener);
-    console.log("Yes Button deactivated");
-    }
-    if (this.Scene.Buttons["no"] != null) {
-      this.Scene.Buttons["no"].deactivate();
-      this.Scene.Buttons["no"].Container.removeEventListener("click", this.noListener);
-    console.log("No Button deactivated");
+    for (button of Object.keys(this.Scene.ActiveButtons)) {
+      this.Scene.ActiveButtons[button].deactivate();
+      this.Scene.ActiveButtons[button].Container.removeEventListener("click", this.buttonListener);
+      console.log("Button deactivated");
     }
   }
 }

@@ -67,7 +67,7 @@ function load_manifest() {
 
             case "image":
                 let img = event.item.src;
-                img = img.slice(img.lastIndexOf("/") + 1);
+                img = img.slice(img.lastIndexOf("/") + 1).replace(/\..*$/, '');
                 assets[img] = new createjs.Bitmap(event.result);
                 break;
 
@@ -141,29 +141,12 @@ function arrange_scenes(evt) {
             switch (sceneDescr.type) {
                 case 'dialogue':
                 case 'question':
-                    // TODO username must be passeed as a parameter.
-                    name = sceneDescr.name;
                     actor = sceneDescr.actor ? new Actor(assets[sceneDescr.actor]) : null;
-                
-                    script = sceneDescr.script.replace(/@U/g, inParams["Name"]);
-                    let i = 0;
-                    while ((i = script.search(/@\d/)) != -1) {
-                        let d = Number(script[i + 1]);
-                        if (d == 0) {
-                            script = script.replace("@0", "");
-                        } else {
-                            script = script.slice(0, i + 1) + (d - 1) + "~~~" + script.slice(i + 2);
-                        }
-                    }
-
-                    console.log(script);
                     bg = assets[sceneDescr.bg];
                     fg = assets[sceneDescr.fg];
 
-                    scene = new Scene(name, script, actor, bg, fg);
+                    scene = new Scene(sceneDescr.name, sceneDescr.script, actor, bg, fg, sceneDescr.buttons);
                     scenes.push(scene);
-                    if (sceneDescr.buttons)
-                        scene.ButtonsToAdd = sceneDescr.buttons;
                     break;
                 case 'clip':
                     scene = new Clip(sceneDescr.name, assets[sceneDescr.clip]);
