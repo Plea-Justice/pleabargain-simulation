@@ -41,7 +41,7 @@ function Scene(scenename, script, actor, background, foreground, buttons) {
   // and foreground
   this.Foreground = foreground;
   // any buttons
-  this.Buttons = buttons;
+  this.Buttons = buttons || [];
   this.ActiveButtons = {};
   // indexing
   this.index = this.Script.index;
@@ -71,6 +71,7 @@ function Clip(clipname, movieclip) {
   this.MC = movieclip;
   this.Script = null;
   this.Buttons = [];
+  this.ActiveButtons = {};
   this.index = this.MC.currentFrame;
   this.length = this.MC.totalFrames;
   console.log("Clip " + this.name + " constructed");
@@ -235,14 +236,6 @@ function Frame(stage, scenes) {
           buttonName = this.Scene.Buttons[i];
           const [x, y] = buttonLayout(this.Scene.Buttons.length, i);
           button = this.Scene.ActiveButtons[buttonName] = new Button(this, buttonName, x, y);
-          //   // Button x-coordinate.
-          //   (this.Scene.Buttons.length % 2) && i == this.Scene.Buttons.length - 1
-          //     ? 2            // If odd number of buttons, last button is centered.
-          //     : 1 + (i % 2 ? 2 : 0)        // Otherwise, alternate left and right.
-          //   ,
-          //   // Button y-coordinate.
-          //   3 + Math.floor(i / 2)
-          // );
           this.buttonListener = this.buttonListener.bind(this);
           button.Container.addEventListener("click", this.buttonListener);
           this.Stage.addChild(this.Scene.ActiveButtons[buttonName].Container);

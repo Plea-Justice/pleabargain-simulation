@@ -142,10 +142,10 @@ function arrange_scenes(evt) {
                 case 'dialogue':
                 case 'question':
                     actor = sceneDescr.actor ? new Actor(assets[sceneDescr.actor]) : null;
-                    bg = assets[sceneDescr.bg];
-                    fg = assets[sceneDescr.fg];
+                    bg = assets[sceneDescr.bg] || null;
+                    fg = assets[sceneDescr.fg] || null;
 
-                    scene = new Scene(sceneDescr.name, sceneDescr.script, actor, bg, fg, sceneDescr.buttons);
+                    scene = new Scene(sceneDescr.name || null, sceneDescr.script || null, actor, bg, fg, sceneDescr.buttons || null);
                     scenes.push(scene);
                     break;
                 case 'clip':
