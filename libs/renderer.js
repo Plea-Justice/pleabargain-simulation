@@ -222,14 +222,14 @@ function Frame(stage, scenes) {
     console.log("Button Activation");
     if (this.Scene instanceof Scene) {
       console.log("Activating Advancer");
-      if (this.Scene.Buttons == undefined) {
+      if (this.Scene.Buttons.length == 0) {
         this.UI.Advancer.activate();
         this.advanceListener = this.advanceListener.bind(this);
         this.UI.Advancer.Container.addEventListener("click", this.advanceListener);
         console.log("Advancer activated");
       }
 
-      if (this.Scene.Buttons != undefined && this.Scene.Buttons instanceof Array) {
+      if (this.Scene.Buttons.length != 0 && this.Scene.Buttons instanceof Array) {
         for (let i = 0; i < this.Scene.Buttons.length; i++) {
           //for (const button of this.Scene.Buttons) {
           console.log("Activating Button");
