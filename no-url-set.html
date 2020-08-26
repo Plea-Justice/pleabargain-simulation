@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Plea Bargain Simulation</title>
+	<link rel="shortcut icon" type="image/png" href="favicon.png" />
+	<link rel="stylesheet" href="css/bulma.min.css">
+	<script src="libs/params.js"></script>
+</head>
+
+<style>
+	html,
+	body {
+		margin: 2vh;
+	}
+
+	body>footer {
+		position: absolute;
+		bottom: 2vh;
+		right: 2vh;
+	}
+</style>
+
+<body>
+	<section class="section columns">
+		<div class="content column">
+			<h1>No Qualtrics URL has been set.</h1>
+			<p>The survey URL must be set in the simulation settings.</p>
+
+			<h4>Embedded Data</h4>
+			<p>This data would be recieved from the simulation by Qualtrics.</p>
+		</div>
+		<div class="table-container column">
+			<table class="table is-striped is-narrow">
+				<thead>
+					<tr>
+						<th>Parameter</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+				<tbody id="ParamList">
+				</tbody>
+			</table>
+		</div>
+
+	</section>
+	<footer>
+		<div class="content">
+			<p>Plea Justice Simulation. Documentation may be found <a
+					href="https://github.com/Plea-Justice/pleabargain-simulation/wiki/Configuration">here</a>.</p>
+		</div>
+	</footer>
+</body>
+
+<script>
+	div = document.getElementById("ParamList");
+
+	console.log(inParams);
+	for (i in inParams) {
+		tr = document.createElement("tr");
+		td = document.createElement("td");
+		td2 = document.createElement("td");
+		td.innerHTML = i;
+		td2.innerHTML = inParams[i];
+		tr.appendChild(td);
+		tr.appendChild(td2);
+		div.appendChild(tr);
+	}
+
+</script>
+
+</html>

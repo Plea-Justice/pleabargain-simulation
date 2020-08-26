@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create Your Avatar</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="css/avatar_creation.css" />
+
+
+    <!-- LOAD CREATE.JS LIBRARY -->
+    <script src="libs/createjs.min.js"></script>
+
+    <!-- Figure AVATARS -->
+    <script src="assets/actor/AllScenarios_AvatarCustomization.js"></script>
+
+    <!-- ADDING LIBRARIES -->
+    <script src="libs/actor.js"></script>
+    <script src="libs/parser.js"></script>
+    <script src="libs/renderer.js"></script>
+    <script src="libs/params.js"></script>
+    <script src="libs/ui.js"></script>
+
+    <!-- LOAD LOCALES -->
+    <script src="locales/en_US.js"></script>
+    <script src="locales/es_DO.js"></script>
+
+    <!-- ADDING JQUERY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+</head>
+<body onload="initCustomizer()">
+    <!-- Modal intro message-->
+    <div id="Intro-Message" class="intro_background">
+        <div class="progress_bar">
+            <img src="assets/customizer/ProgressBar0.png" alt="Page 1/3" style="height: 20px">
+        </div>
+        <div id="introContent">
+            <h2>You will now create an avatar to represent you in this simulation.</h2>
+            <h2>On the next page, you can begin customizing your avatar.</h2>
+            <br>
+            <h2>Click "Next" when you are ready to create your avatar.</h2>
+            <br><br>
+            <div id="section">
+                <button id="closeIntroMessage" class="nextButtons"onclick="closeModal('Intro-Message')">Next &#x2b95;</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modals for figure selector and color picker-->
+    <div id="Figure-Selector" class="figure_background">
+        <div class="progress_bar">
+            <img src="assets/customizer/ProgressBar1.png" alt="Page 2/3" style="height: 20px">
+        </div>
+        <div id="Figure-Selector-Content" class="mcontent_figure">
+
+            <h3>Please select a figure for your avatar, then click "Next".</h3>
+            <div id="figure_button_wrap">
+                <div id="SexButtonM" class="figure_button" onclick="changeSexMale()">
+                    <img src="assets/customizer/SilhouetteFigure0.png" alt="image" style="width: 100%">
+                </div>
+                <div id="SexButtonF" class="figure_button" onclick="changeSexFemale()">
+                    <img src="assets/customizer/SilhouetteFigure1.png" alt="image" style="width: 100%">
+                </div>
+            </div>
+            <div id="section">
+                <button id="closeFigSelector" class="nextButtons"onclick="closeModal('Figure-Selector')">Next &#x2b95;</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="Hair-Color-Picker" class="modal_background" style="left:20%;">
+        <div id="Hair-Picker-Content" class="mcontent_color">
+                <div class="close_button" onclick="closePickerCancel(avastruct_hair)">&#x2716;</div>
+                <canvas id="hair-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
+				<table id="hair-color-presets">
+					<tbody>
+						<tr>
+							<td>
+								<button id="hair-preset-brown" class="selected-color" style="background-color:#2A1616; border-radius: 50%;" onClick="presetHairPicked(this)"></button>
+							</td>
+							<td>
+								<button id="hair-preset-light-brown" class="selected-color" style="background-color:#8B4513; border-radius: 50%;" onClick="presetHairPicked(this)"></button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button id="hair-preset-dark-blonde" class="selected-color" style="background-color:#9FA717; border-radius: 50%;" onClick="presetHairPicked(this)"></button>
+							</td>
+							<td>
+								<button id="hair-preset-light-blonde" class="selected-color" style="background-color:#DEE1AB; border-radius: 50%;" onClick="presetHairPicked(this)"></button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button id="hair-preset-grey" class="selected-color" style="background-color:#B1B1B1; border-radius: 50%;" onClick="presetHairPicked(this)"></button>
+							</td>
+							<td>
+								<button id="hair-preset-white" class="selected-color" style="background-color:#FFFFFF; border-radius: 50%;" onClick="presetHairPicked(this)"></button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button id="hair-preset-dark-red" class="selected-color" style="background-color:#610F0F; border-radius: 50%;" onClick="presetHairPicked(this)"></button>
+							</td>
+							<td>
+								<button id="hair-preset-light-red" class="selected-color" style="background-color:#D03B20; border-radius: 50%;" onClick="presetHairPicked(this)"></button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button id="hair-preset-black" class="selected-color" style="background-color:#000000; border-radius: 50%;" onClick="presetHairPicked(this)"></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+                <div>
+                    <div id="hair-selected-color" class="selected-color"></div>
+                    <button class="okay_button" onclick="closePickerOK(avastruct_hair)">Done &#x2714;</button>
+                </div>
+        </div>
+    </div>
+
+    <div id="Eye-Color-Picker" class="modal_background" style="left:20%;">
+        <div id="Eye-Picker-Content" class="mcontent_color">
+            <div class="close_button" onclick="closePickerCancel(avastruct_eye)">&#x2716;</div>
+            <canvas id="eye-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
+			<table id="eye-color-presets">
+					<tbody>
+						<tr>
+							<td>
+								<button id="eye-preset-brown" class="selected-color" style="background-color:#964b00; border-radius: 50%;" onClick="presetEyePicked(this)"></button>
+							</td>
+							<td>
+								<button id="eye-preset-hazel" class="selected-color" style="background-color:#807532; border-radius: 50%;" onClick="presetEyePicked(this)"></button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button id="eye-preset-blue" class="selected-color" style="background-color:#2B34C8; border-radius: 50%;" onClick="presetEyePicked(this)"></button>
+							</td>
+							<td>
+								<button id="eye-preset-green" class="selected-color" style="background-color:#2EB81A; border-radius: 50%;" onClick="presetEyePicked(this)"></button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button id="eye-preset-cyan" class="selected-color" style="background-color:#85bfd5; border-radius: 50%;" onClick="presetEyePicked(this)"></button>
+							</td>
+							<td>
+								<button id="eye-preset-grey" class="selected-color" style="background-color:#B1B1B1; border-radius: 50%;" onClick="presetEyePicked(this)"></button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+            <div>
+                <div id="eye-selected-color" class="selected-color"></div>
+                <button class="okay_button" onclick="closePickerOK(avastruct_eye)">Done &#x2714;</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="Skin-Color-Picker" class="modal_background" style="left:20%;">
+        <div id="Skin-Picker-Content" class="mcontent_color">
+            <div class="close_button" onclick="closePickerCancel(avastruct_skin)">&#x2716;</div>
+            <canvas id="skin-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
+			<table id="skin-color-presets">
+				<tbody>
+					<tr>
+						<td>
+							<button id="skin-preset-dark-brown" class="selected-color" style="background-color:#503335; border-radius: 50%;" onClick="presetSkinPicked(this)"></button>
+						</td>
+						<td>
+							<button id="skin-preset-dark-peach" class="selected-color" style="background-color:#c58c85; border-radius: 50%;" onClick="presetSkinPicked(this)"></button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button id="skin-preset-medium-brown" class="selected-color" style="background-color:#592f2a; border-radius: 50%;" onClick="presetSkinPicked(this)"></button>
+						</td>
+						<td>
+							<button id="skin-preset-medium-peach" class="selected-color" style="background-color:#d1a3a4; border-radius: 50%;" onClick="presetSkinPicked(this)"></button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button id="skin-preset-light-brown" class="selected-color" style="background-color:#a1665e; border-radius: 50%;" onClick="presetSkinPicked(this)"></button>
+						</td>
+						<td>
+							<button id="skin-preset-light-peach" class="selected-color" style="background-color:#ecbcb4; border-radius: 50%;" onClick="presetSkinPicked(this)"></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+                <div id="skin-selected-color" class="selected-color"></div>
+                <button class="okay_button" onclick="closePickerOK(avastruct_skin)">Done &#x2714;</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="Outfit-Color-Picker" class="modal_background" style="left:20%;">
+        <div id="Outfit-Picker-Content" class="mcontent_color">
+            <div class="close_button" onclick="closePickerCancel(avastruct_outfit)">&#x2716;</div>
+            <canvas id="outfit-color-picker" class="color-picker" onClick="refreshColors()"></canvas>
+            <div>
+                <div id="outfit-selected-color" class="selected-color"></div>
+
+                <button class="okay_button" onclick="closePickerOK(avastruct_outfit)">Done &#x2714;</button>
+            </div>
+        </div>
+    </div>
+    <div class="progress_bar">
+            <img src="assets/customizer/ProgressBar2.png" alt="Page 3/3" style="height: 20px">
+    </div>
+    <br>
+    <h1>Create Your Avatar</h1>
+    <div id="canvas-wrap">
+      <!-- Creating Canvas using the createjs library -->
+      <canvas id="canvas" width="1920" height="1080"></canvas>
+    </div>
+    <!-- Creating buttons to change styles to the right -->
+    <div id="button-wrap">
+        <h3>Select your avatar’s physical traits below.</h3>
+        <br>
+        <h3>When you are done, click "Done".</h3>
+        <br>
+        <!-- Buttons for changing Hair -->
+        <div id="section">
+            <button id="PreviousEye" onclick="prevEye()">
+                <img src="assets/customizer/arrowleft.png" alt="image" style="width: 20px">
+            </button>
+            <p id="Eye">Eye 1</p>
+            <button id="NextEye" onclick="nextEye()">
+                <img src="assets/customizer/arrowright.png" alt="image" style="width: 20px">
+            </button>
+        </div>
+
+        <!-- Buttons for changing Eyes-->
+        <div id="section">
+            <button id="PreviousHair" onclick="prevHair()">
+                <img src="assets/customizer/arrowleft.png" alt="image" style="width: 20px">
+            </button>
+            <p id="Hair">Hair 1</p>
+            <button id="NextHair" onclick="nextHair()">
+                <img src="assets/customizer/arrowright.png" alt="image" style="width: 20px">
+            </button>
+        </div>
+
+        <!-- Buttons for Hair Color change -->
+        <div id="section">
+            <button id="OpenHairPicker" class="openModalButton" onclick="openPicker(avastruct_hair)">Select Hair Color</button>
+        </div>
+
+        <!-- Buttons for Eye Color change -->
+        <div id="section">
+            <button id="OpenEyePicker" class="openModalButton" onclick="openPicker(avastruct_eye)">Select Eye Color</button>
+        </div>
+
+        <!-- Buttons for Skin Color change -->
+        <div id="section">
+            <button id="OpenSkinPicker" class="openModalButton" onclick="openPicker(avastruct_skin)">Select Skin Color</button>
+        </div>
+
+        <!-- Buttons for Outfit Color -->
+        <div id="section">
+            <button id="OpenOutfitPicker" class="openModalButton" onclick="openPicker(avastruct_outfit)">Select Outfit Color</button>
+        </div>
+
+      </div>
+    </div>
+    <!-- Next Button for going into the simulation -->
+    <div id="navControls">
+        <!-- figure selector buttons -->
+        <div id="section">
+           <button id="openFigSelector" class="nextButtons" onclick="openModal('Figure-Selector')">&#x2b05; Back to Figure Selection</button>
+           <button id="returnToQualtrics" class="nextButtons" onClick="setAvatar();">Done &#x2b95;</button>
+        </div>
+    </div>
+
+
+
+
+    <script src="libs/color_pickers.js"></script>
+    <script src="libs/avatar_customization.js"></script>
+</body>
+</html>
