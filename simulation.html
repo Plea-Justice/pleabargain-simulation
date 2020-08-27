@@ -43,7 +43,7 @@
         canvas.style.width = window.innerWidth + "px";
         canvas.style.height = 9/16 * window.innerWidth + "px";
 
-        var frame = new Frame(stage, scenes);
+        var frame = new Frame(stage);
 
         console.log("Setting up Event Handling");
         createjs.Ticker.addEventListener("tick", tick);

@@ -131,14 +131,11 @@ function AvatarCustomizer() {
  * @param stage
  * @param scenes
  */
-function Frame(stage, scenes) {
+function Frame(stage) {
   this.Stage = stage;
   this.UI = new UI(this.Stage);
-  this.Scenes = scenes;
   this.Index = 0;
-  if (scenes.length < 1)
-    alert("ERROR: Frame() - scenes array empty.");
-  this.Scene = scenes[this.Index];
+  this.Scene = generate_scene(this.Index);
   console.log("Frame constructed");
   // TODO: unify Listener functions using event.target
   this.advanceListener = function (event) {
@@ -197,19 +194,13 @@ function Frame(stage, scenes) {
     }
   }
   this.transition = function () {
-    if (this.Index < this.Scenes.length - 1) {
+    if (this.Index < condition.scenes.length - 1) {
       this.Index++;
-      console.log("Transitioning to " + this.Scenes[this.Index].name);
+      console.log("Transitioning to " + condition.scenes[this.Index].name);
       this.Stage.removeAllChildren();
       this.deactivate();
       this.UI.clear();
-      //reset previous Scene to original state
-      if (this.Scene.Script != null)
-        this.Scene.Script.initialize();
-      //reset previous Clip to original state
-      if (this.Scene.MC != null)
-        this.Scene.MC.gotoAndPlay(0);
-      this.Scene = this.Scenes[this.Index];
+      this.Scene = generate_scene(this.Index);
       this.Scene.index = 0;
     } else {
       exitToSurvey();
