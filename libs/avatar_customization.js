@@ -10,21 +10,6 @@
 var stage = new createjs.Stage("canvas");
 var canvas = document.getElementById("canvas");
 
-// MAKING CUSTOMIZER AND PALETTE OBJECTS
-var mainAvatar = new AvatarCustomizer();
-var avatarPalette = new Palette();
-
-// Declare 'lib' for Animate
-var comp = AdobeAn.getComposition(FILE_TO_ID["AllScenarios_AvatarCustomization"]);
-var lib = comp.getLibrary();
-
-// Declaring  Movie Clips
-figures = 2;
-Actors = [];
-for (var figure = 0; figure < figures; figure++)
-    Actors.push(new Actor(new lib["AllScenarios_AvatarCustomization"]()));
-
-
 // window resize event
 window.onResize = OnWindowResize();
 
@@ -262,24 +247,24 @@ function prevEye() {
         mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
-        mainAvatar.palette.eyes = Math.floor(avatar / 3);
+        mainAvatar.palette.features.eyes = Math.floor(avatar / 3);
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
         mainAvatar.palette.setFigure(figure);
 
-        document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.eyes+1);
+        document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.features.eyes+1);
 
     } else {
         avatar += 6;
         mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
-        mainAvatar.palette.eyes = Math.floor(avatar / 3);
+        mainAvatar.palette.features.eyes = Math.floor(avatar / 3);
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
         mainAvatar.palette.setFigure(figure);
 
-        document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.eyes+1);
+        document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.features.eyes+1);
 
     }
 }
@@ -289,23 +274,23 @@ function nextEye() {
         mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
-        mainAvatar.palette.eyes = Math.floor(avatar / 3);
+        mainAvatar.palette.features.eyes = Math.floor(avatar / 3);
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
         mainAvatar.palette.setFigure(figure);
 
-        document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.eyes+1);
+        document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.features.eyes+1);
     } else {
         avatar = avatar % 3;
         mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
-        mainAvatar.palette.eyes = Math.floor(avatar / 3);
+        mainAvatar.palette.features.eyes = Math.floor(avatar / 3);
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
         mainAvatar.palette.setFigure(figure);
 
-        document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.eyes+1);
+        document.getElementById('Eye').innerHTML = "Eye " + (mainAvatar.palette.features.eyes+1);
     }
 }
 // CYCLE THROUGH THE HAIR STYLES
@@ -317,23 +302,23 @@ function prevHair() {
         mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
-        mainAvatar.palette.hair = avatar % nHairStyle;
+        mainAvatar.palette.features.hair = avatar % nHairStyle;
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
         mainAvatar.palette.setFigure(figure);
 
-        document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.hair + 1);
+        document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.features.hair + 1);
     } else {
         avatar += nHairStyle -1;
         mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
-        mainAvatar.palette.hair = avatar % nHairStyle;
+        mainAvatar.palette.features.hair = avatar % nHairStyle;
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
         mainAvatar.palette.setFigure(figure);
 
-        document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.hair + 1);
+        document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.features.hair + 1);
     }
 }
 function nextHair() {
@@ -345,23 +330,23 @@ function nextHair() {
 
         stage.removeAllChildren();
 
-        mainAvatar.palette.hair = avatar % nHairStyle;
+        mainAvatar.palette.features.hair = avatar % nHairStyle;
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
         mainAvatar.palette.setFigure(figure);
 
-        document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.hair + 1);
+        document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.features.hair + 1);
     } else {
         avatar -= nHairStyle -1;
         mainAvatar.setActor(Actors[figure]);
         stage.removeAllChildren();
 
-        mainAvatar.palette.hair = avatar % nHairStyle;
+        mainAvatar.palette.features.hair = avatar % nHairStyle;
         updateAvatar();
         mainAvatar.actor.draw(stage, avatarScript);
         mainAvatar.palette.setFigure(figure);
 
-        document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.hair + 1);
+        document.getElementById('Hair').innerHTML = "Hair " + (mainAvatar.palette.features.hair + 1);
     }
 }
 
@@ -428,7 +413,7 @@ function updateAvatar() {
   for (var i = 0; i < Actors.length; ++i) {
     // loop through second sex as well to keep everything together.
     // update the local avatar palette
-    Actors[i].MC.assetPalette = avatarPalette;
+    Actors[i].MC.assetPalettes = mainAvatar.palette;
     // Check for male or female avatar and then for each avatar, re-initialize the avatar.
     // ***** This has to be done in order to get the dynamic refreshing of the avatar *****
     Actors[i].MC = new lib["AllScenarios_AvatarCustomization"]();
@@ -455,8 +440,23 @@ function OnWindowResize()
  */
 function initCustomizer() {
 
-    // Setting palette
-    mainAvatar.setPalette(avatarPalette);
+    // MAKING CUSTOMIZER
+    window.mainAvatar = new AvatarCustomizer();
+
+    // Creating pallete container
+    window.assetPalettes = [new Palette()];
+
+    // Declare 'lib' for Animate
+    window.comp = AdobeAn.getComposition(FILE_TO_ID["AllScenarios_AvatarCustomization"]);
+    window.lib = comp.getLibrary();
+
+    // Declaring  Movie Clips
+    figures = 2;
+    Actors = [];
+    for (var figure = 0; figure < figures; figure++)
+        Actors.push(new Actor(new lib["AllScenarios_AvatarCustomization"]()));
+
+    mainAvatar.setPalette(assetPalettes[0]);
 
     // Setting Default Actor to Male 1
     figure = 0;

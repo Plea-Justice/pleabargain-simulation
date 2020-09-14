@@ -1,7 +1,6 @@
 {
     "path": "assets/",
     "manifest": [
-        "actor/Prosecutor.js",
         "actor/DefenseAttorney.js",
         "actor/Judge.js",
 
@@ -19,6 +18,17 @@
         "foreground/table.png"
     ],
     "survey": "/no-url-set.html",
+    "customizable_presets": {
+        "one": {
+            "figure": "0",
+            "skin": "#232323",
+            "skinDark": "#232323",
+            "hair": "#232323",
+            "eye": "#232323",
+            "outfit": "#232323",
+            "outfitDark": "#232323"
+        }
+    },
     "conditions": [
         {
             "name": "example shoplifting scenario 1/2",
@@ -33,7 +43,7 @@
                     "name": "intro0",
                     "script": "Good afternoon, my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, Your Honor.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -49,7 +59,7 @@
                     "name": "intro2",
                     "script": "@U is accused of committing larceny occurring around 6 PM on the 26th day of June in the year 2019.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -57,7 +67,7 @@
                     "name": "intro3",
                     "script": "In accordance with state law, larceny occurs when one steals the property of another. ",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -65,7 +75,7 @@
                     "name": "intro4",
                     "script": "According to the information provided in the police report, the defendant requested a pair of sunglasses in a locked case from the salesclerk.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -73,7 +83,7 @@
                     "name": "intro5",
                     "script": "The salesclerk provided the sunglasses to the defendant who allegedly walked away with them in order to examine them in a mirror.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -81,7 +91,7 @@
                     "name": "intro6",
                     "script": "Once the salesclerk's attention was diverted to another customer, the defendant exited the store wearing the sunglasses.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -89,7 +99,7 @@
                     "name": "intro7",
                     "script": "The salesclerk positively identified the defendant as the person who walked out of the store wearing the missing pair of sunglasses.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -97,7 +107,7 @@
                     "name": "intro8",
                     "script": "There is also security footage provided by the owner of the sunglasses shop where the theft occurred that shows the defendant walking toward the exit wearing the sunglasses",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -110,7 +120,7 @@
                     "name": "pcf1",
                     "script": "The security footage shows @U wearing the missing pair of designer sunglasses and heading towards the store exit.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -118,7 +128,7 @@
                     "name": "pcf2",
                     "script": "Theft of these sunglasses is a clear larceny, which, given the value of these glasses is considered a felony offense punishable by imprisonment.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -126,7 +136,7 @@
                     "name": "pcf3",
                     "script": "We request a court date be set by the State as soon as it is possible.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -177,7 +187,7 @@
                 },
                 {
                     "name": "offer1",
-                    "script": "Hello, @U. I am your defense attorney, Mr. Grant. Mr. Clark, the prosecutor on your case, is interested in seeing whether the case could be resolved without a trial.",
+                    "script": "Hello, @U. I am your defense attorney, Mr. Grant. Mr. Clark, the DefenseAttorney on your case, is interested in seeing whether the case could be resolved without a trial.",
                     "type":"dialogue",
                     "actor": "DefenseAttorney",
                     "bg": "meetingroom.png",
@@ -256,7 +266,7 @@
                     "name": "intro0",
                     "script": "Good afternoon, my name is Mr. Clark and I will be prosecuting this case on behalf of the State of Massachusetts, Your Honor.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -272,7 +282,7 @@
                     "name": "intro2",
                     "script": "@U is accused of committing larceny occurring around 6 PM on the 26th day of June in the year 2019.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -280,7 +290,7 @@
                     "name": "intro3",
                     "script": "In accordance with state law, larceny occurs when one steals the property of another. ",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -288,7 +298,7 @@
                     "name": "intro4",
                     "script": "According to the information provided in the police report, the defendant requested a pair of sunglasses in a locked case from the salesclerk.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -296,7 +306,7 @@
                     "name": "intro5",
                     "script": "The salesclerk provided the sunglasses to the defendant who allegedly walked away with them in order to examine them in a mirror.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -304,7 +314,7 @@
                     "name": "intro6",
                     "script": "Once the salesclerk's attention was diverted to another customer, the defendant exited the store wearing the sunglasses.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -312,7 +322,7 @@
                     "name": "intro7",
                     "script": "The salesclerk positively identified the defendant as the person who walked out of the store wearing the missing pair of sunglasses.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -320,7 +330,7 @@
                     "name": "intro8",
                     "script": "There is also security footage provided by the owner of the sunglasses shop where the theft occurred that shows the defendant walking toward the exit wearing the sunglasses",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -333,7 +343,7 @@
                     "name": "pcf1",
                     "script": "The security footage shows @U wearing the missing pair of designer sunglasses and heading towards the store exit.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -341,7 +351,7 @@
                     "name": "pcf2",
                     "script": "Theft of these sunglasses is a clear larceny, which, given the value of these glasses is considered a felony offense punishable by imprisonment.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -349,7 +359,7 @@
                     "name": "pcf3",
                     "script": "We request a court date be set by the State as soon as it is possible.",
                     "type":"dialogue",
-                    "actor": "Prosecutor",
+                    "actor": "DefenseAttorney",
                     "bg": "courtroom_2019.png",
                     "fg": "table.png"
                 },
@@ -400,7 +410,7 @@
                 },
                 {
                     "name": "offer1",
-                    "script": "Hello, @U. I am your defense attorney, Mr. Grant. Mr. Clark, the prosecutor on your case, is interested in seeing whether the case could be resolved without a trial.",
+                    "script": "Hello, @U. I am your defense attorney, Mr. Grant. Mr. Clark, the DefenseAttorney on your case, is interested in seeing whether the case could be resolved without a trial.",
                     "type":"dialogue",
                     "actor": "DefenseAttorney",
                     "bg": "meetingroom.png",

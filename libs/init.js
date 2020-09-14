@@ -12,6 +12,9 @@ var assets = {};
 
 var scenes = [];
 
+// Contains color data of actors
+var assetPalettes = [];
+
 // SIMULATION ENTRY POINT
 // Load the experiment manifest and proceed to load_condition().
 function load_manifest() {
@@ -55,6 +58,7 @@ function load_manifest() {
                     break;
                 } else
                     alert("ERROR: Malformed condition: condition" + condition_number);
+
                 break;
 
             case "json":
@@ -124,6 +128,8 @@ function arrange_scenes(evt) {
         if (condition == undefined || manifest == undefined)
             alert("ERROR: Did not load manifest or condition JSON.");
 
+        init_palette();
+
         for (const file of manifest.manifest) {
             if (file.match(/^(clip|actor)/)) {
                 let name = file.replace(/\..*?$/, '').replace(/^.*\//, '');
@@ -169,5 +175,50 @@ function arrange_scenes(evt) {
     init();
 }
 
+// load palette from manifest, defaults if slot not present
+function init_palette() {
+
+    // Judge
+    if ('one' in manifest.customizable_presets) {
+        assetPalettes[1] = new Palette(manifest.customizable_presets.one);
+    } else { 
+        // default values
+        let p = new Palette();
+        p.setSkin("#fff9ce", "#ffc889");
+        p.setHair("#999999", "#999999");
+        p.setEye("#006600", "#006600");
+        p.setOutfit("#333333", "#000000");
+        p.setFigure(0);
+        assetPalettes[1] = p;
+    }
+
+    // Defense Attorney 
+    if ('two' in manifest.customizable_presets) {
+        assetPalettes[2] = new Palette(manifest.customizable_presets.two);
+    } else { 
+        // default values
+        let p = new Palette();
+        p.setSkin("#f3d0a5", "#deba8a");
+        p.setHair("#5b3607", "#5b3607");
+        p.setEye("#4c9cf5", "#4c9cf5");
+        p.setOutfit("#000134", "#30314a");
+        p.setFigure(0);
+        assetPalettes[2] = p;
+    }
+    
+    // Prosecutor
+    if ('three' in manifest.customizable_presets) {
+        assetPalettes[3] = new Palette(manifest.customizable_presets.three);
+    } else { 
+        // default values
+        let p = new Palette();
+        p.setSkin("#ffc9a5", "#dca17a");
+        p.setHair("#999999", "#999999");
+        p.setEye("#00ccff", "#00ccff");
+        p.setOutfit("#666666", "#333333");
+        p.setFigure(0);
+        assetPalettes[3] = p;
+    }
+}
 
 console.log("LOADED init.js");
