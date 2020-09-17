@@ -1,10 +1,10 @@
-console.log("LOADING params.js");
+console.log('LOADING params.js');
 var outParams = [];
 
 /* Highly optimized URL parameter parser
 ** from http://stackoverflow.com/a/3855394
 */
-console.log("Parsing URL Parameters");
+console.log('Parsing URL Parameters');
 /*
 var inParams = (function(a) {
     if (a == "") return {};
@@ -25,25 +25,25 @@ var inParams = (function(a) {
 var inParams = [];
 var urlparams = new URLSearchParams(window.location.search);
 for (var pair of urlparams.entries()){
-  inParams[pair[0]] = pair[1];
-};
+    inParams[pair[0]] = pair[1];
+}
 
 /**
  * This takes the URL that is stored by the embedded data section in qualtrics and
  * uses it to go back to the qualtrics survey. Result is going back to the qualtrics page.
  */
 function exitToSurvey() {
-  "use strict";
-  let surl = manifest["survey"] + "?";
-  for (var key in outParams) {
-    let value = outParams[key];
-    surl += "&" + key + "=" + value;
-  }
+    'use strict';
+    let surl = manifest['survey'] + '?';
+    for (var key in outParams) {
+        let value = outParams[key];
+        surl += '&' + key + '=' + value;
+    }
 
-  // Pass on any parameters passed in.
-  surl += "&" + window.location.search.substr(1);
+    // Pass on any parameters passed in.
+    surl += '&' + window.location.search.substr(1);
 
-  window.open(surl, "_self");
+    window.open(surl, '_self');
 }
 
-console.log("LOADED params.js");
+console.log('LOADED params.js');

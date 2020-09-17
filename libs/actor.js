@@ -6,7 +6,7 @@
 ** class render the specific frame of animation based on the content of the
 ** script animation buffer.
 */
-console.log("LOADING actor.js");
+console.log('LOADING actor.js');
 
 /**
  * An object to store the colors that we want to give an avatar
@@ -20,137 +20,137 @@ console.log("LOADING actor.js");
  */
 Palette = function () {
 
-  // default colors
-  this.colors = [
-    "#663300", // Eye
-    "#663300", 
-    "#663300",
-    "#663300", // Hair
-    "#E5CCFF", // Outfit
-    "#FFCC99"  // Skin
-  ];
-  this.colorsDark = [
-    "#663300", // Eye
-    "#663300", 
-    "#663300",
-    "#663300", // Hair
-    "#70618D", // Outfit
-    "#F49E50"  // Skin
-  ];
+    // default colors
+    this.colors = [
+        '#663300', // Eye
+        '#663300', 
+        '#663300',
+        '#663300', // Hair
+        '#E5CCFF', // Outfit
+        '#FFCC99'  // Skin
+    ];
+    this.colorsDark = [
+        '#663300', // Eye
+        '#663300', 
+        '#663300',
+        '#663300', // Hair
+        '#70618D', // Outfit
+        '#F49E50'  // Skin
+    ];
 
-  // default styles and figure
-  this.features = {
-    eyes: 0,
-    hair: 0,
-    figure: 0
-  };
+    // default styles and figure
+    this.features = {
+        eyes: 0,
+        hair: 0,
+        figure: 0
+    };
 
-  console.log("Palette constructed");
+    console.log('Palette constructed');
 
-  this.setSkin = function(A, B) {
-    if (A.charAt(0) != '#')
-      A = '#' + A;
-    if (B.charAt(0) != '#')
-      B = '#' + B;
-    this.colors[5] = A;
-    this.colorsDark[5] = B;
-  }
-  this.setHair = function(A, B) {
-    if (A.charAt(0) != '#')
-      A = '#' + A;
-    if (B.charAt(0) != '#')
-      B = '#' + B;
-    this.colors[3] = A;
-    this.colorsDark[3] = B;
-  }
-  this.setEye = function(A, B) {
-    if (A.charAt(0) != '#')
-      A = '#' + A;
-    if (B.charAt(0) != '#')
-      B = '#' + B;
-    this.colors[0] = A;
-    this.colorsDark[0] = B;
-  }
-  this.setOutfit = function(A, B) {
-    if (A.charAt(0) != '#')
-      A = '#' + A;
-    if (B.charAt(0) != '#')
-      B = '#' + B;
-    this.colors[4] = A;
-    this.colorsDark[4] = B;
-  }
-  this.setFigure = function(A) {
-    this.features.figure = A;
-  }
+    this.setSkin = function(A, B) {
+        if (A.charAt(0) != '#')
+            A = '#' + A;
+        if (B.charAt(0) != '#')
+            B = '#' + B;
+        this.colors[5] = A;
+        this.colorsDark[5] = B;
+    };
+    this.setHair = function(A, B) {
+        if (A.charAt(0) != '#')
+            A = '#' + A;
+        if (B.charAt(0) != '#')
+            B = '#' + B;
+        this.colors[3] = A;
+        this.colorsDark[3] = B;
+    };
+    this.setEye = function(A, B) {
+        if (A.charAt(0) != '#')
+            A = '#' + A;
+        if (B.charAt(0) != '#')
+            B = '#' + B;
+        this.colors[0] = A;
+        this.colorsDark[0] = B;
+    };
+    this.setOutfit = function(A, B) {
+        if (A.charAt(0) != '#')
+            A = '#' + A;
+        if (B.charAt(0) != '#')
+            B = '#' + B;
+        this.colors[4] = A;
+        this.colorsDark[4] = B;
+    };
+    this.setFigure = function(A) {
+        this.features.figure = A;
+    };
 
-  // format as query string
-  this.serializePalette = function() {
-    return "&skin=" + this.colors[5].substr(1) +
-           "&hair=" + this.colors[3].substr(1) +
-           "&eye=" + this.colors[0].substr(1) +
-           "&outfit=" + this.colors[4].substr(1) + 
-           "&figure=" + this.features.figure +
-           "&eyes=" + this.features.eyes + "&feature_hair=" + this.features.hair;
-  }
+    // format as query string
+    this.serializePalette = function() {
+        return '&skin=' + this.colors[5].substr(1) +
+           '&hair=' + this.colors[3].substr(1) +
+           '&eye=' + this.colors[0].substr(1) +
+           '&outfit=' + this.colors[4].substr(1) + 
+           '&figure=' + this.features.figure +
+           '&eyes=' + this.features.eyes + '&feature_hair=' + this.features.hair;
+    };
 
-}
+};
 
 // Create a pallete from passed URL parameters.
 function loadAvatarParams() {
-  assetPalettes[0] = new Palette();
+    assetPalettes[0] = new Palette();
 
-  features = ["skin", "outfit", "feature_hair", "hair", "eyes", "eye", "figure"]
-  for (const feature of features)
-      if (!(feature in inParams)) {
-          console.log("Error: Customized avatar not recieved. "+ feature + " not defined.");
-          return
-      }
+    features = ['skin', 'outfit', 'feature_hair', 'hair', 'eyes', 'eye', 'figure'];
+    for (const feature of features)
+        if (!(feature in inParams)) {
+            console.log('Error: Customized avatar not recieved. '+ feature + ' not defined.');
+            return;
+        }
   
 
-  // TODD: colors are stored in hex and require conversion to RGB and back again to
-  //       utilize generateSecondaryColor(). Could the function be rewritten to 
-  //       work entirely in hex?
-  let colorOffset = 30;
-  let skin = inParams["skin"];
-  let skin_RGB = hexToRgb(skin);
-  let skinDark = generateSecondarySkinColor(skin_RGB[0], skin_RGB[1], skin_RGB[2], colorOffset);
+    // TODD: colors are stored in hex and require conversion to RGB and back again to
+    //       utilize generateSecondaryColor(). Could the function be rewritten to 
+    //       work entirely in hex?
+    let colorOffset = 30;
+    let skin = inParams['skin'];
+    let skin_RGB = hexToRgb(skin);
+    let skinDark = generateSecondarySkinColor(skin_RGB[0], skin_RGB[1], skin_RGB[2], colorOffset);
 
-  let hair = inParams["hair"];
-  let hair_RGB = hexToRgb(hair);
-  let hairDark = generateSecondaryColor(hair_RGB[0], hair_RGB[1], hair_RGB[2], colorOffset);
+    let hair = inParams['hair'];
+    let hair_RGB = hexToRgb(hair);
+    let hairDark = generateSecondaryColor(hair_RGB[0], hair_RGB[1], hair_RGB[2], colorOffset);
 
-  let eye = inParams["eye"];
-  let eye_RGB = hexToRgb(eye);
-  let eyeDark = generateSecondaryColor(eye_RGB[0], eye_RGB[1], eye_RGB[2], colorOffset);
+    let eye = inParams['eye'];
+    let eye_RGB = hexToRgb(eye);
+    let eyeDark = generateSecondaryColor(eye_RGB[0], eye_RGB[1], eye_RGB[2], colorOffset);
 
-  let outfit = inParams["outfit"];
-  let outfit_RGB = hexToRgb(outfit);
-  let outfitDark = generateSecondaryColor(outfit_RGB[0], outfit_RGB[1], outfit_RGB[2], colorOffset);
+    let outfit = inParams['outfit'];
+    let outfit_RGB = hexToRgb(outfit);
+    let outfitDark = generateSecondaryColor(outfit_RGB[0], outfit_RGB[1], outfit_RGB[2], colorOffset);
 
-  let figure = inParams["figure"];
-  let eyes = inParams["eyes"];
-  let feature_hair = inParams["feature_hair"];
+    let figure = inParams['figure'];
+    let eyes = inParams['eyes'];
+    let feature_hair = inParams['feature_hair'];
 
-  console.log("****** Palette from Customizer ******");
-  console.log("Hair: " + hair);
-  console.log("Eye: " + eye);
-  console.log("Outfit A: " + outfit);
-  console.log("Outfit B: " + outfitDark);
-  console.log("Skin A: " + skin);
-  console.log("Skin B: " + skinDark);
-  console.log("Figure: " + figure);
-  console.log("Avatar eyes: " + eyes);
-  console.log("Avatar hair: " + feature_hair);
+    console.log('****** Palette from Customizer ******');
+    console.log('Hair: ' + hair);
+    console.log('Eye: ' + eye);
+    console.log('Outfit A: ' + outfit);
+    console.log('Outfit B: ' + outfitDark);
+    console.log('Skin A: ' + skin);
+    console.log('Skin B: ' + skinDark);
+    console.log('Figure: ' + figure);
+    console.log('Avatar eyes: ' + eyes);
+    console.log('Avatar hair: ' + feature_hair);
   
-  assetPalettes[0].setSkin(skin, skinDark);
-  assetPalettes[0].setHair(hair, hairDark);
-  assetPalettes[0].setEye(eye, eyeDark);
-  assetPalettes[0].setOutfit(outfit, outfitDark);
-  assetPalettes[0].setFigure(figure);
-  assetPalettes[0].features.eyes = eyes;
-  assetPalettes[0].features.hair = feature_hair;
+    assetPalettes[0].setSkin(skin, skinDark);
+    assetPalettes[0].setHair(hair, hairDark);
+    assetPalettes[0].setEye(eye, eyeDark);
+    assetPalettes[0].setOutfit(outfit, outfitDark);
+    assetPalettes[0].setFigure(figure);
+    assetPalettes[0].features.eyes = eyes;
+    assetPalettes[0].features.hair = feature_hair;
 
-  return assetPalettes[0];
+    return assetPalettes[0];
 }
 
 /**
@@ -163,116 +163,116 @@ function loadAvatarParams() {
  * @param movieclip
  */
 Actor = function (movieclip) {
-  this.MC = movieclip;
-  this.MC.timeline.setLabels({
-    close:0,
-    ai:1,
-    consonant:2,
-    e:3,
-    mb:4,
-    o:5,
-    l:6,
-    slightlyopen:7,
-    u:8
-  });
-  console.log("Actor constructed");
-  // display a frame from the movieclip into the given stage
-  this.anim = function(stage, frameKey) {
-    this.MC.gotoAndStop(frameKey);
-    stage.addChild(this.MC);
-  }
-  // draw into a given stage the given animation
-  this.draw = function(stage, script) {
-    if (script == null) {
-      this.anim(stage, "close");
-    } else {
-      switch(script.animBuffer) {
-        case "pause":
-          this.anim(stage, "close");
-          break;
-        case "a":
-        case "A":
-        case "i":
-        case "I":
-        case "h": //TODO: contextual H
-        case "H": //TODO: contextual H
-        case "8":
-          this.anim(stage, "ai");
-          break;
-        case "e":
-        case "E":
-        case "0":
-          this.anim(stage, "e");
-          break;
-        case "o":
-        case "O":
-          this.anim(stage, "o");
-          break;
-        case "m":
-        case "M":
-        case "b":
-        case "B":
-          this.anim(stage, "mb");
-          break;
-        case "l":
-        case "L":
-        case "3":
-          this.anim(stage, "l");
-          break;
-        case "u":
-        case "U":
-        case "w":
-        case "W":
-        case "y":
-        case "Y":
-        case "1":
-          this.anim(stage, "u");
-          break;
-        case " ": //TODO: contextual space, should use close if prior was close, otherwise slightly open
-          if (script.lastAnimBuffer == "close" )
-            this.anim(stage, "close");
-          else
-            this.anim(stage, "slightlyopen");
-          break;
-        default: // TODO this is for c d t
-          this.anim(stage, "consonant");
-          break;
-      }
-    }
-  }
-}
+    this.MC = movieclip;
+    this.MC.timeline.setLabels({
+        close:0,
+        ai:1,
+        consonant:2,
+        e:3,
+        mb:4,
+        o:5,
+        l:6,
+        slightlyopen:7,
+        u:8
+    });
+    console.log('Actor constructed');
+    // display a frame from the movieclip into the given stage
+    this.anim = function(stage, frameKey) {
+        this.MC.gotoAndStop(frameKey);
+        stage.addChild(this.MC);
+    };
+    // draw into a given stage the given animation
+    this.draw = function(stage, script) {
+        if (script == null) {
+            this.anim(stage, 'close');
+        } else {
+            switch(script.animBuffer) {
+            case 'pause':
+                this.anim(stage, 'close');
+                break;
+            case 'a':
+            case 'A':
+            case 'i':
+            case 'I':
+            case 'h': //TODO: contextual H
+            case 'H': //TODO: contextual H
+            case '8':
+                this.anim(stage, 'ai');
+                break;
+            case 'e':
+            case 'E':
+            case '0':
+                this.anim(stage, 'e');
+                break;
+            case 'o':
+            case 'O':
+                this.anim(stage, 'o');
+                break;
+            case 'm':
+            case 'M':
+            case 'b':
+            case 'B':
+                this.anim(stage, 'mb');
+                break;
+            case 'l':
+            case 'L':
+            case '3':
+                this.anim(stage, 'l');
+                break;
+            case 'u':
+            case 'U':
+            case 'w':
+            case 'W':
+            case 'y':
+            case 'Y':
+            case '1':
+                this.anim(stage, 'u');
+                break;
+            case ' ': //TODO: contextual space, should use close if prior was close, otherwise slightly open
+                if (script.lastAnimBuffer == 'close' )
+                    this.anim(stage, 'close');
+                else
+                    this.anim(stage, 'slightlyopen');
+                break;
+            default: // TODO this is for c d t
+                this.anim(stage, 'consonant');
+                break;
+            }
+        }
+    };
+};
 
 // COLOR HELPER FUNCTIONS
 
 function hexToRgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)];
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)];
 }
 
 // generate secondary color
-    /* secondary color is darkened version of primary color, except for when the primary color is black.
+/* secondary color is darkened version of primary color, except for when the primary color is black.
     */
 function generateSecondaryColor(r, g, b, colorOffset)
 {
-  if (r <= 15 && g <= 15 && b <= 15)
-  {
-      r += colorOffset;
-      if (r > 255) r = 255;
-      g += colorOffset;
-      if (g > 255) g = 255;
-      b += colorOffset;
-      if (b > 255) b = 255;
-  }
-  else
-  {
-      r -= colorOffset;
-      if (r < 0) r = 0;
-      g -= colorOffset;
-      if (g < 0) g = 0;
-      b -= colorOffset;
-      if (b < 0) b = 0;
-  }
-  return "#" + ("000000" + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
+    if (r <= 15 && g <= 15 && b <= 15)
+    {
+        r += colorOffset;
+        if (r > 255) r = 255;
+        g += colorOffset;
+        if (g > 255) g = 255;
+        b += colorOffset;
+        if (b > 255) b = 255;
+    }
+    else
+    {
+        r -= colorOffset;
+        if (r < 0) r = 0;
+        g -= colorOffset;
+        if (g < 0) g = 0;
+        b -= colorOffset;
+        if (b < 0) b = 0;
+    }
+    return '#' + ('000000' + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
 }
 
 // generate secondary color, returns as hex
@@ -281,25 +281,25 @@ function generateSecondaryColor(r, g, b, colorOffset)
 */
 function generateSecondarySkinColor(r, g, b, colorOffset)
 {
-  if (((r + g + b) / 3) <= 100)
-  {
-      r += colorOffset;
-      if (r > 255) r = 255;
-      g += colorOffset;
-      if (g > 255) g = 255;
-      b += colorOffset;
-      if (b > 255) b = 255;
-  }
-  else
-  {
-      r -= colorOffset;
-      if (r < 0) r = 0;
-      g -= colorOffset;
-      if (g < 0) g = 0;
-      b -= colorOffset;
-      if (b < 0) b = 0;
-  }
-  return "#" + ("000000" + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
+    if (((r + g + b) / 3) <= 100)
+    {
+        r += colorOffset;
+        if (r > 255) r = 255;
+        g += colorOffset;
+        if (g > 255) g = 255;
+        b += colorOffset;
+        if (b > 255) b = 255;
+    }
+    else
+    {
+        r -= colorOffset;
+        if (r < 0) r = 0;
+        g -= colorOffset;
+        if (g < 0) g = 0;
+        b -= colorOffset;
+        if (b < 0) b = 0;
+    }
+    return '#' + ('000000' + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
 }
 
-console.log("LOADED actor.js");
+console.log('LOADED actor.js');

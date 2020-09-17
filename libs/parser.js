@@ -6,7 +6,7 @@
 ** in order to ascertain and store animation and character output buffer
 ** values.
 */
-console.log("LOADING parser.js");
+console.log('LOADING parser.js');
 // NOTE: for now this system works by iterative parsing of a script, but this should be later re-written to allow for non-iterative parsing.
 
 // Script defines a parsable text script which describes the behavior of an actor in a given scene. The script takes a properly formatted
@@ -19,76 +19,76 @@ console.log("LOADING parser.js");
  */
 function Script (inputString) {
 
-  // Replace the @U control character with the particpant's name.
-  let script = inputString.replace(/@U/g, inParams["Name"]);
+    // Replace the @U control character with the particpant's name.
+    let script = inputString.replace(/@U/g, inParams['Name']);
 
-  // Replace @N (where N is a number) with pause controls.
-  script = script.replace(/@(\d+)/g, (m, p1)=>"".padEnd(Number(p1), '~'));
+    // Replace @N (where N is a number) with pause controls.
+    script = script.replace(/@(\d+)/g, (m, p1)=>''.padEnd(Number(p1), '~'));
 
-  // Clean up any stray spaces.
-  script = script.replace(/\s\s+/g, ' ');
+    // Clean up any stray spaces.
+    script = script.replace(/\s\s+/g, ' ');
 
-  this.input = script;
-  this.length = this.input.length;
-  this.initialize = function() {
-    this.index = 0;
-    this.charBuffer = "";
-    this.lastCharBuffer = "";
-    this.commandBuffer = null;
-    this.animBuffer = "pause";
-    this.lastAnimBuffer = "pause";
-    console.log("Parsable Script initialized");
-  }
-  this.initialize();
-  console.log("Parsable Script constructed");
-  // parse an individual character, at the present index of the Script
-  // TODO: Rename to parseCur? Up for consideration on refactoring pass.
-  this.parseChar = function() {
-    switch(this.input[this.index]) {
-      case '~': // TODO: consider adding _, which works as ~ but closes the mouth.
-        this.lastCharBuffer = this.charBuffer;
-        this.lastAnimBuffer = this.animBuffer;
+    this.input = script;
+    this.length = this.input.length;
+    this.initialize = function() {
+        this.index = 0;
         this.charBuffer = '';
-        if (this.animBuffer = ' ')
-          this.animBuffer = "pause";
-        else
-          this.animBuffer = this.animBuffer;
-        this.index++;
-        break;
-      case '.':
-      case ',':
-      case '!':
-      case '?':
-      case ';':
-      case ':':
-      case '\'':
-      case '"':
-      case '(':
-      case ')':
-      case '$':
-      case '-':
-      case '=':
-        this.lastCharBuffer = this.charBuffer;
-        this.lastAnimBuffer = this.animBuffer;
-        this.charBuffer = this.input[this.index];
-        this.animBuffer = "pause";
-        this.index++;
-        break;
-      default:
-        this.lastCharBuffer = this.charBuffer;
-        this.charBuffer = this.input[this.index];
-        this.lastAnimBuffer = this.animBuffer;
-        // half-speed animation
-        if (this.index % 2 == 1) {
-          this.animBuffer = this.input[this.index];
+        this.lastCharBuffer = '';
+        this.commandBuffer = null;
+        this.animBuffer = 'pause';
+        this.lastAnimBuffer = 'pause';
+        console.log('Parsable Script initialized');
+    };
+    this.initialize();
+    console.log('Parsable Script constructed');
+    // parse an individual character, at the present index of the Script
+    // TODO: Rename to parseCur? Up for consideration on refactoring pass.
+    this.parseChar = function() {
+        switch(this.input[this.index]) {
+        case '~': // TODO: consider adding _, which works as ~ but closes the mouth.
+            this.lastCharBuffer = this.charBuffer;
+            this.lastAnimBuffer = this.animBuffer;
+            this.charBuffer = '';
+            if (this.animBuffer = ' ')
+                this.animBuffer = 'pause';
+            else
+                this.animBuffer = this.animBuffer;
+            this.index++;
+            break;
+        case '.':
+        case ',':
+        case '!':
+        case '?':
+        case ';':
+        case ':':
+        case '\'':
+        case '"':
+        case '(':
+        case ')':
+        case '$':
+        case '-':
+        case '=':
+            this.lastCharBuffer = this.charBuffer;
+            this.lastAnimBuffer = this.animBuffer;
+            this.charBuffer = this.input[this.index];
+            this.animBuffer = 'pause';
+            this.index++;
+            break;
+        default:
+            this.lastCharBuffer = this.charBuffer;
+            this.charBuffer = this.input[this.index];
+            this.lastAnimBuffer = this.animBuffer;
+            // half-speed animation
+            if (this.index % 2 == 1) {
+                this.animBuffer = this.input[this.index];
+            }
+            this.index++;
+            break;
         }
-        this.index++;
-        break;
-    }
-	// TODO: parsePrev gives the previous character , for contextual buffer manipulation
-	// TODO: parseNext gives the next character, for contextual buffer manipulation
-	// TODO: parseIndex gives character as a specific index. (NOTE: perhaps the other parse function should all use this function?)
-  }
+        // TODO: parsePrev gives the previous character , for contextual buffer manipulation
+        // TODO: parseNext gives the next character, for contextual buffer manipulation
+        // TODO: parseIndex gives character as a specific index. (NOTE: perhaps the other parse function should all use this function?)
+    };
 }
 
-console.log("LOADED parser.js");
+console.log('LOADED parser.js');
