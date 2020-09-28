@@ -1,81 +1,85 @@
-console.log("LOADING init.js");
+console.log('LOADING init.js');
 
 // Globabl Variables
-var canvas = document.getElementById("canvas");
+var canvas = document.getElementById('canvas');
 
-const manifest_filename = "manifest.json";
+const manifest_filename = 'manifest.json';
 
 var manifest;   // Animation asset files for all conditions.
 var condition;  // Ordered scene description for each experimental condition.
 
 var assets = {};
 
+// Contains color data of actors
+var assetPalettes = [];
+
 // SIMULATION ENTRY POINT
 // Load the experiment manifest and proceed to load_condition().
 function load_manifest() {
 
-    console.log("Loading manifest " + manifest_filename);
-    let canvas = document.getElementById("canvas");
+    console.log('Loading manifest ' + manifest_filename);
+    let canvas = document.getElementById('canvas');
 
     // Loading message.
-    let ctx = canvas.getContext("2d")
-    ctx.fillStyle = "white";
-    ctx.fillText("Loading simulation. Please wait, loading may take up to a minute.", 100, 100);
+    let ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'white';
+    ctx.fillText('Loading simulation. Please wait, loading may take up to a minute.', 100, 100);
 
     // Read avatar features passed in by customizer.
     loadAvatarParams();
 
-    let condition_number = inParams["condition"];
+    let condition_number = inParams['condition'];
 
     if (condition_number == null) {
-        alert("ERROR: No experimental condition specified.")
+        alert('ERROR: No experimental condition specified.');
         return;
     }
 
-    console.log("Experimental condition number: " + condition_number);
+    console.log('Experimental condition number: ' + condition_number);
 
     let manifest_filepath = manifest_filename;
 
     let queue = new createjs.LoadQueue(true);
 
-    queue.on("fileload", (event) => {
+    queue.on('fileload', (event) => {
 
         switch (event.item.type) {
-            case "javascript":
-                document.head.appendChild(event.result);
+        case 'javascript':
+            document.head.appendChild(event.result);
+            break;
+
+        case 'manifest':
+            manifest = event.result;
+
+            if (event.result.conditions[condition_number - 1] != null) {
+                condition = event.result.conditions[condition_number - 1];
                 break;
+            } else
+                alert('ERROR: Malformed condition: condition' + condition_number);
 
-            case "manifest":
-                manifest = event.result;
+            break;
 
-                if (event.result.conditions[condition_number - 1] != null) {
-                    condition = event.result.conditions[condition_number - 1];
-                    break;
-                } else
-                    alert("ERROR: Malformed condition: condition" + condition_number);
+        case 'json':
+            if (event.result.condition != null) {
+                condition = event.result.condition;
                 break;
+            }
+            alert('ERROR: Malformed condition: ' + condition_number);
+            break;
 
-            case "json":
-                if (event.result.condition != null) {
-                    condition = event.result.condition;
-                    break;
-                }
-                alert("ERROR: Malformed condition: " + condition_number);
-                break;
+        case 'image':
+            let img = event.item.src;
+            img = img.slice(img.lastIndexOf('/') + 1).replace(/\..*$/, '');
+            assets[img] = new createjs.Bitmap(event.result);
+            break;
 
-            case "image":
-                let img = event.item.src;
-                img = img.slice(img.lastIndexOf("/") + 1).replace(/\..*$/, '');
-                assets[img] = new createjs.Bitmap(event.result);
-                break;
-
-            default:
-                alert("ERROR: Malformed experimental manifest.");
+        default:
+            alert('ERROR: Malformed experimental manifest.');
         } // switch
 
     }, this); // queue fileload event
 
-    queue.on("complete", load_animate_assets, this);
+    queue.on('complete', load_animate_assets, this);
     queue.loadManifest(manifest_filepath, false);
     queue.load();
 }
@@ -83,7 +87,7 @@ function load_manifest() {
 // Handle any additional items requested by Animate exports (cached bitmaps, etc).
 function anHandleFileLoad(evt, comp) {
     let images = comp.getImages();
-    if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }
+    if (evt && (evt.item.type == 'image')) { images[evt.item.id] = evt.result; }
 }
 
 function anHandleComplete(evt, comp) {
@@ -92,7 +96,7 @@ function anHandleComplete(evt, comp) {
     let queue = evt.target;
     let ssMetadata = lib.ssMetadata;
     for (i = 0; i < ssMetadata.length; i++) {
-        ss[ssMetadata[i].name] = new createjs.SpriteSheet({ "images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames });
+        ss[ssMetadata[i].name] = new createjs.SpriteSheet({ 'images': [queue.getResult(ssMetadata[i].name)], 'frames': ssMetadata[i].frames });
     }
     AdobeAn.compositionLoaded(lib.properties.id);
 }
@@ -106,8 +110,8 @@ function load_animate_assets(evt) {
         let comp = AdobeAn.getComposition(id);
         let lib = comp.getLibrary();
         let queue = new createjs.LoadQueue(false);
-        queue.addEventListener("fileload", function (evt) { anHandleFileLoad(evt, comp) });
-        queue.addEventListener("complete", function (evt) { anHandleComplete(evt, comp) });
+        queue.addEventListener('fileload', function (evt) { anHandleFileLoad(evt, comp); });
+        queue.addEventListener('complete', function (evt) { anHandleComplete(evt, comp); });
         queue.loadManifest(lib.properties.manifest);
     }
 
@@ -121,7 +125,9 @@ function load_animate_assets(evt) {
 function generate_scene(i) {
     try {
         if (condition == undefined || manifest == undefined)
-            alert("ERROR: Did not load manifest or condition JSON.");
+            alert('ERROR: Did not load manifest or condition JSON.');
+
+        init_palette();
 
         if (i == 0) {
             for (const file of manifest.manifest) {
@@ -165,5 +171,62 @@ function generate_scene(i) {
     }
 }
 
+// load palette from manifest, defaults if slot not present
+function init_palette() {
 
-console.log("LOADED init.js");
+    // TODO: All references to colors by names ('skin', 'outfit', etc.) should be replaced with
+    // dynamic color slot numbers.
+    const defaultColorSlots = Object.freeze({
+        // Slot 1 - Judge
+        1: {
+            skin: '#fff9ce',
+            skinDark: '#ffc889',
+            hair: '#999999',
+            hairDark: '#999999',
+            eye: '#006600',
+            eyeDark: '#006600',
+            outfit: '#333333',
+            outfitDark: '#000000',
+        },
+        // Slot 2 - Defense Attorney
+        2: {
+            skin: '#f3d0a5',
+            skinDark: '#deba8a',
+            hair: '#5b3607',
+            hairDark: '#5b3607',
+            eye: '#4c9cf5',
+            eyeDark: '#4c9cf5',
+            outfit: '#000134',
+            outfitDark: '#30314a',
+        },
+        // Slot 3 - Prosecutor
+        3: {
+            skin: '#ffc9a5',
+            skinDark: '#dca17a',
+            hair: '#999999',
+            hairDark: '#999999',
+            eye: '#00ccff',
+            eyeDark: '#00ccff',
+            outfit: '#666666',
+            outfitDark: '#333333'
+        }
+    });
+
+    for (let i = 0; i < 10; i++) {
+        const p = assetPalettes[i] = new Palette();
+
+        if (i in defaultColorSlots) {
+            const dflt = defaultColorSlots[i];
+            p.setSkin(dflt.skin, dflt.skinDark);
+            p.setHair(dflt.hair, dflt.hairDark);
+            p.setEye(dflt.eye, dflt.eyeDark);
+            p.setOutfit(dflt.outfit, dflt.outfitDark);
+        }
+
+        if (i in manifest.customizable_presets) {
+            Object.assign(p, manifest.customizable_presets[i]);
+        }
+    }
+}
+
+console.log('LOADED init.js');

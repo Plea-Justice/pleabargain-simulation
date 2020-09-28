@@ -4,7 +4,7 @@
 ** renderer.js renders a given dialog scene. It contains class definitions for
 ** the rendering of a Frame, a Clip, and a Scene.
 */
-console.log("LOADING renderer.js");
+console.log('LOADING renderer.js');
 // Scene defines the animated scene
 //   - script string
 //   - animated actor
@@ -25,37 +25,37 @@ console.log("LOADING renderer.js");
  * @param foreground
  */
 function Scene(scenename, script, actor, background, foreground, buttons) {
-  // TODO: incorporate button instantiation into Scene instantiation
-  this.name = scenename;
-  // create script object from script string
-  if (typeof (script) === 'string')
-    this.Script = new Script(script);
-  else if (script instanceof Script)
-    this.Script = script;
-  else
-    alert("ERROR: Scene constructor - invalid script received: " + script);
-  // Each scene possesses one animated actor
-  this.Actor = actor;
-  // and background
-  this.Background = background;
-  // and foreground
-  this.Foreground = foreground;
-  // any buttons
-  this.Buttons = buttons || [];
-  this.ActiveButtons = {};
-  // indexing
-  this.index = this.Script.index;
-  this.length = this.Script.length;
-  this.MC = null;
-  console.log("Scene " + this.name + " constructed");
+    // TODO: incorporate button instantiation into Scene instantiation
+    this.name = scenename;
+    // create script object from script string
+    if (typeof (script) === 'string')
+        this.Script = new Script(script);
+    else if (script instanceof Script)
+        this.Script = script;
+    else
+        this.Script = new Script(' ');
+    // Each scene possesses one animated actor
+    this.Actor = actor;
+    // and background
+    this.Background = background;
+    // and foreground
+    this.Foreground = foreground;
+    // any buttons
+    this.Buttons = buttons || [];
+    this.ActiveButtons = {};
+    // indexing
+    this.index = this.Script.index;
+    this.length = this.Script.length;
+    this.MC = null;
+    console.log('Scene ' + this.name + ' constructed');
 
-  // render the scene contextually based on the state of the Script traversal
-  this.render = function (stage) {
-    stage.addChild(this.Background);
-    if (this.Actor != null)
-      this.Actor.draw(stage, this.Script);
-    stage.addChild(this.Foreground);
-  }
+    // render the scene contextually based on the state of the Script traversal
+    this.render = function (stage) {
+        stage.addChild(this.Background);
+        if (this.Actor != null)
+            this.Actor.draw(stage, this.Script);
+        stage.addChild(this.Foreground);
+    };
 }
 
 // Clip defines a fully-animated Movieclip and points to the scene which follows
@@ -67,14 +67,14 @@ function Scene(scenename, script, actor, background, foreground, buttons) {
  * @param movieclip
  */
 function Clip(clipname, movieclip) {
-  this.name = clipname;
-  this.MC = movieclip;
-  this.Script = null;
-  this.Buttons = [];
-  this.ActiveButtons = {};
-  this.index = this.MC.currentFrame;
-  this.length = this.MC.totalFrames;
-  console.log("Clip " + this.name + " constructed");
+    this.name = clipname;
+    this.MC = movieclip;
+    this.Script = null;
+    this.Buttons = [];
+    this.ActiveButtons = {};
+    this.index = this.MC.currentFrame;
+    this.length = this.MC.totalFrames;
+    console.log('Clip ' + this.name + ' constructed');
 }
 
 /**
@@ -86,36 +86,36 @@ function Clip(clipname, movieclip) {
  * @see Palette
  */
 function AvatarCustomizer() {
-  console.log("Beginning to construct Avatar Customizer")
-  this.name = "avatar_customizer";
-  this.MC = null;       // Movieclip
-  this.Script = null;
-  this.Buttons = [];
-  this.index = 0;
-  this.length = 1000000;
-  this.actor = null;
-  this.palette = null; //avatarPalette;
+    console.log('Beginning to construct Avatar Customizer');
+    this.name = 'avatar_customizer';
+    this.MC = null;       // Movieclip
+    this.Script = null;
+    this.Buttons = [];
+    this.index = 0;
+    this.length = 1000000;
+    this.actor = null;
+    this.palette = null; //avatarPalette;
 
-  console.log("Avatar Customizer constructed");
+    console.log('Avatar Customizer constructed');
 
-  this.setActor = function (customAvatar) {
-    this.actor = customAvatar;
-  }
-  this.setSkin = function (A, B) {
-    this.palette.setSkin(A, B);
-  }
-  this.setHair = function (A, B) {
-    this.palette.setHair(A, B);
-  }
-  this.setEye = function (A, B) {
-    this.palette.setEye(A, B);
-  }
-  this.setOutfit = function (A, B) {
-    this.palette.setOutfit(A, B);
-  }
-  this.setPalette = function (Pal) {
-    this.palette = Pal;
-  }
+    this.setActor = function (customAvatar) {
+        this.actor = customAvatar;
+    };
+    this.setSkin = function (A, B) {
+        this.palette.setSkin(A, B);
+    };
+    this.setHair = function (A, B) {
+        this.palette.setHair(A, B);
+    };
+    this.setEye = function (A, B) {
+        this.palette.setEye(A, B);
+    };
+    this.setOutfit = function (A, B) {
+        this.palette.setOutfit(A, B);
+    };
+    this.setPalette = function (Pal) {
+        this.palette = Pal;
+    };
 }
 
 // Frame defines everything rendered in a single frame of animation.
@@ -151,16 +151,16 @@ function Frame(stage) {
       ? event.target
       : event.target.parent;
     
-    const output = this.Scene.name
-      ? `${this.Scene.name}_${button.name}`
-      : button.name;
+        const output = this.Scene.name
+            ? `${this.Scene.name}_${button.name}`
+            : button.name;
     
-    outParams[output] = "true";
-    this.deactivate();
-    this.transition();
-  }
+        outParams[output] = 'true';
+        this.deactivate();
+        this.transition();
+    };
 
-  this.render = function () {
+    this.render = function () {
     // If the current Scene is a Scene (not a MovieClip)
     if (this.Scene instanceof Scene) {
       this.Stage.removeAllChildren();
@@ -206,48 +206,48 @@ function Frame(stage) {
       exitToSurvey();
     }
     // TODO we've reached the end. Present options.
-  }
+    };
 
-  //Activate all buttons in the Scene - making them visible and enable their event handlers
-  this.activate = function () {
-    console.log("Button Activation");
-    if (this.Scene instanceof Scene) {
-      console.log("Activating Advancer");
-      if (this.Scene.Buttons.length == 0) {
-        this.UI.Advancer.activate();
-        this.advanceListener = this.advanceListener.bind(this);
-        this.UI.Advancer.Container.addEventListener("click", this.advanceListener);
-        console.log("Advancer activated");
-      }
+    //Activate all buttons in the Scene - making them visible and enable their event handlers
+    this.activate = function () {
+        console.log('Button Activation');
+        if (this.Scene instanceof Scene) {
+            console.log('Activating Advancer');
+            if (this.Scene.Buttons.length == 0) {
+                this.UI.Advancer.activate();
+                this.advanceListener = this.advanceListener.bind(this);
+                this.UI.Advancer.Container.addEventListener('click', this.advanceListener);
+                console.log('Advancer activated');
+            }
 
-      if (this.Scene.Buttons.length != 0 && this.Scene.Buttons instanceof Array) {
-        for (let i = 0; i < this.Scene.Buttons.length; i++) {
-          //for (const button of this.Scene.Buttons) {
-          console.log("Activating Button");
-          buttonName = this.Scene.Buttons[i];
-          const [x, y] = buttonLayout(this.Scene.Buttons.length, i);
-          button = this.Scene.ActiveButtons[buttonName] = new Button(this, buttonName, x, y);
-          this.buttonListener = this.buttonListener.bind(this);
-          button.Container.addEventListener("click", this.buttonListener);
-          this.Stage.addChild(this.Scene.ActiveButtons[buttonName].Container);
-          console.log(buttonName + " Button activated");
+            if (this.Scene.Buttons.length != 0 && this.Scene.Buttons instanceof Array) {
+                for (let i = 0; i < this.Scene.Buttons.length; i++) {
+                    //for (const button of this.Scene.Buttons) {
+                    console.log('Activating Button');
+                    buttonName = this.Scene.Buttons[i];
+                    const [x, y] = buttonLayout(this.Scene.Buttons.length, i);
+                    button = this.Scene.ActiveButtons[buttonName] = new Button(this, buttonName, x, y);
+                    this.buttonListener = this.buttonListener.bind(this);
+                    button.Container.addEventListener('click', this.buttonListener);
+                    this.Stage.addChild(this.Scene.ActiveButtons[buttonName].Container);
+                    console.log(buttonName + ' Button activated');
+                }
+            }
         }
-      }
-    }
-  }
-  //Deactivate all buttons in the Scene - disabling their event handlers
-  this.deactivate = function () {
-    if (this.UI.Advancer != null) {
-      this.UI.Advancer.deactivate();
-      this.UI.Advancer.Container.removeEventListener("click", this.advanceListener);
-      console.log("Advancer deactivated");
-    }
-    for (button of Object.keys(this.Scene.ActiveButtons)) {
-      this.Scene.ActiveButtons[button].deactivate();
-      this.Scene.ActiveButtons[button].Container.removeEventListener("click", this.buttonListener);
-      console.log("Button deactivated");
-    }
-  }
+    };
+    //Deactivate all buttons in the Scene - disabling their event handlers
+    this.deactivate = function () {
+        if (this.UI.Advancer != null) {
+            this.UI.Advancer.deactivate();
+            this.UI.Advancer.Container.removeEventListener('click', this.advanceListener);
+            console.log('Advancer deactivated');
+        }
+        for (button of Object.keys(this.Scene.ActiveButtons)) {
+            this.Scene.ActiveButtons[button].deactivate();
+            this.Scene.ActiveButtons[button].Container.removeEventListener('click', this.buttonListener);
+            console.log('Button deactivated');
+        }
+    };
 }
 
-console.log("LOADED renderer.js");
+console.log('LOADED renderer.js');
