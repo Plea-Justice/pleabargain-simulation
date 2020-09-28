@@ -131,28 +131,25 @@ function AvatarCustomizer() {
  * @param stage
  * @param scenes
  */
-function Frame(stage, scenes) {
-    this.Stage = stage;
-    this.UI = new UI(this.Stage);
-    this.Scenes = scenes;
-    this.Index = 0;
-    if (scenes.length < 1)
-        alert('ERROR: Frame() - scenes array empty.');
-    this.Scene = scenes[this.Index];
-    console.log('Frame constructed');
-    // TODO: unify Listener functions using event.target
-    this.advanceListener = function (event) {
-        console.log('Advancer clicked');
-        this.deactivate();
-        this.transition();
-    };
-    this.buttonListener = function (event) {
-        console.log('Button clicked');
-        // store interaction
-        debugger;
-        const button = event.target instanceof createjs.Container
-            ? event.target
-            : event.target.parent;
+function Frame(stage) {
+  this.Stage = stage;
+  this.UI = new UI(this.Stage);
+  this.Index = 0;
+  this.Scene = generate_scene(this.Index);
+  console.log("Frame constructed");
+  // TODO: unify Listener functions using event.target
+  this.advanceListener = function (event) {
+    console.log("Advancer clicked");
+    this.deactivate();
+    this.transition();
+  }
+  this.buttonListener = function (event) {
+    console.log("Button clicked");
+    // store interaction
+    debugger;
+    const button = event.target instanceof createjs.Container
+      ? event.target
+      : event.target.parent;
     
         const output = this.Scene.name
             ? `${this.Scene.name}_${button.name}`
@@ -165,55 +162,49 @@ function Frame(stage, scenes) {
 
     this.render = function () {
     // If the current Scene is a Scene (not a MovieClip)
-        if (this.Scene instanceof Scene) {
-            this.Stage.removeAllChildren();
-            this.Scene.Script.parseChar();
-            this.Scene.render(this.Stage); //
-            this.UI.render(this.Scene.Script);
-            this.Scene.index = this.Scene.Script.index;
-            this.Stage.update();
-        }
-        // If the current Scene is a Clip
-        else if (this.Scene instanceof Clip) {
-            this.Stage.removeAllChildren();
-            this.Stage.addChild(this.Scene.MC);
-            this.Scene.index = this.Scene.MC.currentFrame;
-            this.Stage.update();
-            // if Clip has ended, automatically transition to next Scene
-            if (this.Scene.index == this.Scene.length - 1) {
-                console.log('Clip Concluded');
-                this.transition();
-            }
-        }
-        else if (this.Scene instanceof AvatarCustomizer) {
-            this.Stage.removeAllChildren();
-            this.Stage.update();
-            // TODO: Render UI of Avatar Customizer
-            // trigger this.transition(); when begin button is clicked.
-            // if(next) {this.transition();}
-        }
-        else {
-            alert('ERROR: Frame.render() - invalid Frame.Scene');
-        }
-    };
-    this.transition = function () {
-        if (this.Index < this.Scenes.length - 1) {
-            this.Index++;
-            console.log('Transitioning to ' + this.Scenes[this.Index].name);
-            this.Stage.removeAllChildren();
-            this.deactivate();
-            this.UI.clear();
-            //reset previous Scene to original state
-            if (this.Scene.Script != null)
-                this.Scene.Script.initialize();
-            //reset previous Clip to original state
-            if (this.Scene.MC != null)
-                this.Scene.MC.gotoAndPlay(0);
-            this.Scene = this.Scenes[this.Index];
-            this.Scene.index = 0;
-        } else {
-            exitToSurvey();
-        }
+    if (this.Scene instanceof Scene) {
+      this.Stage.removeAllChildren();
+      this.Scene.Script.parseChar();
+      this.Scene.render(this.Stage); //
+      this.UI.render(this.Scene.Script);
+      this.Scene.index = this.Scene.Script.index;
+      this.Stage.update();
+    }
+    // If the current Scene is a Clip
+    else if (this.Scene instanceof Clip) {
+      this.Stage.removeAllChildren();
+      this.Stage.addChild(this.Scene.MC);
+      this.Scene.index = this.Scene.MC.currentFrame;
+      this.Stage.update();
+      // if Clip has ended, automatically transition to next Scene
+      if (this.Scene.index == this.Scene.length - 1) {
+        console.log("Clip Concluded");
+        this.transition();
+      }
+    }
+    else if (this.Scene instanceof AvatarCustomizer) {
+      this.Stage.removeAllChildren();
+      this.Stage.update();
+      // TODO: Render UI of Avatar Customizer
+      // trigger this.transition(); when begin button is clicked.
+      // if(next) {this.transition();}
+    }
+    else {
+      alert("ERROR: Frame.render() - invalid Frame.Scene");
+    }
+  }
+  this.transition = function () {
+    if (this.Index < condition.scenes.length - 1) {
+      this.Index++;
+      console.log("Transitioning to " + condition.scenes[this.Index].name);
+      this.Stage.removeAllChildren();
+      this.deactivate();
+      this.UI.clear();
+      this.Scene = generate_scene(this.Index);
+      this.Scene.index = 0;
+    } else {
+      exitToSurvey();
+    }
     // TODO we've reached the end. Present options.
     };
 

@@ -10,8 +10,6 @@ var condition;  // Ordered scene description for each experimental condition.
 
 var assets = {};
 
-var scenes = [];
-
 // Contains color data of actors
 var assetPalettes = [];
 
@@ -120,31 +118,34 @@ function load_animate_assets(evt) {
     // TODO: A better method of loading is needed here.
     // Considering that we intend to load assets as needed, a chain of
     // LoadQueues may be what we want.
-    setTimeout(arrange_scenes, 8000);
+    setTimeout(init, 8000);
 }
 
-function arrange_scenes(evt) {
+// Prepares scene and returns it
+function generate_scene(i) {
     try {
         if (condition == undefined || manifest == undefined)
             alert('ERROR: Did not load manifest or condition JSON.');
 
         init_palette();
 
-        for (const file of manifest.manifest) {
-            if (file.match(/^(clip|actor)/)) {
-                let name = file.replace(/\..*?$/, '').replace(/^.*\//, '');
-                let comp = AdobeAn.getComposition(FILE_TO_ID[name]);
-                let lib = comp.getLibrary();
-                assets[name] = new lib[name]();
+        if (i == 0) {
+            for (const file of manifest.manifest) {
+                if (file.match(/^(clip|actor)/)) {
+                    let name = file.replace(/\..*?$/, '').replace(/^.*\//, '');
+                    let comp = AdobeAn.getComposition(FILE_TO_ID[name]);
+                    let lib = comp.getLibrary();
+                    assets[name] = new lib[name]();
+                }
             }
         }
 
-        // Create each scene.
-        for (const sceneDescr of condition.scenes) {
-            // Dialogue scenes consist of a background, foreground, actor, and script.
-            // TODO: Jail scene for instance has no actor, instead uses image.
-            let name, actor, script, fg, bg, scene;
-            switch (sceneDescr.type) {
+        // Create scene.
+        let sceneDescr = condition.scenes[i];
+        // Dialogue scenes consist of a background, foreground, actor, and script.
+        // TODO: Jail scene for instance has no actor, instead uses image.
+        let name, actor, script, fg, bg, scene;
+        switch (sceneDescr.type) {
             case 'dialogue':
             case 'question':
                 actor = sceneDescr.actor ? new Actor(assets[sceneDescr.actor]) : null;
@@ -152,16 +153,13 @@ function arrange_scenes(evt) {
                 fg = assets[sceneDescr.fg] || null;
 
                 scene = new Scene(sceneDescr.name || null, sceneDescr.script || null, actor, bg, fg, sceneDescr.buttons || null);
-                scenes.push(scene);
-                break;
+                return scene;
             case 'clip':
                 scene = new Clip(sceneDescr.name, assets[sceneDescr.clip]);
-                scenes.push(scene);
-                break;
+                return scene;
             default:
                 throw Error('Invalid scene type.');
-            }
-        } // for
+        }
     } catch (err) {
         alert('An error has occured. Please contact the developer.');
         console.log(err);
@@ -171,8 +169,6 @@ function arrange_scenes(evt) {
         );
         throw (err);
     }
-
-    init();
 }
 
 // load palette from manifest, defaults if slot not present
