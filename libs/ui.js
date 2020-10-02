@@ -4,6 +4,8 @@
 ** ui.js handles instantiation and configuration of user interface elements
 ** for a scene.
 */
+/*global createjs, RES_HEIGHT, RES_WIDTH, outputParams */
+
 console.log('LOADING ui.js');
 
 // UI defines the properties and rendering routine for the User Interface
@@ -110,7 +112,7 @@ function Button(parentFrame, labeltext, horizontal, vertical) {
     this.Listener = (event)=>{
         console.log(this.Label.text + 'Button clicked');
         // store interaction
-        outParams[this.parentFrame.Scene.name] = this.Label.text;
+        outputParams[this.parentFrame.Scene.name] = this.Label.text;
         this.parentFrame.deactivate();
         this.parentFrame.transition();
     };
@@ -166,9 +168,9 @@ function buttonLayout(n, i) {
     return [x, y];
 }
 
-ADV_PADDING = 30;
-ADV_WIDTH = TEX_HEIGHT - (ADV_PADDING * 2);
-ADV_HEIGHT = ADV_WIDTH / 2;
+var ADV_PADDING = 30;
+var ADV_WIDTH = TEX_HEIGHT - (ADV_PADDING * 2);
+var ADV_HEIGHT = ADV_WIDTH / 2;
 
 /**
  * Define advancer styling and position.
@@ -194,14 +196,13 @@ function Advancer() {
     this.Container = new createjs.Container();
     this.Container.name = 'Advancer Container';
     this.Container.addChild(this.Background, this.Label);
-    this.Container.x = (RES_WIDTH - (RES_WIDTH - TEX_WIDTH) / 2) - ADV_WIDTH - ADV_PADDING;
-    this.Container.y = RES_HEIGHT - TEX_HEIGHT - TEX_PADDING + ADV_PADDING + ADV_HEIGHT;
+    this.Container.x =
+        (RES_WIDTH - (RES_WIDTH - TEX_WIDTH) / 2) - ADV_WIDTH - ADV_PADDING;
+    this.Container.y =
+        RES_HEIGHT - TEX_HEIGHT - TEX_PADDING + ADV_PADDING + ADV_HEIGHT;
     this.Container.alpha = 0.25;
     this.name = 'Advancer';
-    console.log('Advancer onclick function');
-    this.onclick = function(event) {
-        frame.transition();
-    };
+
     console.log('Advancer constructed');
 
     this.activate = function() {

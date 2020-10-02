@@ -56,13 +56,13 @@
 <script>
 	div = document.getElementById("ParamList");
 
-	console.log(inParams);
-	for (i in inParams) {
+	console.log(inputParams);
+	for (i in inputParams) {
 		tr = document.createElement("tr");
 		td = document.createElement("td");
 		td2 = document.createElement("td");
 		td.innerHTML = i;
-		td2.innerHTML = inParams[i];
+		td2.innerHTML = inputParams[i];
 		tr.appendChild(td);
 		tr.appendChild(td2);
 		div.appendChild(tr);

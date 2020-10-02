@@ -6,6 +6,9 @@
 ** class render the specific frame of animation based on the content of the
 ** script animation buffer.
 */
+
+/*global assetPalettes, inputParams */
+
 console.log('LOADING actor.js');
 
 /**
@@ -18,12 +21,12 @@ console.log('LOADING actor.js');
  * passed to the functions.
  * @see AvatarCustomizer
  */
-Palette = function () {
+function Palette () {
 
     // default colors
     this.colors = [
         '#663300', // Eye
-        '#663300', 
+        '#663300',
         '#663300',
         '#663300', // Hair
         '#E5CCFF', // Outfit
@@ -31,7 +34,7 @@ Palette = function () {
     ];
     this.colorsDark = [
         '#663300', // Eye
-        '#663300', 
+        '#663300',
         '#663300',
         '#663300', // Hair
         '#70618D', // Outfit
@@ -88,48 +91,57 @@ Palette = function () {
         return '&skin=' + this.colors[5].substr(1) +
            '&hair=' + this.colors[3].substr(1) +
            '&eye=' + this.colors[0].substr(1) +
-           '&outfit=' + this.colors[4].substr(1) + 
+           '&outfit=' + this.colors[4].substr(1) +
            '&figure=' + this.features.figure +
            '&eyes=' + this.features.eyes + '&feature_hair=' + this.features.hair;
     };
 
-};
+}
 
 // Create a pallete from passed URL parameters.
 function loadAvatarParams() {
-    assetPalettes[0] = new Palette();
+    self.assetPalettes[0] = new Palette();
 
-    features = ['skin', 'outfit', 'feature_hair', 'hair', 'eyes', 'eye', 'figure'];
+    const features =
+        ['skin', 'outfit', 'feature_hair', 'hair', 'eyes', 'eye', 'figure'];
     for (const feature of features)
-        if (!(feature in inParams)) {
+        if (!(feature in inputParams)) {
             console.log('Error: Customized avatar not recieved. '+ feature + ' not defined.');
             return;
         }
-  
 
-    // TODD: colors are stored in hex and require conversion to RGB and back again to
-    //       utilize generateSecondaryColor(). Could the function be rewritten to 
-    //       work entirely in hex?
+
+    // TODO: colors are stored in hex and require conversion to RGB and back to
+    // utilize generateSecondaryColor(). Could the function be rewritten to
+    // work entirely in hex?
     let colorOffset = 30;
-    let skin = inParams['skin'];
+    let skin = inputParams['skin'];
     let skin_RGB = hexToRgb(skin);
-    let skinDark = generateSecondarySkinColor(skin_RGB[0], skin_RGB[1], skin_RGB[2], colorOffset);
+    let skinDark =
+        generateSecondarySkinColor(
+            skin_RGB[0], skin_RGB[1], skin_RGB[2], colorOffset);
 
-    let hair = inParams['hair'];
+    let hair = inputParams['hair'];
     let hair_RGB = hexToRgb(hair);
-    let hairDark = generateSecondaryColor(hair_RGB[0], hair_RGB[1], hair_RGB[2], colorOffset);
+    let hairDark =
+        generateSecondaryColor(
+            hair_RGB[0], hair_RGB[1], hair_RGB[2], colorOffset);
 
-    let eye = inParams['eye'];
+    let eye = inputParams['eye'];
     let eye_RGB = hexToRgb(eye);
-    let eyeDark = generateSecondaryColor(eye_RGB[0], eye_RGB[1], eye_RGB[2], colorOffset);
+    let eyeDark =
+        generateSecondaryColor(
+            eye_RGB[0], eye_RGB[1], eye_RGB[2], colorOffset);
 
-    let outfit = inParams['outfit'];
+    let outfit = inputParams['outfit'];
     let outfit_RGB = hexToRgb(outfit);
-    let outfitDark = generateSecondaryColor(outfit_RGB[0], outfit_RGB[1], outfit_RGB[2], colorOffset);
+    let outfitDark =
+        generateSecondaryColor(
+            outfit_RGB[0], outfit_RGB[1], outfit_RGB[2], colorOffset);
 
-    let figure = inParams['figure'];
-    let eyes = inParams['eyes'];
-    let feature_hair = inParams['feature_hair'];
+    let figure = inputParams['figure'];
+    let eyes = inputParams['eyes'];
+    let feature_hair = inputParams['feature_hair'];
 
     console.log('****** Palette from Customizer ******');
     console.log('Hair: ' + hair);
@@ -141,28 +153,29 @@ function loadAvatarParams() {
     console.log('Figure: ' + figure);
     console.log('Avatar eyes: ' + eyes);
     console.log('Avatar hair: ' + feature_hair);
-  
-    assetPalettes[0].setSkin(skin, skinDark);
-    assetPalettes[0].setHair(hair, hairDark);
-    assetPalettes[0].setEye(eye, eyeDark);
-    assetPalettes[0].setOutfit(outfit, outfitDark);
-    assetPalettes[0].setFigure(figure);
-    assetPalettes[0].features.eyes = eyes;
-    assetPalettes[0].features.hair = feature_hair;
+
+    self.assetPalettes[0].setSkin(skin, skinDark);
+    self.assetPalettes[0].setHair(hair, hairDark);
+    self.assetPalettes[0].setEye(eye, eyeDark);
+    self.assetPalettes[0].setOutfit(outfit, outfitDark);
+    self.assetPalettes[0].setFigure(figure);
+    self.assetPalettes[0].features.eyes = eyes;
+    self.assetPalettes[0].features.hair = feature_hair;
 
     return assetPalettes[0];
 }
 
 /**
- * An object that creates a drawable feature for avatars. Actors are used to draw our movieclips.
- * Actors are given a movieclip in which we give it an option to be rendered to a canvas element,
- * and animate the movieclip so it's mouth can move. This is primarily used to draw the avatars.
- * <p>
- * The draw function is what we use to display the asset to the canvas element, and it takes a stage
- * and script variables. We call this explicitly to get the asset to display.
+ * An object that creates a drawable feature for avatars. Actors are used to
+ * draw our movieclips. Actors are given a movieclip in which we give it an
+ * option to be rendered to a canvas element, and animate the movieclip so it's
+ * mouth can move. This is primarily used to draw the avatars. The draw function
+ * is what we use to display the asset to the canvas element, and it takes a
+ * stage and script variables. We call this explicitly to get the asset to
+ * display.
  * @param movieclip
  */
-Actor = function (movieclip) {
+function Actor (movieclip) {
     this.MC = movieclip;
     this.MC.timeline.setLabels({
         close:0,
@@ -240,18 +253,22 @@ Actor = function (movieclip) {
             }
         }
     };
-};
+}
 
 // COLOR HELPER FUNCTIONS
 
 function hexToRgb(hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)];
+    return [
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16)];
 }
 
 // generate secondary color
-/* secondary color is darkened version of primary color, except for when the primary color is black.
-    */
+/* secondary color is darkened version of primary color, except for when the
+ * primary color is black.
+ */
 function generateSecondaryColor(r, g, b, colorOffset)
 {
     if (r <= 15 && g <= 15 && b <= 15)

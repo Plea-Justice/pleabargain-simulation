@@ -6,21 +6,27 @@
 ** in order to ascertain and store animation and character output buffer
 ** values.
 */
-console.log('LOADING parser.js');
-// NOTE: for now this system works by iterative parsing of a script, but this should be later re-written to allow for non-iterative parsing.
+/*global inputParams */
 
-// Script defines a parsable text script which describes the behavior of an actor in a given scene. The script takes a properly formatted
-// text string, which describes the content of the text presented in an actor's textbox prompt.
+console.log('LOADING parser.js');
+// NOTE: for now this system works by iterative parsing of a script, but this
+// should be later re-written to allow for non-iterative parsing.
+
+// Script defines a parsable text script which describes the behavior of an
+// actor in a given scene. The script takes a properly formatted text string,
+// which describes the content of the text presented in an actor's textbox
+// prompt.
 /**
- * Script method for giving text to Scenes and for the draw method. Parses the input string and determines what mouth movement to make. 
- * The inputString is given to the textbox to display as well.
+ * Script method for giving text to Scenes and for the draw method. Parses the
+ * input string and determines what mouth movement to make. The inputString is
+ * given to the textbox to display as well.
  * @param inputString
  * @see draw 
  */
 function Script (inputString) {
 
     // Replace the @U control character with the particpant's name.
-    let script = inputString.replace(/@U/g, inParams['Name']);
+    let script = inputString.replace(/@U/g, inputParams['Name']);
 
     // Replace @N (where N is a number) with pause controls.
     script = script.replace(/@(\d+)/g, (m, p1)=>''.padEnd(Number(p1), '~'));
@@ -44,15 +50,14 @@ function Script (inputString) {
     // parse an individual character, at the present index of the Script
     // TODO: Rename to parseCur? Up for consideration on refactoring pass.
     this.parseChar = function() {
-        switch(this.input[this.index]) {
-        case '~': // TODO: consider adding _, which works as ~ but closes the mouth.
+        switch (this.input[this.index]) {
+        // TODO: consider adding _, which works as ~ but closes the mouth.
+        case '~':
             this.lastCharBuffer = this.charBuffer;
             this.lastAnimBuffer = this.animBuffer;
             this.charBuffer = '';
-            if (this.animBuffer = ' ')
+            if (this.animBuffer == ' ')
                 this.animBuffer = 'pause';
-            else
-                this.animBuffer = this.animBuffer;
             this.index++;
             break;
         case '.':
@@ -85,9 +90,13 @@ function Script (inputString) {
             this.index++;
             break;
         }
-        // TODO: parsePrev gives the previous character , for contextual buffer manipulation
-        // TODO: parseNext gives the next character, for contextual buffer manipulation
-        // TODO: parseIndex gives character as a specific index. (NOTE: perhaps the other parse function should all use this function?)
+        // TODO: parsePrev gives the previous character , for contextual buffer
+        // manipulation
+        // TODO: parseNext gives the next character, for contextual
+        // buffer manipulation
+        // TODO: parseIndex gives character as a specific
+        // index.
+        // NOTE: perhaps the other parse function should all use this function?
     };
 }
 

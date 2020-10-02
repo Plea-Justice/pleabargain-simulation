@@ -2,8 +2,13 @@
  * Avatar Customization implementation
  * Matthew LeBlanc 2018
  * University of Massachusetts Lowell Psychology Department
- * avatar_customization.js will introduce a way for the user to select from traits that represent them best.
- *  This includes hair styles, eye color, skin color, and outfits.
+ * avatar_customization.js will introduce a way for the user to select from
+ * traits that represent them best. This includes hair styles, eye color,
+ * skin color, and outfits.
+ */
+/* global createjs, AdobeAn, FILE_TO_ID, lib, comp, Actors, Actor, Palette,
+    assetPalettes, Script, mainAvatar, figure,  AvatarCustomizer, ColorPicker,
+    SkinColorPicker, generateSecondaryColor, generateSecondarySkinColor
  */
 
 // Variables to make user's avatar object
@@ -12,8 +17,6 @@ var canvas = document.getElementById('canvas');
 
 // window resize event
 window.onResize = OnWindowResize();
-
-
 
 // VARIABLES FOR INDEXING ASSET ARRAYS:
 var avatar = 0;
@@ -25,15 +28,26 @@ var avastruct_hair = {modal:document.getElementById('Hair-Color-Picker')};
 var avastruct_eye = {modal:document.getElementById('Eye-Color-Picker')};
 var avastruct_skin = {modal:document.getElementById('Skin-Color-Picker')};
 var avastruct_outfit = {modal:document.getElementById('Outfit-Color-Picker')};
-var avastructs = [avastruct_hair, avastruct_eye, avastruct_skin, avastruct_outfit];
 
 // initialize color pickers
-avastruct_hair.picker = new ColorPicker(250, 250, document.getElementById('hair-color-picker'), document.getElementById('hair-selected-color'));
-avastruct_eye.picker = new ColorPicker(250, 250, document.getElementById('eye-color-picker'), document.getElementById('eye-selected-color'));
-avastruct_skin.picker = new SkinColorPicker(250, 250, document.getElementById('skin-color-picker'), document.getElementById('skin-selected-color'));
-avastruct_outfit.picker = new ColorPicker(250, 250, document.getElementById('outfit-color-picker'), document.getElementById('outfit-selected-color'));
+avastruct_hair.picker =
+    new ColorPicker(250, 250,
+        document.getElementById('hair-color-picker'),
+        document.getElementById('hair-selected-color'));
+avastruct_eye.picker =
+    new ColorPicker(250, 250,
+        document.getElementById('eye-color-picker'),
+        document.getElementById('eye-selected-color'));
+avastruct_skin.picker =
+    new SkinColorPicker(250, 250,
+        document.getElementById('skin-color-picker'),
+        document.getElementById('skin-selected-color'));
+avastruct_outfit.picker =
+    new ColorPicker(250, 250,
+        document.getElementById('outfit-color-picker'),
+        document.getElementById('outfit-selected-color'));
 
-// redraws the color picker every millisecond, needs to be done to render the cursor
+// redraws the color picker every millisecond to render the cursor
 setInterval(() => avastruct_hair.picker.draw(), 1);
 setInterval(() => avastruct_eye.picker.draw(), 1);
 setInterval(() => avastruct_skin.picker.draw(), 1);
@@ -44,8 +58,8 @@ let tempColor = {primary:undefined, secondary:undefined};
 
 // Modal Buttons
 function openPicker(target)
-{
-    tempColor.primary = target.picker.currentHex; // stored in case changes will be discarded
+{   // stored in case changes will be discarded
+    tempColor.primary = target.picker.currentHex;
     tempColor.secondary = target.picker.secondaryHex;
     target.modal.style.display = 'flex';
 }
@@ -113,7 +127,8 @@ function presetHairPicked(preset)
         break;
     }
     let colorOffset = 30;
-    avastruct_hair.picker.secondaryHex = generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
+    avastruct_hair.picker.secondaryHex =
+        generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
     refreshColors();
 }
 
@@ -157,7 +172,8 @@ function presetEyePicked(preset)
         break;
     }
     let colorOffset = 30;
-    avastruct_eye.picker.secondaryHex = generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
+    avastruct_eye.picker.secondaryHex =
+        generateSecondaryColor(rgb[0], rgb[1], rgb[2], colorOffset);
     refreshColors();
 }
 
@@ -168,32 +184,38 @@ function presetSkinPicked(preset)
     {
     case 'rgb(197, 140, 133)':
         avastruct_skin.picker.currentHex = '#c58c85';
-        document.getElementById('skin-selected-color').style.backgroundColor = '#c58c85';
+        document.getElementById('skin-selected-color').style.backgroundColor =
+            '#c58c85';
         rgb = [197, 140, 133];
         break;
     case 'rgb(236, 188, 180)':
         avastruct_skin.picker.currentHex = '#ecbcb4';
-        document.getElementById('skin-selected-color').style.backgroundColor = '#ecbcb4';
+        document.getElementById('skin-selected-color').style.backgroundColor =
+            '#ecbcb4';
         rgb = [236, 188, 180];
         break;
     case 'rgb(209, 163, 164)':
         avastruct_skin.picker.currentHex = '#d1a3a4';
-        document.getElementById('skin-selected-color').style.backgroundColor = '#d1a3a4';
+        document.getElementById('skin-selected-color').style.backgroundColor =
+            '#d1a3a4';
         rgb = [209, 163, 164];
         break;
     case 'rgb(161, 102, 94)':
         avastruct_skin.picker.currentHex = '#a1665e';
-        document.getElementById('skin-selected-color').style.backgroundColor = '#a1665e';
+        document.getElementById('skin-selected-color').style.backgroundColor =
+            '#a1665e';
         rgb = [161, 102, 94];
         break;
     case 'rgb(80, 51, 53)':
         avastruct_skin.picker.currentHex = '#503335';
-        document.getElementById('skin-selected-color').style.backgroundColor = '#503335';
+        document.getElementById('skin-selected-color').style.backgroundColor =
+            '#503335';
         rgb = [80, 51, 53];
         break;
     case 'rgb(89, 47, 42)':
         avastruct_skin.picker.currentHex = '#592f2a';
-        document.getElementById('skin-selected-color').style.backgroundColor = '#592f2a';
+        document.getElementById('skin-selected-color').style.backgroundColor =
+            '#592f2a';
         rgb = [89, 47, 42];
         break;
     default:
@@ -201,7 +223,8 @@ function presetSkinPicked(preset)
         break;
     }
     let colorOffset = 30;
-    avastruct_skin.picker.secondaryHex = generateSecondarySkinColor(rgb[0], rgb[1], rgb[2], colorOffset);
+    avastruct_skin.picker.secondaryHex =
+        generateSecondarySkinColor(rgb[0], rgb[1], rgb[2], colorOffset);
     refreshColors();
 
 }
@@ -213,16 +236,28 @@ function closePickerOK(target)
     refreshColors();
 }
 
-function openModal(target)  {document.getElementById(target).style.display = 'flex';}
-function closeModal(target)  {document.getElementById(target).style.display = 'none';}
+function openModal(target) {
+    document.getElementById(target).style.display = 'flex';
+}
+function closeModal(target) {
+    document.getElementById(target).style.display = 'none';
+}
 
 function refreshColors()
 {
     stage.removeAllChildren();
-    mainAvatar.setHair(avastruct_hair.picker.currentHex, avastruct_hair.picker.secondaryHex);
-    mainAvatar.setEye(avastruct_eye.picker.currentHex, avastruct_eye.picker.secondaryHex);
-    mainAvatar.setSkin(avastruct_skin.picker.currentHex, avastruct_skin.picker.secondaryHex);
-    mainAvatar.setOutfit(avastruct_outfit.picker.currentHex, avastruct_outfit.picker.secondaryHex);
+    mainAvatar.setHair(
+        avastruct_hair.picker.currentHex,
+        avastruct_hair.picker.secondaryHex);
+    mainAvatar.setEye(
+        avastruct_eye.picker.currentHex,
+        avastruct_eye.picker.secondaryHex);
+    mainAvatar.setSkin(
+        avastruct_skin.picker.currentHex,
+        avastruct_skin.picker.secondaryHex);
+    mainAvatar.setOutfit(
+        avastruct_outfit.picker.currentHex,
+        avastruct_outfit.picker.secondaryHex);
     updateAvatar();
     mainAvatar.actor.draw(stage, avatarScript);
 }
@@ -326,7 +361,7 @@ function nextHair() {
     let nHairStyle = 5;
     if (!(((avatar + 1) % nHairStyle) == 0)) {
         avatar++;
-        mainAvatar.setActor(Actors[figure]);	
+        mainAvatar.setActor(Actors[figure]);
 
         stage.removeAllChildren();
 
@@ -335,7 +370,8 @@ function nextHair() {
         mainAvatar.actor.draw(stage, avatarScript);
         mainAvatar.palette.setFigure(figure);
 
-        document.getElementById('Hair').innerHTML = 'Hair ' + (mainAvatar.palette.features.hair + 1);
+        document.getElementById('Hair').innerHTML =
+            'Hair ' + (mainAvatar.palette.features.hair + 1);
     } else {
         avatar -= nHairStyle -1;
         mainAvatar.setActor(Actors[figure]);
@@ -346,19 +382,21 @@ function nextHair() {
         mainAvatar.actor.draw(stage, avatarScript);
         mainAvatar.palette.setFigure(figure);
 
-        document.getElementById('Hair').innerHTML = 'Hair ' + (mainAvatar.palette.features.hair + 1);
+        document.getElementById('Hair').innerHTML =
+            'Hair ' + (mainAvatar.palette.features.hair + 1);
     }
 }
 
-/******* FOLLOWING FUNCTIONS UTILIZE PALETTE AND FUNCTIONS SHOULD FOLLOW THE FOLLOWING PATTERN:
+/**
+ * Each function below must follow this structure.
  * <attribute_index>++;
  * stage.removeAllChildren();
- * mainAvatar.set<attribute>(<attribute_array>[<attribute_index>][<attribute_index(B)]); if B is needed, otherwise, just <attribute_index>
+ * mainAvatar.set... (set some attribute)
  * updateAvatar();
  * mainAvatar.actor.draw(stage, avatarScript);
  *
- * IF YOU DON'T FOLLOW THE STRUCTURE ABOVE, THE AVATARS WON'T BE ABLE TO CHANGE SPECIFIC COLORS.
- ****************************************************************************************************/
+ * This is needed in order to change the avatar colors.
+ ******************************************************************************/
 
 // FUNCTIONS FOR SETTING MALE AVATAR
 /**
@@ -375,7 +413,7 @@ function changeSexMale() {
     // Remove children for rendering new avatar
     stage.removeAllChildren();
     // Setting Actors index for male
-    figure = 0;
+    self.figure = 0;
     // Set the AvatarCustomizer to mainAvatar
     mainAvatar.setActor(Actors[figure]);
     mainAvatar.palette.setFigure(figure);
@@ -392,7 +430,7 @@ function changeSexFemale() {
 
     // Following code is the same as above but for female sex
     stage.removeAllChildren();
-    figure = 1;
+    self.figure = 1;
     mainAvatar.setActor(Actors[figure]);
     mainAvatar.palette.setFigure(figure);
     updateAvatar();
@@ -414,10 +452,13 @@ function updateAvatar() {
     // loop through second sex as well to keep everything together.
     // update the local avatar palette
         Actors[i].MC.assetPalettes = mainAvatar.palette;
-        // Check for male or female avatar and then for each avatar, re-initialize the avatar.
-        // ***** This has to be done in order to get the dynamic refreshing of the avatar *****
+
+        /* Check for male or female avatar and then for each avatar,
+        *  re - initialize the avatar. This has to be done in order to get the
+        * dynamic refreshing of the avatar.
+        */
         Actors[i].MC = new lib['AllScenarios_AvatarCustomization']();
-    
+
     }
 }
 
@@ -451,8 +492,8 @@ function initCustomizer() {
     window.lib = comp.getLibrary();
 
     // Declaring  Movie Clips
-    figures = 2;
-    Actors = [];
+    let figures = 2;
+    self.Actors = [];
     for (var figure = 0; figure < figures; figure++)
         Actors.push(new Actor(new lib['AllScenarios_AvatarCustomization']()));
 
@@ -466,7 +507,7 @@ function initCustomizer() {
     mainAvatar.actor.draw(stage, avatarScript);
 
     //Registers the "tick" event listener.
-	  createjs.Ticker.setFPS(lib.properties.fps);
+    createjs.Ticker.setFPS(lib.properties.fps);
     createjs.Ticker.addEventListener('tick', stage);
 
     refreshColors();
@@ -474,8 +515,8 @@ function initCustomizer() {
 
 // FUNCTION TO SET THE AVATAR TO BE PASSED TO THE NEXT SCENARIO
 /**
- * Finalize setting index values and serialize palette. Then randomly select the next scenario, and
- * set the url to be the next scene with new url parameters.
+ * Finalize setting index values and serialize palette set the url to be the
+ * next scene with new url parameters.
  */
 function setAvatar() {
 
@@ -491,9 +532,8 @@ function setAvatar() {
         urlparams_str += '&' + key + '=' + value;
     });
     urlparams_str = urlparams_str.substr(1);
-    // Go to the simulation-hitandrun with the palette and avatar parameters included.
+    // Go to the simulation with the palette and avatar parameters included.
     window.location='simulation.html' + '?' + urlparams_str + params;
 }
 
-//console.log("FIRST SCENARIO: " + Qualtrics.SurveyEngine.getEmbeddedData(module));
 console.log('LOADED avatar_customization.js');

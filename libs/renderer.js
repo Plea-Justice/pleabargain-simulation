@@ -4,6 +4,10 @@
 ** renderer.js renders a given dialog scene. It contains class definitions for
 ** the rendering of a Frame, a Clip, and a Scene.
 */
+/*global createjs, UI, generate_scene, Script, condition,
+    outputParams, exitToSurvey, Button, buttonLayout
+ */
+
 console.log('LOADING renderer.js');
 // Scene defines the animated scene
 //   - script string
@@ -15,9 +19,9 @@ console.log('LOADING renderer.js');
 //   - length of Scene (cloned from Script)
 
 /**
- * A method for rendering Actors to the canvas with a script, background and foreground
- * image. Render function function is important for drawing the scene to
- * the canvas.
+ * A method for rendering Actors to the canvas with a script, background and
+ * foreground image. Render function function is important for drawing the scene
+ * to the canvas.
  * @param scenename
  * @param script
  * @param actor
@@ -62,7 +66,8 @@ function Scene(scenename, script, actor, background, foreground, buttons) {
 //  - Movieclip (createjs structure)
 
 /**
- * A method to play a premade clip to the canvas. A clip is a fully-animated Movieclip.
+ * A method to play a premade clip to the canvas. A clip is a fully-animated
+ * Movieclip.
  * @param clipname
  * @param movieclip
  */
@@ -119,96 +124,99 @@ function AvatarCustomizer() {
 }
 
 // Frame defines everything rendered in a single frame of animation.
-//  - user interface (text box, label for speaking character, interface framework, and any prompts)
+//  - user interface (text box, label for speaking character, interface
+//    framework, and any prompts)
 //  - animated scene
 
 /**
- * Define rendered data in a single frame of animation. This includes all UI objects as well as animated clips. This also maintains
- * methods for transitioning between scenes.
- * <p>
- * Define transition functions for specific buttons. Especially the final transition functions.
- * These buttons are used to transition from the simulation back to qualtrics.
+ * Define rendered data in a single frame of animation. This includes all UI
+ * objects as well as animated clips. This also maintains methods for
+ * transitioning between scenes.
+ * 
+ * Define transition functions for specific buttons. Especially the final
+ * transition functions. These buttons are used to transition from the
+ * simulation back to qualtrics.
  * @param stage
  * @param scenes
  */
 function Frame(stage) {
-  this.Stage = stage;
-  this.UI = new UI(this.Stage);
-  this.Index = 0;
-  this.Scene = generate_scene(this.Index);
-  console.log("Frame constructed");
-  // TODO: unify Listener functions using event.target
-  this.advanceListener = function (event) {
-    console.log("Advancer clicked");
-    this.deactivate();
-    this.transition();
-  }
-  this.buttonListener = function (event) {
-    console.log("Button clicked");
-    // store interaction
-    debugger;
-    const button = event.target instanceof createjs.Container
-      ? event.target
-      : event.target.parent;
+    this.Stage = stage;
+    this.UI = new UI(this.Stage);
+    this.Index = 0;
+    this.Scene = generate_scene(this.Index);
+    console.log('Frame constructed');
+    // TODO: unify Listener functions using event.target
+    this.advanceListener = function (event) {
+        console.log('Advancer clicked');
+        this.deactivate();
+        this.transition();
+    };
+    this.buttonListener = function (event) {
+        console.log('Button clicked');
+        // store interaction
+        const button = event.target instanceof createjs.Container
+            ? event.target
+            : event.target.parent;
     
         const output = this.Scene.name
             ? `${this.Scene.name}_${button.name}`
             : button.name;
     
-        outParams[output] = 'true';
+        outputParams[output] = 'true';
         this.deactivate();
         this.transition();
     };
 
     this.render = function () {
     // If the current Scene is a Scene (not a MovieClip)
-    if (this.Scene instanceof Scene) {
-      this.Stage.removeAllChildren();
-      this.Scene.Script.parseChar();
-      this.Scene.render(this.Stage); //
-      this.UI.render(this.Scene.Script);
-      this.Scene.index = this.Scene.Script.index;
-      this.Stage.update();
-    }
-    // If the current Scene is a Clip
-    else if (this.Scene instanceof Clip) {
-      this.Stage.removeAllChildren();
-      this.Stage.addChild(this.Scene.MC);
-      this.Scene.index = this.Scene.MC.currentFrame;
-      this.Stage.update();
-      // if Clip has ended, automatically transition to next Scene
-      if (this.Scene.index == this.Scene.length - 1) {
-        console.log("Clip Concluded");
-        this.transition();
-      }
-    }
-    else if (this.Scene instanceof AvatarCustomizer) {
-      this.Stage.removeAllChildren();
-      this.Stage.update();
-      // TODO: Render UI of Avatar Customizer
-      // trigger this.transition(); when begin button is clicked.
-      // if(next) {this.transition();}
-    }
-    else {
-      alert("ERROR: Frame.render() - invalid Frame.Scene");
-    }
-  }
-  this.transition = function () {
-    if (this.Index < condition.scenes.length - 1) {
-      this.Index++;
-      console.log("Transitioning to " + condition.scenes[this.Index].name);
-      this.Stage.removeAllChildren();
-      this.deactivate();
-      this.UI.clear();
-      this.Scene = generate_scene(this.Index);
-      this.Scene.index = 0;
-    } else {
-      exitToSurvey();
-    }
+        if (this.Scene instanceof Scene) {
+            this.Stage.removeAllChildren();
+            this.Scene.Script.parseChar();
+            this.Scene.render(this.Stage); //
+            this.UI.render(this.Scene.Script);
+            this.Scene.index = this.Scene.Script.index;
+            this.Stage.update();
+        }
+        // If the current Scene is a Clip
+        else if (this.Scene instanceof Clip) {
+            this.Stage.removeAllChildren();
+            this.Stage.addChild(this.Scene.MC);
+            this.Scene.index = this.Scene.MC.currentFrame;
+            this.Stage.update();
+            // if Clip has ended, automatically transition to next Scene
+            if (this.Scene.index == this.Scene.length - 1) {
+                console.log('Clip Concluded');
+                this.transition();
+            }
+        }
+        else if (this.Scene instanceof AvatarCustomizer) {
+            this.Stage.removeAllChildren();
+            this.Stage.update();
+            // TODO: Render UI of Avatar Customizer
+            // trigger this.transition(); when begin button is clicked.
+            // if(next) {this.transition();}
+        }
+        else {
+            alert('ERROR: Frame.render() - invalid Frame.Scene');
+        }
+    };
+    this.transition = function () {
+        if (this.Index < condition.scenes.length - 1) {
+            this.Index++;
+            console.log('Transitioning to ' + condition.scenes[this.Index].name);
+            this.Stage.removeAllChildren();
+            this.deactivate();
+            this.UI.clear();
+            this.Scene = generate_scene(this.Index);
+            this.Scene.index = 0;
+        } else {
+            exitToSurvey();
+        }
     // TODO we've reached the end. Present options.
     };
 
-    //Activate all buttons in the Scene - making them visible and enable their event handlers
+    // Activate all buttons in the Scene - making them visible and enable their
+    // event handlers
     this.activate = function () {
         console.log('Button Activation');
         if (this.Scene instanceof Scene) {
@@ -220,16 +228,19 @@ function Frame(stage) {
                 console.log('Advancer activated');
             }
 
-            if (this.Scene.Buttons.length != 0 && this.Scene.Buttons instanceof Array) {
+            if (this.Scene.Buttons.length != 0
+                && this.Scene.Buttons instanceof Array) {
                 for (let i = 0; i < this.Scene.Buttons.length; i++) {
                     //for (const button of this.Scene.Buttons) {
                     console.log('Activating Button');
-                    buttonName = this.Scene.Buttons[i];
+                    let buttonName = this.Scene.Buttons[i];
                     const [x, y] = buttonLayout(this.Scene.Buttons.length, i);
-                    button = this.Scene.ActiveButtons[buttonName] = new Button(this, buttonName, x, y);
+                    let button = this.Scene.ActiveButtons[buttonName] =
+                        new Button(this, buttonName, x, y);
                     this.buttonListener = this.buttonListener.bind(this);
                     button.Container.addEventListener('click', this.buttonListener);
-                    this.Stage.addChild(this.Scene.ActiveButtons[buttonName].Container);
+                    this.Stage.addChild(
+                        this.Scene.ActiveButtons[buttonName].Container);
                     console.log(buttonName + ' Button activated');
                 }
             }
@@ -242,7 +253,7 @@ function Frame(stage) {
             this.UI.Advancer.Container.removeEventListener('click', this.advanceListener);
             console.log('Advancer deactivated');
         }
-        for (button of Object.keys(this.Scene.ActiveButtons)) {
+        for (const button of Object.keys(this.Scene.ActiveButtons)) {
             this.Scene.ActiveButtons[button].deactivate();
             this.Scene.ActiveButtons[button].Container.removeEventListener('click', this.buttonListener);
             console.log('Button deactivated');

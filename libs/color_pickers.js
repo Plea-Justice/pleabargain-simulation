@@ -2,10 +2,10 @@
  * Avatar Customization implementation
  * Jacky McGrath 2019
  * University of Massachusetts Lowell Psychology Department
- * color_pickers.js includes the classes used to select colors for the avatars eyes,
- * hair, shirt, and skin.
+ * color_pickers.js includes the classes used to select colors for the avatars
+ * eyes, hair, shirt, and skin.
  */
-
+/*global generateSecondaryColor, generateSecondarySkinColor */
 
 class ColorPicker {
 
@@ -64,7 +64,9 @@ class ColorPicker {
 
         // draw the color picker cursor
         this.ctx.beginPath();
-        this.ctx.arc(this.pickerCursor.x, this.pickerCursor.y, this.pickerCursor.width, 0, Math.PI * 2);
+        this.ctx.arc(
+            this.pickerCursor.x, this.pickerCursor.y, this.pickerCursor.width,
+            0, Math.PI * 2);
         this.ctx.strokeStyle = 'black';
         this.ctx.stroke();
         this.ctx.closePath();
@@ -72,7 +74,9 @@ class ColorPicker {
 
     // called when mouse is down, gets RGB of the pixel the cursor is on
     pickCurrentColor(){
-        let imgdata = this.ctx.getImageData(this.pickerCursor.x, this.pickerCursor.y, 1, 1);
+        let imgdata =
+            this.ctx.getImageData(
+                this.pickerCursor.x, this.pickerCursor.y, 1, 1);
         // extract RGB from imgdata
         let r = imgdata.data[0];
         let g = imgdata.data[1];
@@ -83,7 +87,8 @@ class ColorPicker {
         this.selectedColor.style.backgroundColor = this.currentColor;
 
         //current color stored as hex
-        this.currentHex = '#' + ('000000' + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
+        this.currentHex = '#' +
+            ('000000' + ((r << 16) | (g << 8) | b).toString(16)).slice(-6);
 
         let colorOffset = 30;
         this.secondaryHex = generateSecondaryColor(r, g, b, colorOffset);
@@ -159,7 +164,9 @@ class SkinColorPicker extends ColorPicker {
 
     // called when mouse is down, gets RGB of the pixel the cursor is on
     pickCurrentColor(){
-        let imgdata = this.ctx.getImageData(this.pickerCursor.x, this.pickerCursor.y, 1, 1);
+        let imgdata =
+            this.ctx.getImageData(
+                this.pickerCursor.x, this.pickerCursor.y, 1, 1);
         // extract RGB from imgdata
         let r = imgdata.data[0];
         let g = imgdata.data[1];

@@ -1,7 +1,10 @@
+/*global createjs, AdobeAn, init, canvas, inputParams, loadAvatarParams,
+    Actor, Scene, Clip, Palette, FILE_TO_ID
+ */
 console.log('LOADING init.js');
 
 // Globabl Variables
-var canvas = document.getElementById('canvas');
+self.canvas = document.getElementById('canvas');
 
 const manifest_filename = 'manifest.json';
 
@@ -28,7 +31,7 @@ function load_manifest() {
     // Read avatar features passed in by customizer.
     loadAvatarParams();
 
-    let condition_number = inParams['condition'];
+    let condition_number = inputParams['condition'];
 
     if (condition_number == null) {
         alert('ERROR: No experimental condition specified.');
@@ -42,7 +45,7 @@ function load_manifest() {
     let queue = new createjs.LoadQueue(true);
 
     queue.on('fileload', (event) => {
-
+        let img;
         switch (event.item.type) {
         case 'javascript':
             document.head.appendChild(event.result);
@@ -68,7 +71,7 @@ function load_manifest() {
             break;
 
         case 'image':
-            let img = event.item.src;
+            img = event.item.src;
             img = img.slice(img.lastIndexOf('/') + 1).replace(/\..*$/, '');
             assets[img] = new createjs.Bitmap(event.result);
             break;
@@ -84,7 +87,8 @@ function load_manifest() {
     queue.load();
 }
 
-// Handle any additional items requested by Animate exports (cached bitmaps, etc).
+// Handle any additional items requested by Animate exports (cached bitmaps,
+// etc).
 function anHandleFileLoad(evt, comp) {
     let images = comp.getImages();
     if (evt && (evt.item.type == 'image')) { images[evt.item.id] = evt.result; }
@@ -95,8 +99,12 @@ function anHandleComplete(evt, comp) {
     let ss = comp.getSpriteSheet();
     let queue = evt.target;
     let ssMetadata = lib.ssMetadata;
-    for (i = 0; i < ssMetadata.length; i++) {
-        ss[ssMetadata[i].name] = new createjs.SpriteSheet({ 'images': [queue.getResult(ssMetadata[i].name)], 'frames': ssMetadata[i].frames });
+    for (let i = 0; i < ssMetadata.length; i++) {
+        ss[ssMetadata[i].name] =
+            new createjs.SpriteSheet({
+                'images': [queue.getResult(ssMetadata[i].name)],
+                'frames': ssMetadata[i].frames
+            });
     }
     AdobeAn.compositionLoaded(lib.properties.id);
 }
@@ -142,23 +150,27 @@ function generate_scene(i) {
 
         // Create scene.
         let sceneDescr = condition.scenes[i];
-        // Dialogue scenes consist of a background, foreground, actor, and script.
-        // TODO: Jail scene for instance has no actor, instead uses image.
-        let name, actor, script, fg, bg, scene;
+        // Dialogue scenes consist of a background, foreground, actor, and
+        // script. TODO: Jail scene for instance has no actor, instead uses
+        // image.
+        let actor, fg, bg, scene;
         switch (sceneDescr.type) {
-            case 'dialogue':
-            case 'question':
-                actor = sceneDescr.actor ? new Actor(assets[sceneDescr.actor]) : null;
-                bg = assets[sceneDescr.bg] || null;
-                fg = assets[sceneDescr.fg] || null;
+        case 'dialogue':
+        case 'question':
+            actor = sceneDescr.actor
+                ? new Actor(assets[sceneDescr.actor])
+                : null;
+            bg = assets[sceneDescr.bg] || null;
+            fg = assets[sceneDescr.fg] || null;
 
-                scene = new Scene(sceneDescr.name || null, sceneDescr.script || null, actor, bg, fg, sceneDescr.buttons || null);
-                return scene;
-            case 'clip':
-                scene = new Clip(sceneDescr.name, assets[sceneDescr.clip]);
-                return scene;
-            default:
-                throw Error('Invalid scene type.');
+            scene = new Scene(sceneDescr.name || null, sceneDescr.script
+                || null, actor, bg, fg, sceneDescr.buttons || null);
+            return scene;
+        case 'clip':
+            scene = new Clip(sceneDescr.name, assets[sceneDescr.clip]);
+            return scene;
+        default:
+            throw Error('Invalid scene type.');
         }
     } catch (err) {
         alert('An error has occured. Please contact the developer.');
@@ -174,8 +186,8 @@ function generate_scene(i) {
 // load palette from manifest, defaults if slot not present
 function init_palette() {
 
-    // TODO: All references to colors by names ('skin', 'outfit', etc.) should be replaced with
-    // dynamic color slot numbers.
+    // TODO: All references to colors by names ('skin', 'outfit', etc.) should
+    // be replaced with dynamic color slot numbers.
     const defaultColorSlots = Object.freeze({
         // Slot 1 - Judge
         1: {

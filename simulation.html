@@ -44,7 +44,7 @@
 
         console.log("Setting up Event Handling");
         createjs.Ticker.addEventListener("tick", tick);
-        if (inParams["mode"] == "fast") {
+        if (inputParams["mode"] == "fast") {
           alert("DEBUG: FAST MODE ACTIVE");
           createjs.Ticker.setInterval(1);
         } else
