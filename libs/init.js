@@ -1,75 +1,51 @@
-/*global createjs, AdobeAn, init, canvas, inputParams, loadAvatarParams,
-    Actor, Scene, Clip, Palette, FILE_TO_ID
+/*global createjs, AdobeAn, init, loadAvatarParams,
+    Actor, Scene, Clip, Palette, FILE_TO_ID, condition_number
  */
 console.log('LOADING init.js');
 
 // Globabl Variables
-self.canvas = document.getElementById('canvas');
-
-const manifest_filename = 'manifest.json';
-
 var manifest;   // Animation asset files for all conditions.
 var condition;  // Ordered scene description for each experimental condition.
-
-var assets = {};
-
-// Contains color data of actors
-var assetPalettes = [];
+var assets = {};        // Object to load asset descriptions into.
+var assetPalettes = []; // Contains actor palettes.
 
 // SIMULATION ENTRY POINT
-// Load the experiment manifest and proceed to load_condition().
+// Load the experiment manifest and proceed to load_filelist().
 function load_manifest() {
+    console.log('Loading Manifest...');
 
-    console.log('Loading manifest ' + manifest_filename);
-    let canvas = document.getElementById('canvas');
-
-    // Loading message.
-    let ctx = canvas.getContext('2d');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
     ctx.fillStyle = 'white';
     ctx.fillText('Loading simulation. Please wait, loading may take up to a minute.', 100, 100);
 
-    // Read avatar features passed in by customizer.
-    loadAvatarParams();
+    const queue = new createjs.LoadQueue(true);
+    queue.on('fileload', (event) => {
+        self.manifest = event.result;
+    }, this); // queue fileload event
+    queue.on('complete', load_filelist, this);
+    queue.loadFile('manifest.json');
+}
 
-    let condition_number = inputParams['condition'];
-
-    if (condition_number == null) {
-        alert('ERROR: No experimental condition specified.');
-        return;
+// Load each resource in the manifest's file list.
+function load_filelist() {
+    if (manifest.conditions[condition_number - 1] != null) {
+        self.condition = manifest.conditions[condition_number - 1];
+    } else {
+        alert('ERROR: Malformed condition: condition' + condition_number);
     }
 
-    console.log('Experimental condition number: ' + condition_number);
+    // Initialize assetPalettes.
+    // This must be done before executing asset JavaScript resources.
+    init_palette();
 
-    let manifest_filepath = manifest_filename;
-
-    let queue = new createjs.LoadQueue(true);
-
+    const queue = new createjs.LoadQueue(true);
     queue.on('fileload', (event) => {
         let img;
         switch (event.item.type) {
+        // Preload.js automatically injects <script> tags so no 'javascript'.
         case 'javascript':
-            document.head.appendChild(event.result);
             break;
-
-        case 'manifest':
-            manifest = event.result;
-
-            if (event.result.conditions[condition_number - 1] != null) {
-                condition = event.result.conditions[condition_number - 1];
-                break;
-            } else
-                alert('ERROR: Malformed condition: condition' + condition_number);
-
-            break;
-
-        case 'json':
-            if (event.result.condition != null) {
-                condition = event.result.condition;
-                break;
-            }
-            alert('ERROR: Malformed condition: ' + condition_number);
-            break;
-
         case 'image':
             img = event.item.src;
             img = img.slice(img.lastIndexOf('/') + 1).replace(/\..*$/, '');
@@ -77,56 +53,52 @@ function load_manifest() {
             break;
 
         default:
-            alert('ERROR: Malformed experimental manifest.');
+            alert('ERROR: Manifest references a resource other than an image or JavaScript.');
         } // switch
 
     }, this); // queue fileload event
-
     queue.on('complete', load_animate_assets, this);
-    queue.loadManifest(manifest_filepath, false);
-    queue.load();
+    queue.loadManifest(manifest.resources, true, 'assets/');
 }
 
+// These lines have been commented out, see load_animate_assets for why.
 // Handle any additional items requested by Animate exports (cached bitmaps,
 // etc).
-function anHandleFileLoad(evt, comp) {
-    let images = comp.getImages();
-    if (evt && (evt.item.type == 'image')) { images[evt.item.id] = evt.result; }
-}
+// function anHandleFileLoad(evt, comp) {
+//     let images = comp.getImages();
+//     if (evt && (evt.item.type == 'image')) { 
+//         images[evt.item.id] = evt.result; 
+//     }
+// }
 
-function anHandleComplete(evt, comp) {
-    let lib = comp.getLibrary();
-    let ss = comp.getSpriteSheet();
-    let queue = evt.target;
-    let ssMetadata = lib.ssMetadata;
-    for (let i = 0; i < ssMetadata.length; i++) {
-        ss[ssMetadata[i].name] =
-            new createjs.SpriteSheet({
-                'images': [queue.getResult(ssMetadata[i].name)],
-                'frames': ssMetadata[i].frames
-            });
-    }
-    AdobeAn.compositionLoaded(lib.properties.id);
-}
+// function anHandleComplete(evt, comp) {
+//     let lib = comp.getLibrary();
+//     AdobeAn.compositionLoaded(lib.properties.id);
+// }
 
-function load_animate_assets(evt) {
+function load_animate_assets() {
+
     if (!window.FILE_TO_ID)
         alert('Error: FILE_TO_ID not found. Please report this error to a developer.');
 
+    // This code exists to load additional files such as with assets that use
+    // cached bitmap files. These are no-longer reccomended as they add
+    // complexity to uploads and file management in the researcher console.
+    // Additionally, the chained file-loading makes the loading process unruly.
+    // for (let id of Object.keys(AdobeAn.compositions)) {
+    //     let comp = AdobeAn.getComposition(id);
+    //     let lib = comp.getLibrary();
+    //     let queue = new createjs.LoadQueue(false);
+    // queue.addEventListener('fileload', function (evt) {
+    //     anHandleFileLoad(evt, comp);
+    // });
+    // queue.addEventListener('complete', function (evt) {
+    //     anHandleComplete(evt, comp);
+    // });
+    //     queue.loadManifest(lib.properties.manifest);
+    // }
 
-    for (let id of Object.keys(AdobeAn.compositions)) {
-        let comp = AdobeAn.getComposition(id);
-        let lib = comp.getLibrary();
-        let queue = new createjs.LoadQueue(false);
-        queue.addEventListener('fileload', function (evt) { anHandleFileLoad(evt, comp); });
-        queue.addEventListener('complete', function (evt) { anHandleComplete(evt, comp); });
-        queue.loadManifest(lib.properties.manifest);
-    }
-
-    // TODO: A better method of loading is needed here.
-    // Considering that we intend to load assets as needed, a chain of
-    // LoadQueues may be what we want.
-    setTimeout(init, 8000);
+    init();
 }
 
 // Prepares scene and returns it
@@ -135,10 +107,8 @@ function generate_scene(i) {
         if (condition == undefined || manifest == undefined)
             alert('ERROR: Did not load manifest or condition JSON.');
 
-        init_palette();
-
         if (i == 0) {
-            for (const file of manifest.manifest) {
+            for (const file of manifest.resources) {
                 if (file.match(/^(clip|actor)/)) {
                     let name = file.replace(/\..*?$/, '').replace(/^.*\//, '');
                     let comp = AdobeAn.getComposition(FILE_TO_ID[name]);
@@ -183,9 +153,12 @@ function generate_scene(i) {
     }
 }
 
-// load palette from manifest, defaults if slot not present
+/**
+ * Load the default palette slots. Override with presets defined in the manifest
+ * and give the highest precedence to a palette in the URL query string sent by
+ * the avatar customizer.
+ */
 function init_palette() {
-
     // TODO: All references to colors by names ('skin', 'outfit', etc.) should
     // be replaced with dynamic color slot numbers.
     const defaultColorSlots = Object.freeze({
@@ -239,6 +212,8 @@ function init_palette() {
             Object.assign(p, manifest.customizable_presets[i]);
         }
     }
+    // Override defaults and presets with requested parameters.
+    loadAvatarParams();
 }
 
 console.log('LOADED init.js');

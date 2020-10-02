@@ -23,8 +23,15 @@
       var RES_WIDTH = 1920;
       var RES_HEIGHT = 1080;
 
+      self.condition_number = inputParams['condition'];
+
+      if (!condition_number) {
+        alert('ERROR: No experimental condition specified.');
+        throw new Error('No experimental condition in query string.')
+      }
+
       /**
-       * Sets up the cavnas for use by the simulation. It adjusts to the set size by resolution standards.
+       * Sets up the canvas for use by the simulation. It adjusts to the set size by resolution standards.
        * It also defines a new frame object to start our simulation off.
       */
       function init() {

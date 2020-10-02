@@ -83,7 +83,7 @@ function Palette () {
         this.colorsDark[4] = B;
     };
     this.setFigure = function(A) {
-        this.features.figure = A;
+        this.features.figure = parseInt(A);
     };
 
     // format as query string
@@ -100,13 +100,15 @@ function Palette () {
 
 // Create a pallete from passed URL parameters.
 function loadAvatarParams() {
-    self.assetPalettes[0] = new Palette();
+
+    if (!self.assetPalettes[0])
+        self.assetPalettes[0] = new Palette();
 
     const features =
         ['skin', 'outfit', 'feature_hair', 'hair', 'eyes', 'eye', 'figure'];
     for (const feature of features)
         if (!(feature in inputParams)) {
-            console.log('Error: Customized avatar not recieved. '+ feature + ' not defined.');
+            console.log('Warning: Customized avatar not recieved. '+ feature + ' not defined.');
             return;
         }
 
@@ -159,8 +161,8 @@ function loadAvatarParams() {
     self.assetPalettes[0].setEye(eye, eyeDark);
     self.assetPalettes[0].setOutfit(outfit, outfitDark);
     self.assetPalettes[0].setFigure(figure);
-    self.assetPalettes[0].features.eyes = eyes;
-    self.assetPalettes[0].features.hair = feature_hair;
+    self.assetPalettes[0].features.eyes = parseInt(eyes);
+    self.assetPalettes[0].features.hair = parseInt(feature_hair);
 
     return assetPalettes[0];
 }
