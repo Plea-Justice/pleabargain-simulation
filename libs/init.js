@@ -39,26 +39,35 @@ function load_filelist() {
     // This must be done before executing asset JavaScript resources.
     init_palette();
 
-    const queue = new createjs.LoadQueue(true);
-    queue.on('fileload', (event) => {
-        let img;
-        switch (event.item.type) {
-        // Preload.js automatically injects <script> tags so no 'javascript'.
-        case 'javascript':
-            break;
-        case 'image':
-            img = event.item.src;
-            img = img.slice(img.lastIndexOf('/') + 1).replace(/\..*$/, '');
-            assets[img] = new createjs.Bitmap(event.result);
-            break;
+    if (manifest.resources.length > 0) {
 
-        default:
-            alert('ERROR: Manifest references a resource other than an image or JavaScript.');
-        } // switch
+        const queue = new createjs.LoadQueue(true);
+        queue.on('fileload', (event) => {
+            let img;
+            switch (event.item.type) {
+            // Preload.js automatically injects <script> tags so no 'javascript'.
+            case 'javascript':
+                break;
+            case 'image':
+                img = event.item.src;
+                img = img.slice(img.lastIndexOf('/') + 1).replace(/\..*$/, '');
+                assets[img] = new createjs.Bitmap(event.result);
+                break;
 
-    }, this); // queue fileload event
-    queue.on('complete', load_animate_assets, this);
-    queue.loadManifest(manifest.resources, true, 'assets/');
+            default:
+                alert('ERROR: Manifest references a resource other than an image or JavaScript.');
+            } // switch
+
+        }, this); // queue fileload event
+        queue.on('complete', load_animate_assets, this);
+
+        console.log('Loading resources...');
+        queue.loadManifest(manifest.resources, true, 'assets/');
+    } else {
+        console.log('No resources to load.');
+        init();
+    }
+
 }
 
 // These lines have been commented out, see load_animate_assets for why.
@@ -66,8 +75,8 @@ function load_filelist() {
 // etc).
 // function anHandleFileLoad(evt, comp) {
 //     let images = comp.getImages();
-//     if (evt && (evt.item.type == 'image')) { 
-//         images[evt.item.id] = evt.result; 
+//     if (evt && (evt.item.type == 'image')) {
+//         images[evt.item.id] = evt.result;
 //     }
 // }
 

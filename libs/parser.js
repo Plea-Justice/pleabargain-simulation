@@ -1,7 +1,7 @@
 /* script parser API
 ** Thomas Nelson 2016
 ** University of Massachusetts Lowell, Psychology Department
-** parser.js creates a script traversal system, by which a given inputString 
+** parser.js creates a script traversal system, by which a given inputString
 ** is iteratively traversed (as invoked on the framerate by the renderer)
 ** in order to ascertain and store animation and character output buffer
 ** values.
@@ -21,7 +21,7 @@ console.log('LOADING parser.js');
  * input string and determines what mouth movement to make. The inputString is
  * given to the textbox to display as well.
  * @param inputString
- * @see draw 
+ * @see draw
  */
 function Script (inputString) {
 
@@ -29,7 +29,17 @@ function Script (inputString) {
     let script = inputString.replace(/@U/g, inputParams['Name']);
 
     // Replace @N (where N is a number) with pause controls.
-    script = script.replace(/@(\d+)/g, (m, p1)=>''.padEnd(Number(p1), '~'));
+    script = script.replace(/@(\d+);/g, (m, p1)=>''.padEnd(Number(p1), '~'));
+
+    const m = script.match(/@[a-zA-Z\d]+?;/g);
+
+    if (m)
+        m.map(str => str.match(/@([a-zA-Z\d]+?);/)).forEach(arr => {
+            if (inputParams[arr[1]])
+                script = script.replace(arr[0], inputParams[arr[1]]);
+            else
+                alert(`Error: Variable "${arr[1]}" was not passed from Qualtrics.`);
+        });
 
     // Clean up any stray spaces.
     script = script.replace(/\s\s+/g, ' ');

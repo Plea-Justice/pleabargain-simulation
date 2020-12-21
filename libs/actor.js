@@ -93,7 +93,7 @@ function Palette () {
            '&eye=' + this.colors[0].substr(1) +
            '&outfit=' + this.colors[4].substr(1) +
            '&figure=' + this.features.figure +
-           '&eyes=' + this.features.eyes + '&feature_hair=' + this.features.hair;
+           '&eyes=' + this.features.eyes + '&hairstyle=' + this.features.hair;
     };
 
 }
@@ -105,7 +105,7 @@ function loadAvatarParams() {
         self.assetPalettes[0] = new Palette();
 
     const features =
-        ['skin', 'outfit', 'feature_hair', 'hair', 'eyes', 'eye', 'figure'];
+        ['skin', 'outfit', 'hairstyle', 'hair', 'eyes', 'eye', 'figure'];
     for (const feature of features)
         if (!(feature in inputParams)) {
             console.log('Warning: Customized avatar not recieved. '+ feature + ' not defined.');
@@ -143,7 +143,7 @@ function loadAvatarParams() {
 
     let figure = inputParams['figure'];
     let eyes = inputParams['eyes'];
-    let feature_hair = inputParams['feature_hair'];
+    let hairstyle = inputParams['hairstyle'];
 
     console.log('****** Palette from Customizer ******');
     console.log('Hair: ' + hair);
@@ -154,7 +154,7 @@ function loadAvatarParams() {
     console.log('Skin B: ' + skinDark);
     console.log('Figure: ' + figure);
     console.log('Avatar eyes: ' + eyes);
-    console.log('Avatar hair: ' + feature_hair);
+    console.log('Avatar hair: ' + hairstyle);
 
     self.assetPalettes[0].setSkin(skin, skinDark);
     self.assetPalettes[0].setHair(hair, hairDark);
@@ -162,7 +162,7 @@ function loadAvatarParams() {
     self.assetPalettes[0].setOutfit(outfit, outfitDark);
     self.assetPalettes[0].setFigure(figure);
     self.assetPalettes[0].features.eyes = parseInt(eyes);
-    self.assetPalettes[0].features.hair = parseInt(feature_hair);
+    self.assetPalettes[0].features.hair = parseInt(hairstyle);
 
     return assetPalettes[0];
 }
