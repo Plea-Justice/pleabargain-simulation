@@ -17,14 +17,14 @@ for (var pair of urlParams.entries()){
  */
 function exitToSurvey() {
     'use strict';
-    let surl = manifest['survey'] + '?';
+    // Pass on any parameters passed in...
+    let surl = manifest['survey'] + '?' + window.location.search.substr(1);
+
+    // Pass on any new variables.
     for (var key in outputParams) {
         let value = outputParams[key];
         surl += '&' + key + '=' + value;
     }
-
-    // Pass on any parameters passed in.
-    surl += '&' + window.location.search.substr(1);
 
     window.open(surl, '_self');
 }

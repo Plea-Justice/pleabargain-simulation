@@ -142,8 +142,15 @@ function generate_scene(i) {
             bg = assets[sceneDescr.bg] || null;
             fg = assets[sceneDescr.fg] || null;
 
-            scene = new Scene(sceneDescr.name || null, sceneDescr.script
-                || null, actor, bg, fg, sceneDescr.buttons || null);
+            scene = new Scene(
+                sceneDescr.name || null,
+                sceneDescr.script || null,
+                actor,
+                bg,
+                fg,
+                sceneDescr.buttons || null,
+                sceneDescr.embedded || null
+            );
             return scene;
         case 'clip':
             scene = new Clip(sceneDescr.name, assets[sceneDescr.clip]);

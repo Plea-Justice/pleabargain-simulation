@@ -28,7 +28,7 @@ console.log('LOADING renderer.js');
  * @param background
  * @param foreground
  */
-function Scene(scenename, script, actor, background, foreground, buttons) {
+function Scene(scenename, script, actor, background, foreground, buttons, embedded) {
     // TODO: incorporate button instantiation into Scene instantiation
     this.name = scenename;
     // create script object from script string
@@ -46,6 +46,8 @@ function Scene(scenename, script, actor, background, foreground, buttons) {
     this.Foreground = foreground;
     // any buttons
     this.Buttons = buttons || [];
+    // name of embedded data variable to which button response will be bound.
+    this.Embedded = embedded || scenename;
     this.ActiveButtons = {};
     // indexing
     this.index = this.Script.index;
@@ -77,6 +79,7 @@ function Clip(clipname, movieclip) {
     this.Script = null;
     this.Buttons = [];
     this.ActiveButtons = {};
+    this.Embedded = '';
     this.index = this.MC.currentFrame;
     this.length = this.MC.totalFrames;
     console.log('Clip ' + this.name + ' constructed');
@@ -132,7 +135,7 @@ function AvatarCustomizer() {
  * Define rendered data in a single frame of animation. This includes all UI
  * objects as well as animated clips. This also maintains methods for
  * transitioning between scenes.
- * 
+ *
  * Define transition functions for specific buttons. Especially the final
  * transition functions. These buttons are used to transition from the
  * simulation back to qualtrics.
@@ -157,12 +160,17 @@ function Frame(stage) {
         const button = event.target instanceof createjs.Container
             ? event.target
             : event.target.parent;
-    
-        const output = this.Scene.name
-            ? `${this.Scene.name}_${button.name}`
-            : button.name;
-    
-        outputParams[output] = 'true';
+
+        if (this.Scene.Embedded) {
+            outputParams[this.Scene.Embedded] =
+                this.Scene.Buttons.indexOf(button.name) + 1;
+        } else {
+            const output = this.Scene.name
+                ? `${this.Scene.name}_${button.name}`
+                : button.name;
+
+            outputParams[output] = 'true';
+        }
         this.deactivate();
         this.transition();
     };
