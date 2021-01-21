@@ -42,7 +42,7 @@ function Script (inputString) {
         });
 
     // Clean up any stray spaces.
-    script = script.replace(/\s\s+/g, ' ');
+    script = script.replace(/  +/g, ' ');
 
     this.input = script;
     this.length = this.input.length;
