@@ -1,0 +1,34 @@
+{
+  "name": "pleabargain-simulation",
+  "version": "2.0.0",
+  "description": "An interactive simulation of plea bargaining for use in psychological studies.",
+  "main": "libs/init.js",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Plea-Justice/pleabargain-simulation.git"
+  },
+  "keywords": [
+    "law",
+    "experiment",
+    "research",
+    "study",
+    "simulation",
+    "decision-making",
+    "psychology",
+    "immersive-media",
+    "justice-system",
+    "plea-bargaining"
+  ],
+  "author": "The Plea Justice Project",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/Plea-Justice/pleabargain-simulation/issues"
+  },
+  "homepage": "https://github.com/Plea-Justice/pleabargain-simulation#readme",
+  "devDependencies": {
+    "eslint": "^7.21.0"
+  }
+}

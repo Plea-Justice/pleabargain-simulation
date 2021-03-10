@@ -1,3 +1,9 @@
+/* Copyright (C) 2021 The Plea Justice Project
+ *
+ * Please see https://pleajustice.org for information about this project's
+ * licensing and how you can make a contribution.
+ */
+
 /* UI API
 ** Thomas Nelson 2017
 ** University of Massachusetts Lowell, Psychology Department
@@ -16,7 +22,7 @@ console.log('LOADING ui.js');
 /**
  * Define textboxes, and advancer buttons. Takes a stage as a parameter
  * and renders the needed items to the canvas.
- * @param stage 
+ * @param stage
  */
 function UI(stage) {
     this.Stage = stage;
@@ -51,7 +57,7 @@ var TEX_MARGIN = 30;
 /**
  * Defines text box styling.
  */
-function Textbox() { 
+function Textbox() {
     console.log('Constructing Textbox Background');
     this.Background = new createjs.Shape();
     this.Background.name = 'Textbox Background Shape';
@@ -86,9 +92,9 @@ var BUT_HOR_PADDING = 50;
 /**
  * Defines button styling and some functionality like when you click on the button, and it deactivates
  * after.
- * @param labeltext 
- * @param horizontal 
- * @param vertical 
+ * @param labeltext
+ * @param horizontal
+ * @param vertical
  */
 function Button(parentFrame, labeltext, horizontal, vertical) {
     console.log('Constructing Button Background');
@@ -124,7 +130,7 @@ function Button(parentFrame, labeltext, horizontal, vertical) {
     }
     if (0 <= vertical <= 7) {
         this.Container.y = (TEX_PADDING + ((TEX_PADDING + BUT_HEIGHT) * vertical));
-    } 
+    }
     this.Container.addChild(this.Background, this.Label);
     this.name = labeltext + ' Button';
 

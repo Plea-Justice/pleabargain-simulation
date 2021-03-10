@@ -1,3 +1,9 @@
+/* Copyright (C) 2021 The Plea Justice Project
+ *
+ * Please see https://pleajustice.org for information about this project's
+ * licensing and how you can make a contribution.
+ */
+
 /*
  * Avatar Customization implementation
  * Jacky McGrath 2019
@@ -29,7 +35,7 @@ class ColorPicker {
 
         // cursor for picker, x/y is starting position
         this.pickerCursor = { x: 0, y: 0, width: 10, height: 10};
-        
+
         // start event listeners
         this.eventListeners();
     }

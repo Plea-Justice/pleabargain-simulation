@@ -1,3 +1,10 @@
+/* parser.js
+ * Copyright (C) 2021 The Plea Justice Project
+ *
+ * Please see https://pleajustice.org for information about this project's
+ * licensing and how you can make a contribution.
+ */
+
 /* script parser API
 ** Thomas Nelson 2016
 ** University of Massachusetts Lowell, Psychology Department
