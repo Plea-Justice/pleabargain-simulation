@@ -27,6 +27,7 @@ console.log('LOADING ui.js');
 function UI(stage) {
     this.Stage = stage;
     this.Textbox = new Textbox();
+    
     this.Advancer = new Advancer();
     console.log('UI constructed');
 
@@ -37,15 +38,57 @@ function UI(stage) {
         this.Stage.addChild(this.Advancer.Container);
         // add label
         // append text
-        this.Textbox.Output.text += script.charBuffer;
+        var font = '';
+        
+        switch(script.font){
+            case 0:
+                font = '';
+                break;
+            case 2: 
+                font = 'bold';
+                break;
+            case 3:
+                font = 'italic';
+                break;
+            case 4: 
+                font = 'underline';
+                break;
+            case 5:
+                font = 'bold italic';
+                break;
+            case 7:
+                font = 'italic underline';
+                break;
+            case 6:
+                font = 'bold underline';
+                break;
+            case 9:
+                font = 'bold italic underline';
+                break;
+            default:
+                break;
+
+        }
+
+
+        addTextOutput(this.Textbox, script.charBuffer, script.index - 1, font, script.spaces);
+        
+        
+        //console.log(text.text);
         if (script.input == ' ') {
             this.Textbox.Background.alpha = 0.00;
         } else {
             this.Textbox.Background.alpha = 0.85;
         }
+        
+        
     };
     this.clear = function() {
-        this.Textbox.Output.text = '';
+        for(x in this.Textbox.Output){
+            this.Textbox.Container.removeChild(this.Textbox.Output[x]);
+        }
+        this.Textbox.Output = {};
+        this.Textbox.Line.graphics.clear();
     };
 }
 
@@ -68,26 +111,92 @@ function Textbox() {
     this.Background.graphics.drawRoundRect(0, 0, TEX_WIDTH, TEX_HEIGHT, 10);
     this.Background.alpha = 0.85;
     console.log('Constructing Text Output');
-    this.Output = new createjs.Text('', 'bold 36px Arial', '#101010');
-    this.Output.name = 'Textbox Output Text';
-    this.Output.textBaseline = 'top';
-    this.Output.x = TEX_MARGIN;
-    this.Output.y = TEX_MARGIN;
-    this.Output.lineWidth = TEX_WIDTH - ADV_WIDTH - (ADV_PADDING) - (TEX_MARGIN * 2);
-    this.Output.lineHeight = 48;
-    this.Output.text = '';
+    this.Output = {
+    };
     console.log('Constructing Textbox Container');
     this.Container = new createjs.Container();
     this.Container.name = 'Textbox Container';
     this.Container.x = (RES_WIDTH - TEX_WIDTH) / 2;
     this.Container.y = RES_HEIGHT - TEX_HEIGHT - TEX_PADDING;
-    this.Container.addChild(this.Background, this.Output);
+    this.Container.addChild(this.Background, this.Output[0]);
+    this.Line = new createjs.Shape();
+    this.Container.addChild(this.Line);
+    
     console.log('Textbox constructed');
 }
 
 var BUT_WIDTH = 240;
 var BUT_HEIGHT = 80;
 var BUT_HOR_PADDING = 50;
+
+/**
+ * Positions and Layers a new createjs.Text object for each change in font style
+ * @param {Textbox} textbox 
+ * @param {number} num 
+ * @param {string} font 
+ */
+function addTextOutput(textbox, char, num, font, spaces){
+    
+    var lineThickness = 2;
+    var isUnderlined = false;
+    if(font.includes('underline')){
+        font = font.replace('underline', '');
+        isUnderlined = true;
+        if(font.includes('bold')){
+            lineThickness = 4;
+        }
+    }
+    if(num === 0){
+        textbox.Output = {
+            0 : new createjs.Text('', font + ' 36px Arial', '#101010')
+        };
+        textbox.Output[0].name = 'Textbox Output Text';
+        textbox.Output[0].textBaseline = 'top',
+        textbox.Output[0].x = TEX_MARGIN;
+        textbox.Output[0].y = TEX_MARGIN;
+        textbox.Output[0].lineWidth = TEX_WIDTH - ADV_WIDTH - (ADV_PADDING) - (TEX_MARGIN * 2);
+        textbox.Output[0].lineHeight = 48;
+        textbox.Output[0].text = char;
+        textbox.bounds = textbox.Output[0].getBounds();
+        
+    }
+    else{
+        var width = (textbox.Output[num - 1].x + textbox.Output[num - 1].getMeasuredWidth());
+        var height = textbox.Output[num - 1].y;
+        if(width > 1125){
+            width = 30;
+            height += 48;
+        }
+        if(spaces.includes(num)){
+            
+            if((spaces[spaces.indexOf(num) + 1] - (num)) * 15 > (1130 - width)){
+                height += 48;
+                width = 30;
+                isUnderlined = false;
+                char = '';
+            }
+        }
+        
+        
+        textbox.Output[num] = new createjs.Text('', font + ' 36px Arial', '#101010');
+        textbox.Output[num].name = 'Textbox Output Text 2';
+        textbox.Output[num].textBaseline = 'top',
+        textbox.Output[num].x = width;
+        textbox.Output[num].y = height;
+        textbox.Output[num].lineWidth = TEX_WIDTH - ADV_WIDTH - (ADV_PADDING) - (TEX_MARGIN * 2);
+        textbox.Output[num].lineHeight = 48;
+        textbox.Output[num].text = char;
+        
+    }
+
+    if(isUnderlined){
+        textbox.Line.graphics.beginStroke('black').setStrokeStyle(lineThickness)
+        .moveTo(textbox.Output[num].x, textbox.Output[num].y + 32)
+        .lineTo(textbox.Output[num].x + textbox.Output[num].getMeasuredWidth(), textbox.Output[num].y + 32);
+    }
+    textbox.Container.addChild(textbox.Output[num]);
+}
+
 
 /**
  * Defines button styling and some functionality like when you click on the button, and it deactivates

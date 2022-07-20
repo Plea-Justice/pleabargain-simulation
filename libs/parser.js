@@ -38,6 +38,10 @@ function Script (inputString) {
     // Replace @N (where N is a number) with pause controls.
     script = script.replace(/@(\d+);/g, (m, p1)=>''.padEnd(Number(p1), '~'));
 
+    this.fonts = {};
+    this.spaces = [];
+
+
     const m = script.match(/@[a-zA-Z\d]+?;/g);
 
     if (m)
@@ -49,7 +53,12 @@ function Script (inputString) {
         });
 
     // Clean up any stray spaces.
+
+    script = cleanScript(script, this.fonts, this.spaces);
+    console.log(script);
+
     script = script.replace(/  +/g, ' ');
+    
 
     this.input = script;
     this.length = this.input.length;
@@ -60,6 +69,8 @@ function Script (inputString) {
         this.commandBuffer = null;
         this.animBuffer = 'pause';
         this.lastAnimBuffer = 'pause';
+        this.font = '';
+        
         console.log('Parsable Script initialized');
     };
     this.initialize();
@@ -67,6 +78,10 @@ function Script (inputString) {
     // parse an individual character, at the present index of the Script
     // TODO: Rename to parseCur? Up for consideration on refactoring pass.
     this.parseChar = function() {
+        this.font = this.fonts[this.index];
+        this.spaces = this.spaces;
+
+
         switch (this.input[this.index]) {
         // TODO: consider adding _, which works as ~ but closes the mouth.
         case '~':
@@ -115,6 +130,47 @@ function Script (inputString) {
         // index.
         // NOTE: perhaps the other parse function should all use this function?
     };
+
+    function cleanScript(script, fonts, spaces){
+        var newString = "";
+        var i = 0;
+        var currVal = 0;
+        while( i < script.length ){
+            if(script.substring(i, i+1) !== '<'){
+                newString += script.substring(i, i+1);
+                fonts[newString.length - 1] = currVal;
+                if(script.substring(i, i+1) === ' '){
+                    spaces.push(newString.length - 1);
+                }
+                i += 1;
+            }
+            else if(script.substring(i, i+3) === '<b>'){
+                currVal += 2;
+                i += 3;
+            }
+            else if(script.substring(i, i+4) === '</b>'){
+                currVal -= 2;
+                i += 4;
+            }
+            else if(script.substring(i, i+3) === '<i>'){
+                currVal += 3;
+                i += 3;
+            }
+            else if(script.substring(i, i+4) === '</i>'){
+                currVal -= 3;
+                i += 4;
+            }
+            else if(script.substring(i, i+3) === '<u>'){
+                currVal += 4;
+                i += 3;
+            }
+            else if(script.substring(i, i+4) === '</u>'){
+                currVal -= 4;
+                i += 4;
+            }
+        }
+        return newString;
+    }
 }
 
 console.log('LOADED parser.js');
