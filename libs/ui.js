@@ -163,10 +163,6 @@ function addTextOutput(textbox, char, num, font, spaces){
     else{
         var width = (textbox.Output[num - 1].x + textbox.Output[num - 1].getMeasuredWidth());
         var height = textbox.Output[num - 1].y;
-        if(width > 1125){
-            width = 30;
-            height += 48;
-        }
         if(spaces.includes(num)){
             
             if((spaces[spaces.indexOf(num) + 1] - (num)) * 15 > (1130 - width)){
