@@ -136,7 +136,7 @@ var BUT_HOR_PADDING = 50;
  * @param {string} font 
  */
 function addTextOutput(textbox, char, num, font, spaces){
-    console.log(char, num);
+
     var lineThickness = 2;
     var isUnderlined = false;
     if(font.includes('underline')){
@@ -167,9 +167,6 @@ function addTextOutput(textbox, char, num, font, spaces){
         if(spaces.includes(num)){
             
             if((spaces[spaces.indexOf(num) + 1] - (num)) * 15 > (1130 - width)){
-                if(char !== ' '){
-                    console.log(num);
-                }
                 height += 48;
                 width = 30;
                 isUnderlined = false;
