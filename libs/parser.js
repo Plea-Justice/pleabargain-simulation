@@ -54,10 +54,11 @@ function Script (inputString) {
 
     // Clean up any stray spaces.
 
+    script = script.replace(/  +/g, ' ');
     script = cleanScript(script, this.fonts, this.spaces);
     console.log(script);
 
-    script = script.replace(/  +/g, ' ');
+    
     
 
     this.input = script;
