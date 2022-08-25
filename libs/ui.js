@@ -70,7 +70,7 @@ function UI(stage) {
 
         }
 
-
+        
         addTextOutput(this.Textbox, script.charBuffer, script.index - 1, font, script.spaces);
         
         
@@ -136,7 +136,7 @@ var BUT_HOR_PADDING = 50;
  * @param {string} font 
  */
 function addTextOutput(textbox, char, num, font, spaces){
-    
+    console.log(char, num);
     var lineThickness = 2;
     var isUnderlined = false;
     if(font.includes('underline')){
@@ -147,6 +147,7 @@ function addTextOutput(textbox, char, num, font, spaces){
         }
     }
     if(num === 0){
+        
         textbox.Output = {
             0 : new createjs.Text('', font + ' 36px Arial', '#101010')
         };
@@ -166,6 +167,9 @@ function addTextOutput(textbox, char, num, font, spaces){
         if(spaces.includes(num)){
             
             if((spaces[spaces.indexOf(num) + 1] - (num)) * 15 > (1130 - width)){
+                if(char !== ' '){
+                    console.log(num);
+                }
                 height += 48;
                 width = 30;
                 isUnderlined = false;
